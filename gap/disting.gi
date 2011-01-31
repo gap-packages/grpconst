@@ -1,10 +1,10 @@
 #############################################################################
 ##
-#W  risotest.gi               GAP library                  Hans Ulrich Besche
+#W  disting.gi                GAP library                  Hans Ulrich Besche
 #W                                                               Bettina Eick
 ##
 Revision.("grpconst/gap/disting_gi") :=
-    "@(#)$Id: disting.gi,v 1.2 1999/05/31 11:09:12 gap Exp $";
+    "@(#)$Id: disting.gi,v 1.3 2005/02/22 11:17:23 gap Exp $";
 
 #############################################################################
 ##

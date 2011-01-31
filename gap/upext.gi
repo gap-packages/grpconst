@@ -4,7 +4,7 @@
 #W                                                         Hans Ulrich Besche
 ##
 Revision.("grpconst/gap/upext_gi") :=
-    "@(#)$Id: upext.gi,v 1.8 2002/01/29 19:26:15 gap Exp $";
+    "@(#)$Id: upext.gi,v 1.9 2005/05/06 12:25:32 gap Exp $";
 
 #############################################################################
 ##
@@ -19,9 +19,9 @@ end );
 
 #############################################################################
 ##
-#F InnerAutomorphismGroup( G, A )
+#F GroupOfInnerAutomorphismSpecial( G, A )
 ##
-InstallGlobalFunction( InnerAutomorphismGroup,
+InstallGlobalFunction( GroupOfInnerAutomorphismSpecial,
 function( G, A )
     local gens, autos, g, imgs, inn;
     gens := GeneratorsOfGroup( G );
@@ -398,7 +398,7 @@ function( G, p )
 
     # compute automorphisms group and inner autos
     A := AutomorphismGroupSpecial( G );
-    I := InnerAutomorphismGroup( G, A );
+    I := GroupOfInnerAutomorphismSpecial( G, A );
 
     # compute perm reps
     iso := IsomorphismPermGroup( A );

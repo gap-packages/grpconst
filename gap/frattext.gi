@@ -4,7 +4,7 @@
 #W                                                         Hans Ulrich Besche
 ##
 Revision.("grpconst/gap/frattext_gi") :=
-    "@(#)$Id: frattext.gi,v 1.12 2000/01/28 00:16:29 ahulpke Exp $";
+    "@(#)$Id: frattext.gi,v 1.13 2007/05/08 11:11:51 gap Exp $";
 
 #############################################################################
 ##
@@ -23,20 +23,20 @@ end;
 ##
 #F EnlargedModule( M, F, H )
 ##
-EnlargedModule := function( M, F, H )
+InstallGlobalFunction( EnlargedModule, function( M, F, H )
     local N, l, mats;
     N := ShallowCopy( M );
     l := Length( Pcgs( H ) ) - Length( Pcgs( F ) );
     mats := List( [1..l], x -> IdentityMat( M.dimension, M.field ) );
     N.generators := Concatenation( N.generators, mats );
     return N;
-end;
+end );
 
 #############################################################################
 ##
 #F FindUniqueModules( modus )
 ##
-FindUniqueModules := function( list )
+InstallGlobalFunction( FindUniqueModules, function( list )
     local modus, i, j, dims, cent;
         
     for modus in list do
@@ -61,7 +61,7 @@ FindUniqueModules := function( list )
             fi;
         od;
     od;
-end;
+end );
 
 #############################################################################
 ##

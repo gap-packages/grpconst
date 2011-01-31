@@ -4,7 +4,7 @@
 #W                                                         Hans Ulrich Besche
 ##
 Revision.("grpconst/gap/irred_gi") :=
-    "@(#)$Id: irred.gi,v 1.9 2002/01/29 19:26:15 gap Exp $";
+    "@(#)$Id: irred.gi,v 1.10 2004/11/01 13:21:31 gap Exp $";
 
 #############################################################################
 ##
@@ -202,7 +202,11 @@ InstallGlobalFunction( IrreducibleGroupsByCatalogue, function(n,p,size)
     # we don't want to see the trivial case here
     if n = 1 then return false; fi;
 
-    # get irreducible groups
+    # return list from irredsol
+    return AllIrreducibleSolvableMatrixGroups( Degree, [n], Field, [GF(p)], 
+           Order, DivisorsInt(size) );
+
+    # get irreducible groups - old version based on primitive groups
     k  := NumberIrreducibleSolvableGroups( n, p );
     cl := List( [1..k], x -> IrreducibleSolvableGroupMS( n, p, x ) );
     cl := Filtered( cl, x -> IsInt( size / Size(x) ) );
@@ -251,7 +255,8 @@ end );
 InstallGlobalFunction( IrreducibleGroups, function( n, p, size )
     if n = 1 then
         return IrreducibleGroupsByAbelian(n,p,size);
-    elif p^n < 256 and PRIM_AVAILABLE then
+    #elif p^n < 256 and PRIM_AVAILABLE then
+    elif IsAvailableIrreducibleSolvableGroupData(n,p) then
         return IrreducibleGroupsByCatalogue(n,p,size);
     elif not IsBool( SMALL_AVAILABLE(size) ) then
         return IrreducibleGroupsByEmbeddings(n,p,size);

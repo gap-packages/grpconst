@@ -4,7 +4,7 @@
 #W                                                         Hans Ulrich Besche
 ##
 Revision.("grpconst/gap/indiv_gi") :=
-    "@(#)$Id: intdiv.gi,v 1.2 1999/05/31 11:09:12 gap Exp $";
+    "@(#)$Id: intdiv.gi,v 1.3 2005/02/15 12:19:24 gap Exp $";
 
 #############################################################################
 ##
@@ -45,6 +45,15 @@ end;
 SizeOfGL := function( n, p )
     return Product( List( [1..n], x -> p^n - p^(x-1) ) );
 end;
+
+#############################################################################
+##
+#F IsCubeFree( m )
+##
+IsCubeFree := function( m )
+    return ForAll( Collected(Factors(m)), x -> x[2] <= 2 );
+end;
+
 
 #############################################################################
 ##

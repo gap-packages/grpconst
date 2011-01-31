@@ -4,7 +4,7 @@
 #W                                                         Hans Ulrich Besche
 ##
 Revision.("grpconst/gap/grpconst_gd") :=
-    "@(#)$Id: grpconst.gd,v 1.9 1999/07/21 15:42:33 gap Exp $";
+    "@(#)$Id: grpconst.gd,v 1.11 2007/05/08 11:11:51 gap Exp $";
 
 #############################################################################
 ##
@@ -47,6 +47,8 @@ DeclareGlobalFunction( "FrattiniFreeBySize");
 DeclareGlobalFunction( "FrattiniFactorCandidates");
 
 # aus frattext.gi
+DeclareGlobalFunction( "EnlargedModule" );
+DeclareGlobalFunction( "FindUniqueModules" );
 DeclareGlobalFunction( "FrattiniExtensionsOfCode");
 DeclareGlobalFunction( "FrattiniExtensionsOfGroup" );
 DeclareGlobalFunction( "FrattiniExtensions" );
@@ -71,7 +73,7 @@ DeclareGlobalFunction( "CyclicGenerator");
 
 # aus upext.gi 
 DeclareGlobalFunction( "SolvableResidual");
-DeclareGlobalFunction( "InnerAutomorphismGroup");
+DeclareGlobalFunction( "GroupOfInnerAutomorphismSpecial");
 DeclareGlobalFunction( "CyclicExtensionByTuple");
 DeclareGlobalFunction( "CyclicExtensions");
 DeclareGlobalFunction( "UpwardsExtensions");

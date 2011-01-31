@@ -4,13 +4,13 @@
 #W                                                         Hans Ulrich Besche
 ##
 Revision.("grpconst/gap/nocentre_gi") :=
-    "@(#)$Id: nocentre.gi,v 1.3 1999/11/07 19:28:45 gap Exp $";
+    "@(#)$Id: nocentre.gi,v 1.5 2010/10/21 07:00:17 gap Exp $";
 
 #############################################################################
 ##
-#F PermRep( D ) . . . . . . . . . . . . . . permutation rep of direct product
+#F PermRepDP( D ) . . . . . . . . . . . . . permutation rep of direct product
 ##
-PermRep := function( D )
+PermRepDP := function( D )
     local A, B, operA, operB, G, emb1, emb2;
 
     A := Image( Projection( D, 1 ) );
@@ -109,6 +109,7 @@ ExtensionsByGroupNoCentre := function( N, H )
     # the automorphism group of H
     Info( InfoGrpCon, 2, " compute Aut H ");
     B := AutomorphismGroup( H );
+    IsomorphismPermGroup(B);
 
     # possible kernels in H
     Info( InfoGrpCon, 2, " compute possible centralizers in H ");
@@ -125,7 +126,7 @@ ExtensionsByGroupNoCentre := function( N, H )
 
     # compute perm reps
     Info( InfoGrpCon, 2, " compute perm rep of D ");
-    oper := PermRep( D );
+    oper := PermRepDP( D );
 
     # compute pairs
     Info( InfoGrpCon, 2, " computing pairs ");

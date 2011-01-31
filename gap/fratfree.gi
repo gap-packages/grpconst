@@ -4,7 +4,7 @@
 #W                                                         Hans Ulrich Besche
 ##
 Revision.("grpconst/gap/fratfree_gi") :=
-    "@(#)$Id: fratfree.gi,v 1.12 2000/07/12 21:11:54 gap Exp $";
+    "@(#)$Id: fratfree.gi,v 1.13 2005/02/15 12:19:24 gap Exp $";
 
 #############################################################################
 ##
@@ -240,8 +240,7 @@ InstallGlobalFunction( FrattiniFreeBySocle, function( sizeA, sizeF, flags )
 
     # set up and compute sizes
     A := List( Collected(FactorsInt(sizeA)), x -> [x[2], x[1]] );
-    max := List( A, x -> SizeOfGL( x[1], x[2] ) );
-    max := Product( max );
+    max := Product( List( A, x -> SizeOfGL( x[1], x[2] ) ) );
     if not IsBool( sizeF ) then
         sizeK := Gcd( sizeF / sizeA, max );
     else
@@ -253,12 +252,8 @@ InstallGlobalFunction( FrattiniFreeBySocle, function( sizeA, sizeF, flags )
     if IsBool( sizeK ) then return []; fi;
     
     # construct semisimple groups
-    if sizeK = 1 or IsBound( flags.supersol ) then
-        semi := List( A, x -> SemiSimpleGroups( x[1], x[2], sizeK, true ) );
-    else
-        semi := List( A, x -> SemiSimpleGroups( x[1], x[2], sizeK, false ) );
-    fi;
- 
+    semi := List( A, x -> SemiSimpleGroups( x[1], x[2], sizeK, flags ) );
+
     # now construct corresponding pc-groups
     all := SocleComplements( semi, sizeK );
     all := FilterByFlags( all, flags );

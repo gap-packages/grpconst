@@ -4,7 +4,7 @@
 #W                                                         Hans Ulrich Besche
 ##
 Revision.("grpconst/gap/semisim_gi") :=
-    "@(#)$Id: semisim.gi,v 1.5 2002/01/29 19:26:15 gap Exp $";
+    "@(#)$Id: semisim.gi,v 1.7 2011/01/31 12:18:13 gap Exp $";
 
 #############################################################################
 ##
@@ -78,12 +78,13 @@ end );
 
 #############################################################################
 ##
-#F ComputeSocleDimensions( U )
+#F ComputeSocleDimensions( iso, U )
 ##
-ComputeSocleDimensions := function( U )
-    local isom, modu, comp, dims;
-    isom := Projections(U)[1];
-    modu := GModuleByGroup( Image(isom, U) );
+ComputeSocleDimensions := function( iso, U )
+    local gens, mats, modu, comp, dims;
+    gens := GeneratorsOfGroup(U);
+    mats := List( gens, x -> PreImagesRepresentative(iso, x) );
+    modu := GModuleByGroup( Subgroup(Source(iso), mats ) );
     comp := MTX.CompositionFactors( modu );
     dims := List( comp, x -> x.dimension );
     Sort( dims );
@@ -114,65 +115,105 @@ end;
 
 #############################################################################
 ##
-#F SemiSimpleGroups( n, p, sizes, supersol )
+#F MyRationalClassesPElements( P, p )
 ##
-## - up to conjugacy in GL(n,p)
-## - if size is not false, then of order dividing one size in sizes
-## - if supersol, then the irreducible constituents are 1-dimensional
+MyRatClassesPElmsReps := function(P,p)
+    local o, Q, cl, l, todo, i, j, k, sc;
+
+    # some easy cases
+    o := Size(P);
+    if o = 1 or not IsInt(o/p) then 
+        return []; 
+    elif not IsInt(o/p^2) then 
+        return [GeneratorsOfGroup(SylowSubgroup(P,p))[1]]; 
+    fi;
+
+    # try Sylow
+    Q := SylowSubgroup(P,p);
+    cl := RationalClasses(Q);
+    cl := List(cl, Representative);
+    cl := Filtered(cl, x -> Order(x) = p);
+    l := Length(cl);
+
+    # fuse
+    todo := List([1..l], x -> true);
+    for i in [1..l-1] do
+        if todo[i] = true then 
+            for j in [i+1..l] do
+                if todo[j] = true then 
+                    for k in [1..p-1] do
+                        if IsConjugate(P, cl[i], cl[j]^k) then 
+                            todo[j] := false;
+                        fi;
+                    od;
+                fi;
+            od;
+        fi;
+    od;
+
+    cl := cl{Filtered([1..l], x -> todo[x]=true)};
+
+    # check
+    #sc := RationalClassesPElements(P,p);
+    #sc := List(sc, Representative);
+    #sc := Filtered(sc, x -> IsInt(p/Order(x)));
+    #if Length(sc) <> Length(cl) then Error("hier"); fi;
+
+    return cl;
+end;
+
+MyRatClassesPElmsReps2 := function(P,q)
+    local cl;
+    cl := RationalClasses(P);
+    cl := List(cl, Representative);
+    cl := Filtered(cl, x -> Order(x) = q);
+    return cl;
+end;
+
+#############################################################################
 ##
-InstallGlobalFunction( SemiSimpleGroups, function( n, p, sizes, supersol ) 
-    local M, field, iso, P, gensP, imgsP, inv, parts, irr, subdir, part, 
-          cand, all, list, emb, new, sub, i, dims, d;
+#F SemiSimpleGroupsTS( n, p, sizes, iso )
+##
+## Case for trivial sizes; that is, sizes = [q] for q = 1 or q prime
+##
+SemiSimpleGroupsTS := function( n, p, sizes, iso )
+    local M, P, q, sub, new, i;
 
     # set up
-    M := GL(n, p);
-    field := GF(p);
+    M := Source( iso );
+    P := Range( iso );
+    q := sizes[1];
 
-    # size is a list of possible sizes
-    if IsBool( sizes ) then 
-        sizes := [Size( M )]; 
-    elif IsInt( sizes ) then
-        sizes := [sizes];
-    elif IsList( sizes ) then
-        sizes := MinimizeList( sizes );
-    else
-        Error("wrong input in SemiSimpleGroups");
+    # the trivial subgroup is always possible
+    sub := [TrivialSubgroup( P )];
+
+    # add coprime subgroups if desired
+    if q <> 1 and q <> p then 
+        new := MyRatClassesPElmsReps( P, q );
+        new := List( new, x -> Subgroup( P, [x] ) );
+        Append( sub, new );
     fi;
 
-    # compute isomorphisms iso and inv
-    iso   := IsomorphismPermGroup( M );
-    P     := Image( iso );
-    gensP := GeneratorsOfGroup( P );
-    imgsP := List( gensP, x -> PreImagesRepresentative( iso, x ) );
-    inv   := GroupHomomorphismByImagesNC( P, M, gensP, imgsP );
-        
-    # check supersol 
-    if supersol or ForAll( sizes, x -> Set(FactorsInt(x))=[p] ) then
-        parts := [List( [1..n], x -> 1 )];
-        dims  := [1];
-    else
-        parts := Partitions( n );
-        dims  := [1..n];
-    fi;
+    # add info
+    for i in [1..Length(sub)] do ComputeSocleDimensions( iso, sub[i] ); od;
+    return sub;
+end;
 
-    # first we catch a special case
-    if not supersol and Length( sizes ) = 1 and IsPrime(sizes[1]) and
-       sizes[1] <> p then
-        sub := RationalClassesPElements( P, sizes[1] );
-        sub := List( sub, Representative );
-        sub := Filtered( sub, x -> IsInt( sizes[1]/Order( x ) ) );
-        sub := List( sub, x -> Subgroup( P, [x] ) );
-        Add( sub, TrivialSubgroup( P ) );
-        for i in [1..Length(sub)] do
-            SetProjections( sub[i], [inv] );
-            ComputeSocleDimensions( sub[i] );
-        od;
-        return sub;
-    fi;
+#############################################################################
+##
+#F SemiSimpleGroupsGC( n, p, sizes, iso )
+##
+## General case without restrictions.
+##
+SemiSimpleGroupsGC := function( n, p, sizes, iso )
+    local M, P, irr, d, i, new, subdir, part, cand, list, all, emb, sub;
+
+    M := Source( iso );
+    P := Range( iso );
 
     # compute irreducible groups
-    irr := List( dims, x -> [] );
-    for d in dims do
+    irr := List( [1..n], x -> [] );
+    for d in [1..n] do
         for i in [1..Length(sizes)] do
             new := IrreducibleGroups( d, p, sizes[i] );
             new := Filtered( new, x -> UnknownSize(sizes{[1..i-1]}, Size(x)));
@@ -181,7 +222,7 @@ InstallGlobalFunction( SemiSimpleGroups, function( n, p, sizes, supersol )
     od;
 
     subdir := [];
-    for part in parts do
+    for part in Partitions(n) do
         Sort( part );
 
         # construct candidates first
@@ -201,29 +242,160 @@ InstallGlobalFunction( SemiSimpleGroups, function( n, p, sizes, supersol )
         sub := ReduceConjugates( P, all ); 
 
         # add some information
-        for i in [1..Length(sub)] do
-            SetSocleDimensions( sub[i], part );
-            SetProjections( sub[i], [inv] );
-        od;
+        for i in [1..Length(sub)] do SetSocleDimensions( sub[i], part ); od;
         Append( subdir, sub );
     od;
     return subdir; 
-end );
+end; 
 
 #############################################################################
 ##
-#F Test to check semisimple
+#F SemiSimpleGroupsSS( n, p, sizes, iso )
 ##
-TestSemiSimple := function(s)
-    local ppi, q, p, n, max, size, emb, cat;
-    ppi := Filtered( [s..255], x -> IsPrimePowerInt(x) and not IsPrime(x) );
-    for q in ppi do
-        p := Factors(q)[1];
-        n := Length( Factors(q) );
-        max := QuoInt( 2000, q );
-        for size in [1..max] do
-            Print("start ", p, "^", n," and size ", size,"\n");
-            emb := SemiSimpleGroups( n, p, size, false );
-        od;
+## Supersolvable case: Irreducible constituents are 1-dim.
+##
+SemiSimpleGroupsSS := function( n, p, sizes, iso )
+    local M, P, irr, i, new, part, cand, all, list, emb, sub;
+
+    M := Source( iso );
+    P := Range( iso );
+
+    # compute irreducible groups
+    irr := [];
+    for i in [1..Length(sizes)] do
+        new := IrreducibleGroups( 1, p, sizes[i] );
+        new := Filtered( new, x -> UnknownSize(sizes{[1..i-1]}, Size(x)));
+        Append( irr, new );
     od;
-end; 
+
+    # construct candidates first
+    part := List( [1..n], x -> 1 );
+    cand := Choices( part, [irr] );
+
+    # compute subdirect products within P
+    all := [];
+    for list in cand do
+        emb := EmbeddingIntoGL( M, part, list );
+        emb := List( emb, x -> Image( iso, x ) );
+        new := InnerSubdirectProducts( P, emb );
+        new := Filtered( new, x -> KnownSize( sizes, Size(x) ) );
+        Append( all, new );
+    od;
+
+    # filter conjugates in P
+    sub := ReduceConjugates( P, all ); 
+
+    # add some information
+    for i in [1..Length(sub)] do SetSocleDimensions( sub[i], part ); od;
+    return sub;
+end;
+
+#############################################################################
+##
+#F SemiSimpleGroupsCF( n, p, sizes, iso )
+##
+## Cubefree case: n = 2 and groups have cubefree order not divisible by p 
+##
+SemiSimpleGroupsCF := function( n, p, sizes, iso )
+    local irr, i, new, a, b, M, C, D, d, K, k, g, act, sub, nat, dia;
+
+    if n <> 2 then Error("need n = 2 for this case"); fi;
+
+    # compute irreducible groups
+    irr := [];
+    for i in [1..Length(sizes)] do
+        new := IrreducibleGroups( 2, p, sizes[i] );
+        new := Filtered( new, x -> UnknownSize(sizes{[1..i-1]}, Size(x)));
+        Append( irr, new );
+    od;
+    irr := Filtered( irr, x -> IsCubeFree( Size(x) ) );
+    irr := Filtered( irr, x -> not IsInt(Size(x)/p) );
+
+    # translate and add info
+    for i in [1..Length(irr)] do
+        irr[i] := Image( iso, irr[i] );
+        SetSocleDimensions( irr[i], [2] );
+    od;
+
+    # compute reducible groups
+    if ForAll( sizes, x -> Gcd( x, (p-1)^2 ) = 1 ) then 
+        dia := [TrivialSubgroup(Source(iso))];
+    else
+        a := [[Z(p),0],[0,1]]*One(GF(p));
+        b := [[1,0],[0,Z(p)]]*One(GF(p));
+        M := Group([a,b]);
+
+        # pc group
+        C := CyclicGroup(p-1);
+        D := DirectProduct(C,C);
+        d := Filtered(GeneratorsOfGroup(D),x->Order(x)=p-1);
+
+        # subgroups of pc group
+        sub := SubgroupsSolvableGroup(D);
+        sub := Filtered( sub, x -> IsCubeFree(Size(x)));
+        sub := Filtered( sub, x -> ForAny(sizes, y -> IsInt(y/Size(x))));
+
+        # orbits in pc group
+        K := CyclicGroup(2);
+        k := GeneratorsOfGroup(K);
+        g := [GroupHomomorphismByImages(D,D,d,[d[2],d[1]])];
+        act := function(pt,elm)return Image(elm,pt);end;
+        sub := Orbits(K,sub,k,g,act);
+
+        # pull back into matrix group
+        nat := GroupHomomorphismByImagesNC(D,M,d,[a,b]);
+        dia := List( sub, x -> Image( nat, x[1] ) );
+    fi;
+
+    # translate and add info
+    for i in [1..Length(dia)] do
+        dia[i] := Image( iso, dia[i] );
+        SetSocleDimensions( dia[i], [1,1] );
+    od;
+    
+    # return 
+    return Concatenation( irr, dia );
+end;
+
+#############################################################################
+##
+#F SemiSimpleGroups( n, p, sizes, flags )
+##
+## .. up to conjugacy in GL(n,p)
+##
+InstallGlobalFunction( SemiSimpleGroups, function( n, p, sizes, flags )
+    local M, iso, inv, grps, i;
+
+    # set up
+    M := GL(n, p);
+
+    # size is a list of possible sizes
+    if IsBool( sizes ) then 
+        sizes := [Size( M )]; 
+    elif IsInt( sizes ) then
+        sizes := [sizes];
+    elif IsList( sizes ) then
+        sizes := MinimizeList( sizes );
+    else
+        Error("wrong input in SemiSimpleGroups");
+    fi;
+
+    # operation isomorphism 
+    iso := IsomorphismPermGroup( M );
+
+    # dispatch
+    if IsBound( flags.cubefree ) and flags.cubefree and n = 2 then 
+        grps := SemiSimpleGroupsCF( n, p, sizes, iso );
+    elif IsBound( flags.supersol ) and flags.supersol then 
+        grps := SemiSimpleGroupsSS( n, p, sizes, iso );
+    elif Length( sizes ) = 1 and Length(Factors(sizes[1])) = 1 then 
+        grps := SemiSimpleGroupsTS( n, p, sizes, iso );
+    else
+        grps := SemiSimpleGroupsGC( n, p, sizes, iso );
+    fi;
+
+    inv := InverseGeneralMapping( iso );
+    for i in [1..Length(grps)] do SetProjections( grps[i], [inv] ); od;
+    return grps;
+end );
+    
