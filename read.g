@@ -5,14 +5,6 @@
 
 #############################################################################
 ##
-## the banner
-##
-if not QUIET and BANNER then
-    ReadPkg( "grpconst", "gap/banner.g");
-fi;
-
-#############################################################################
-##
 ## files containing the Frattini extension method
 ##
 ReadPkg( "grpconst", "gap/irred.gi");
