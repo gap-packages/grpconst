@@ -6,8 +6,8 @@ SetPackageInfo( rec(
 
 PackageName := "GrpConst",
 Subtitle := "Constructing the Groups of a Given Order",
-Version := "2.3",
-Date := "29/05/2012",
+Version := "2.4",
+Date := "07/12/2015",
 
 Persons := [
 
@@ -15,14 +15,7 @@ Persons := [
       LastName      := "Besche",
       FirstNames    := "Hans Ulrich",
       IsAuthor      := true,
-      IsMaintainer  := true,
-      Email         := "hubesche@tu-bs.de",
-      PostalAddress := Concatenation( [
-            "Institut Computational Mathematics",
-            "TU Braunschweig\n",
-            "Pockelsstr. 14\n D-38106 Braunschweig\n Germany" ] ),
-      Place         := "Braunschweig",
-      Institution   := "TU Braunschweig"),
+      Place         := "Braunschweig"),
 
  rec(
       LastName      := "Eick",
@@ -46,7 +39,7 @@ AcceptDate := "07/1999",
 PackageWWWHome := "http://www.icm.tu-bs.de/~beick/so.html",
 
 ArchiveFormats := ".tar.gz",
-ArchiveURL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/grpconst-2.3",
+ArchiveURL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/grpconst-2.4",
 README_URL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/README",
 PackageInfoURL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/PackageInfo.g",
 

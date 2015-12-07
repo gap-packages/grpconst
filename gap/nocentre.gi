@@ -79,10 +79,10 @@ CosetReps := function( C, hom, NU, NL )
     od;
     CL := SubgroupNC( C, CL );
 
-    # double-coset representatives
-    reps := DoubleCosets( C, CU, CL );
-    reps := List( reps, Representative );
-    return reps;
+    # correct: C, CL, CU / bug: C, CU, CL
+    reps := DoubleCosets( C, CL, CU );
+    #reps := DoubleCosets( C, CU, CL );
+    return List( reps, Representative );
 end;
  
 #############################################################################
@@ -184,8 +184,7 @@ ExtensionsByGroupNoCentre := function( N, H )
             Append( gens, gensN );
 
             Info( InfoGrpCon, 4, "   compute perm rep ");
-            G := PermOper( oper, gens );
-            Add( res, G );
+            Add( res, PermOper( oper, gens ) );
         od;
     od;
     
