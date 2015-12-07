@@ -6,7 +6,7 @@ SetPackageInfo( rec(
 
 PackageName := "GrpConst",
 Subtitle := "Constructing the Groups of a Given Order",
-Version := "2.4",
+Version := "2.5",
 Date := "07/12/2015",
 
 Persons := [
@@ -39,7 +39,7 @@ AcceptDate := "07/1999",
 PackageWWWHome := "http://www.icm.tu-bs.de/~beick/so.html",
 
 ArchiveFormats := ".tar.gz",
-ArchiveURL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/grpconst-2.4",
+ArchiveURL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/grpconst-2.5",
 README_URL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/README",
 PackageInfoURL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/PackageInfo.g",
 
@@ -57,8 +57,8 @@ PackageDoc := rec(
   Autoload  := true),
 
 Dependencies := rec(
-  GAP := ">=4.3",
-  NeededOtherPackages := [["autpgrp", "1.0"], ["irredsol", "0.9"]],
+  GAP := ">=4.7",
+  NeededOtherPackages := [["autpgrp", ">=1.6"], ["irredsol", ">=1.2"]],
   SuggestedOtherPackages := [],
   ExternalConditions := [] ),
 
