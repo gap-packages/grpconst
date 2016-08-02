@@ -25,7 +25,7 @@ Persons := [
       Email         := "b.eick@tu-bs.de",
       WWWHome       := "http://www.icm.tu-bs.de/~beick",
       PostalAddress := Concatenation( [
-            "Institut Computational Mathematics",
+            "Institut Computational Mathematics\n",
             "TU Braunschweig\n",
             "Pockelsstr. 14\n D-38106 Braunschweig\n Germany" ] ),
       Place         := "Braunschweig",
