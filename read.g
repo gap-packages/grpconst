@@ -7,29 +7,29 @@
 ##
 ## files containing the Frattini extension method
 ##
-ReadPkg( "grpconst", "gap/irred.gi");
-ReadPkg( "grpconst", "gap/intdiv.gi");
-ReadPkg( "grpconst", "gap/semisim.gi");
-ReadPkg( "grpconst", "gap/fratfree.gi");
-ReadPkg( "grpconst", "gap/risotest.gi");
-ReadPkg( "grpconst", "gap/frattext.gi");
-ReadPkg( "grpconst", "gap/disting.gi");
+ReadPackage( "grpconst", "gap/irred.gi");
+ReadPackage( "grpconst", "gap/intdiv.gi");
+ReadPackage( "grpconst", "gap/semisim.gi");
+ReadPackage( "grpconst", "gap/fratfree.gi");
+ReadPackage( "grpconst", "gap/risotest.gi");
+ReadPackage( "grpconst", "gap/frattext.gi");
+ReadPackage( "grpconst", "gap/disting.gi");
 
 #############################################################################
 ##
 ## files containing the cyclic split extension method
 ##
-ReadPkg( "grpconst/gap/cycl.gi");
+ReadPackage( "grpconst/gap/cycl.gi");
 
 #############################################################################
 ##
 ## files containing the upwards extension method
 ##
-ReadPkg( "grpconst/gap/upext.gi");
-ReadPkg( "grpconst/gap/nocentre.gi");
+ReadPackage( "grpconst/gap/upext.gi");
+ReadPackage( "grpconst/gap/nocentre.gi");
 
 #############################################################################
 ##
 ## files containing the main header function
 ##
-ReadPkg( "grpconst", "gap/grpconst.gi");
+ReadPackage( "grpconst", "gap/grpconst.gi");
