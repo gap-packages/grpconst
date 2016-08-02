@@ -383,6 +383,7 @@ function( G, p, aut, n )
     # sometimes useful
     # H := NicePermRep( H );
 
+    H:=Image(SmallerDegreePermutationRepresentation(H));
     return SmallGeneratingSet( H );
 end );
 
@@ -395,12 +396,12 @@ function( G, p )
     local A, I, iso, PA, PI, cl, res, a, h, e, m, C, fix, f, H, F, hom;
 
     # compute automorphisms group and inner autos
-    A := AutomorphismGroupSpecial( G );
+    A := AutomorphismGroupSpecial( G:nogensyssearch );
     I := GroupOfInnerAutomorphismSpecial( G, A );
 
     # compute perm reps
     iso := IsomorphismPermGroup( A );
-    iso := ActionHomomorphism( A, AsList(G) );
+    #iso := ActionHomomorphism( A, AsList(G) );
     PA := Image( iso );
     PI := Image( iso, I );
     hom := NaturalHomomorphismByNormalSubgroup( PA, PI );
