@@ -12,7 +12,7 @@ InstallGlobalFunction( BlockDiagonalMat, function( blocks, field )
     local c, n, new, mat, i, j;
     c := 0;
     n := Sum( List( blocks, Length ) );
-    new := MutableNullMat( n, n, field );
+    new := NullMat( n, n, field );
     for mat in blocks do
         for i in [1..Length(mat)] do
             for j in [1..Length(mat)] do
