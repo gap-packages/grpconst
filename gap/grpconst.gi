@@ -20,22 +20,16 @@ InstallGlobalFunction( AllNonSolublePerfectGroups, function( size )
     fi;
 end );
 
-#############################################################################
-##
-#F ConstructAllGroups( size ) . . . . . .  construct all groups of given size
-##
-InstallGlobalFunction( ConstructAllGroups, function( size )
-    local pr, grps, p, n, new, tmp, G, H, cl, flags, d; 
+ConstructAllNilpotentGroups := function( size )
+    local pr, grps, p, n, new, tmp, G, H, cl, flags, d;
 
-    # trivial case
     pr := Factors( size );
-    if Length( pr ) <= 3 then return AllSmallGroups( size ); fi;
 
     # nilpotent groups come from the SmallGroups library
     grps := [PcGroupCode( 0,1 )];
     for p in Set( pr ) do
         n := Length( Filtered( pr, x -> x = p ) );
-        if (p^n <> 512 and p^n <= 1000) or n <= 3  then
+        if (p^n <> 512 and p^n <= 1000) or n <= 5  then # HACK: increase exponent limit from 3 to 5
             new := AllSmallGroups( p^n, IsNilpotent, true );
         else
             Print("sorry - prime powers in order are too large \n");
@@ -49,6 +43,16 @@ InstallGlobalFunction( ConstructAllGroups, function( size )
         od;
         grps := tmp; 
     od;
+
+    # now we got them all
+    return grps;
+end;
+
+ConstructAllSolvableNonNilpotentGroups := function( size )
+    local pr, grps, p, n, new, tmp, G, H, cl, flags, d;
+
+    pr := Factors( size );
+    grps := [];
 
     # if size is of  type p^n * q
     cl := Collected( pr );
@@ -70,6 +74,15 @@ InstallGlobalFunction( ConstructAllGroups, function( size )
     new := FrattiniExtensionMethod( size, flags, true );
     Append( grps, new );
 
+    # now we got them all
+    return grps;
+end;
+
+ConstructAllNonSolvableGroups := function( size )
+    local grps, p, n, new, tmp, G, H, cl, flags, d;
+
+    grps := [];
+
     # non-soluble groups
     tmp := [];
     for d in DivisorsInt( size ) do
@@ -89,7 +102,27 @@ InstallGlobalFunction( ConstructAllGroups, function( size )
         fi;
         Append( grps, new );
     od;
- 
+
+    # now we got them all
+    return grps;
+end;
+
+#############################################################################
+##
+#F ConstructAllGroups( size ) . . . . . .  construct all groups of given size
+##
+InstallGlobalFunction( ConstructAllGroups, function( size )
+    local pr, grps, p, n, new, tmp, G, H, cl, flags, d; 
+
+    # trivial case
+    pr := Factors( size );
+    if Length( pr ) <= 3 then return AllSmallGroups( size ); fi;
+
+    grps := [];
+    Append( grps, ConstructAllNilpotentGroups( size ) );
+    Append( grps, ConstructAllSolvableNonNilpotentGroups( size ) );
+    Append( grps, ConstructAllNonSolvableGroups( size ) );
+
     # now we got them all
     return grps;
 end );
