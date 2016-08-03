@@ -225,31 +225,35 @@ end );
 #F FrattiniExtensions( list, size [,uncoded] )
 ##
 InstallGlobalFunction( FrattiniExtensions, function( arg )
-    local res, new, F, i;
-    if IsRecord( arg[1] ) then 
-        res := FrattiniExtensionsOfCode( arg[1], arg[2] );
-    elif IsGroup( arg[1] ) then
-        res := FrattiniExtensionsOfGroup( arg[1], arg[2] );
+    local res, free, size, new, F, i, code;
+
+    free := arg[1];
+    size := arg[2];
+    code := Length( arg ) = 3 and arg[3];
+
+    if IsRecord( free ) then
+        res := FrattiniExtensionsOfCode( free, size );
+    elif IsGroup( free ) then
+        res := FrattiniExtensionsOfGroup( free, size );
     else
         res := [];
-        for i in [1..Length(arg[1])] do
-            F := arg[1][i];
+        for i in [1..Length(free)] do
+            F := free[i];
             if IsPcGroup( F ) then
                 Info( InfoGrpCon, 1, " extend candidate number ",i,
-                                       " of ",Length(arg[1]),
+                                       " of ",Length(free),
                                        " with size ",Size(F) );
-                new := FrattiniExtensionsOfGroup( F, arg[2] );
-                Append( res, new );
+                new := FrattiniExtensionsOfGroup( F, size );
             else
                 Info( InfoGrpCon, 1, " extend candidate number ",i,
-                                       " of ",Length(arg[1]),
+                                       " of ",Length(free),
                                        " with size ",F.order );
-                new := FrattiniExtensionsOfCode( F, arg[2] );
-                Append( res, new );
+                new := FrattiniExtensionsOfCode( F, size );
             fi;
+            Append( res, new );
         od;
     fi;
-    if Length( arg ) = 3 and arg[3] then
+    if code then
         for i in [1..Length(res)] do
             if IsList( res[i] ) then
                 res[i] := List( res[i], PcGroupCodeRec );
@@ -266,9 +270,10 @@ end );
 #F FrattiniExtensionMethod( size [, flags, uncoded] )
 ##
 InstallGlobalFunction( FrattiniExtensionMethod, function( arg )
-    local prop, code, free, ext, i;
+    local size, prop, code, free, ext, i;
 
     # catch the arguments
+    size := arg[1];
     if Length( arg ) = 1 then
         prop := rec();
         code := false;
@@ -286,7 +291,7 @@ InstallGlobalFunction( FrattiniExtensionMethod, function( arg )
     fi;
 
     # catch the case of size = 1 
-    if arg[1] = 1 then
+    if size = 1 then
         if not CheckFlags( prop ) then return []; fi;
         if IsBound( prop.nonnilpot ) or 
            IsBound( prop.nonsupsol ) or
@@ -302,23 +307,14 @@ InstallGlobalFunction( FrattiniExtensionMethod, function( arg )
         fi;
     fi;
 
-    Info( InfoGrpCon, 1, "computing groups of order ", FactorsInt( arg[1] ),
+    Info( InfoGrpCon, 1, "computing groups of order ", FactorsInt( size ),
                          ": \n" );
     Info( InfoGrpCon, 1, "compute Frattini factors: ");
-    free := FrattiniFactorCandidates( arg[1], prop );
+    free := FrattiniFactorCandidates( size, prop );
     Info( InfoGrpCon, 1, "found ",Length( free )," candidates ", "\n");
     Info( InfoGrpCon, 1, "compute Frattini extensions: ");
-    ext  := FrattiniExtensions( free, arg[1] );
+    ext  := FrattiniExtensions( free, size, code );
     Info( InfoGrpCon, 1, "found ", Length( Flat(ext) )," extensions ", "\n");
 
-    if code then
-        for i in [1..Length(ext)] do
-            if IsList( ext[i] ) then
-                ext[i] := List( ext[i], PcGroupCodeRec );
-            else
-                ext[i] := PcGroupCodeRec( ext[i] );
-            fi;
-        od;
-    fi;
     return ext;
 end );
