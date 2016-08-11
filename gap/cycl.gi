@@ -171,6 +171,7 @@ function( arg )
 
     # get automorphism group of G
     AutG := AutomorphismGroup( G );
+    NiceMonomorphism( AutG );
     Info( InfoGrpCon, 3, "    aut group has size ", Size(AutG));
 
     # compute normal subgroups and orbits
