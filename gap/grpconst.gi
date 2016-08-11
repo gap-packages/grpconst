@@ -68,6 +68,18 @@ ConstructAllSolvableNonNilpotentGroups := function( size )
         flags := rec( nonpnorm := Set( pr ) );
     else
         flags := rec( nonnilpot := true );
+        # Use Sylow theorem to find primes p such that any group of
+        # the given size must have a normal Sylow $p$-subgroup
+        tmp := Filtered( cl, pk -> [1] = Filtered(
+            DivisorsInt( size / pk[1]^pk[2] ), n -> (n mod pk[1]) = 1) );
+        if Length( tmp ) > 0 then
+            flags.pnormal := List( tmp, pk -> pk[1] );
+            if flags.pnormal = Set( pr ) then
+                # all Sylow subgroups are normal -> all groups are
+                # nilpotent.
+                return [ ];
+            fi;
+        fi;
     fi;
 
     # remaining soluble groups
