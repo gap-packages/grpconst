@@ -21,7 +21,7 @@ InstallGlobalFunction( AllNonSolublePerfectGroups, function( size )
 end );
 
 ConstructAllNilpotentGroups := function( size )
-    local pr, grps, p, n, new, tmp, G, H, cl, flags, d;
+    local pr, grps, p, n, new, tmp, G, H;
 
     pr := Factors( size );
 
@@ -32,7 +32,7 @@ ConstructAllNilpotentGroups := function( size )
         if (p^n <> 512 and p^n <= 1000) or n <= 5  then # HACK: increase exponent limit from 3 to 5
             new := AllSmallGroups( p^n, IsNilpotent, true );
         else
-            Print("sorry - prime powers in order are too large \n");
+            Print("sorry - prime powers in order are too large\n");
             return fail;
         fi;
         tmp := [];
@@ -49,7 +49,7 @@ ConstructAllNilpotentGroups := function( size )
 end;
 
 ConstructAllSolvableNonNilpotentGroups := function( size )
-    local pr, grps, p, n, new, tmp, G, H, cl, flags, d;
+    local pr, grps, new, tmp, cl, flags;
 
     pr := Factors( size );
     grps := [];
@@ -79,7 +79,7 @@ ConstructAllSolvableNonNilpotentGroups := function( size )
 end;
 
 ConstructAllNonSolvableGroups := function( size )
-    local grps, p, n, new, tmp, G, H, cl, flags, d;
+    local grps, new, tmp, G, d;
 
     grps := [];
 
@@ -112,7 +112,7 @@ end;
 #F ConstructAllGroups( size ) . . . . . .  construct all groups of given size
 ##
 InstallGlobalFunction( ConstructAllGroups, function( size )
-    local pr, grps, p, n, new, tmp, G, H, cl, flags, d; 
+    local pr, grps; 
 
     # trivial case
     pr := Factors( size );
