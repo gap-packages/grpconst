@@ -79,11 +79,7 @@ end);
 ##
 InstallGlobalFunction( CyclicGenerator,
 function( C )
-    local s, U, iso;
-    s := Size(C);
-    U := CyclicGroup( s );
-    iso := IsomorphismGroups( U, C );
-    return Image( iso, GeneratorsOfGroup( U )[1] );
+    return MinimalGeneratingSet( C )[ 1 ];
 end);
 
 #############################################################################
