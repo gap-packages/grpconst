@@ -6,55 +6,25 @@
 
 #############################################################################
 ##
-#F AutoByPermutation( G, elms, perm )
-##
-AutoByPermutation := function( G, elms, perm )
-    local pcgs, posn, imgs, auto;
-    pcgs := Pcgs(G);
-    posn := List( pcgs, x -> Position( elms, x )^perm );
-    imgs := List( posn, x -> elms[x] );
-    auto := GroupHomomorphismByImagesNC( G, G, pcgs, imgs );
-    SetIsBijective( auto, true );
-    return auto;
-end;
-
-#############################################################################
-##
-#F PermGroupByAutGroup( A, elms )
-##
-PermGroupByAutGroup := function( A, elms )
-    local autos, perms, P;
-    autos := GeneratorsOfGroup( A );
-    perms := List( autos, 
-                   a -> PermList( List( elms, 
-                   x -> PositionSorted( elms, Image( a, x )))));
-    P := Group( perms, () );
-    if HasSize( A ) then SetSize(P, Size(A)); fi;
-    return P;
-end;
-
-
-#############################################################################
-##
 #F QClasses( A, G, q )
 ##
 QClasses := function( A, G, q )
-    local elms, P, S, cl;
+    local hom, P, S, cl;
 
-    elms := AsList( G );
-    P  := PermGroupByAutGroup( A, elms );
+    hom := NiceMonomorphism( A );
+    P := NiceObject( A );
 
     # if there is no or only one q-class
     if not IsInt( Size(P)/q ) then 
         return []; 
     elif not IsInt( Size(P)/(q^2)) then
         S := SylowSubgroup( P, q );
-        return [AutoByPermutation( G, elms, GeneratorsOfGroup(S)[1])];
+        return [ PreImage( hom, GeneratorsOfGroup(S)[1] ) ];
     fi;
     
     # otherwise compute
     cl := MyRatClassesPElmsReps( P, q );
-    cl := List( cl, x -> AutoByPermutation(G, elms, x));
+    cl := List( cl, x -> PreImage(hom, x));
     return cl;
 end;
 
