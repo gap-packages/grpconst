@@ -121,10 +121,9 @@ end);
 #F NormalSubgroupsCyclicFactor( G, d )
 ##
 NormalSubgroupsCyclicFactor := function( G, d )
-    local D, nat, F, norms, i, max;
+    local nat, F, norms, i, max;
 
-    D := DerivedSubgroup(G);
-    nat := NaturalHomomorphismByNormalSubgroup( G, D );
+    nat := MaximalAbelianQuotient( G );
     F := Image( nat );
 
     norms := ShallowCopy( MaximalSubgroups( F ) );
