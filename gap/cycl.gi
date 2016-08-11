@@ -62,7 +62,7 @@ function( arg )
     res := [];
     for h in cl do
         U := SubgroupNC( A, [h] );
-        hom := GroupHomomorphismByImages( C, U, [g], [h] );
+        hom := GroupHomomorphismByImagesNC( C, U, [g], [h] );
         S := SplitExtension( C, hom, G );
         code := CodePcGroup( S );
         Add( res, rec( code := code, order := Size(G)*q ) );
@@ -166,7 +166,7 @@ function( arg )
         l := (q-1) / Size(F);
         genU := genC^l;
         U    := SubgroupNC( AutC, [genU] );
-        i    := GroupHomomorphismByImages( F, U, [genF], [genU] ); 
+        i    := GroupHomomorphismByImagesNC( F, U, [genF], [genU] ); 
         
         # compute cosets
         Info( InfoGrpCon, 4, "      compute stabilizer");
@@ -177,7 +177,7 @@ function( arg )
         Info( InfoGrpCon, 4, "      compute induced subgroup");
         for aut in GeneratorsOfGroup( S ) do
             imgs := List( gensF, x -> Image( hom, Image( aut, x ) ) );
-            Add( ind, GroupHomomorphismByImages( F, F, imgsF, imgs ) );
+            Add( ind, GroupHomomorphismByImagesNC( F, F, imgsF, imgs ) );
         od;
         AutF := AutomorphismGroup( F );
         Sind := SubgroupNC( AutF, ind );
@@ -189,7 +189,7 @@ function( arg )
             imgs := List( imgsF, x -> Image( i, Image(r, x ) ) );
             Append( imgs, List( gensN, x -> Identity( AutC ) ) );
 
-            hom := GroupHomomorphismByImages( G, AutC, gens, imgs );
+            hom := GroupHomomorphismByImagesNC( G, AutC, gens, imgs );
             E := SplitExtension( G, hom, C );
             Add( res, rec( code := CodePcGroup( E ), order := Size(G)*q ) );
         od;  
