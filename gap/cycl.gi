@@ -262,7 +262,7 @@ function( arg )
     for i in [1..m] do
         Info( InfoGrpCon, 1, "start extending group ",i );
         G := SmallGroup( p^n, i );
-        AutomorphismGroup( G );
+        NiceMonomorphism( AutomorphismGroup( G ) );
         for q in l do
             ext := CyclicSplitExtensions( G, q, uncoded );
             Append( up, ext.up );
