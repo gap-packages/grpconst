@@ -225,11 +225,11 @@ end );
 #F FrattiniExtensions( list, size [,uncoded] )
 ##
 InstallGlobalFunction( FrattiniExtensions, function( arg )
-    local res, free, size, new, F, i, code;
+    local res, free, size, new, F, i, uncoded;
 
     free := arg[1];
     size := arg[2];
-    code := Length( arg ) = 3 and arg[3];
+    uncoded := Length( arg ) = 3 and arg[3];
 
     if IsRecord( free ) then
         res := FrattiniExtensionsOfCode( free, size );
@@ -253,7 +253,7 @@ InstallGlobalFunction( FrattiniExtensions, function( arg )
             Append( res, new );
         od;
     fi;
-    if code then
+    if uncoded then
         for i in [1..Length(res)] do
             if IsList( res[i] ) then
                 res[i] := List( res[i], PcGroupCodeRec );
@@ -270,24 +270,24 @@ end );
 #F FrattiniExtensionMethod( size [, flags, uncoded] )
 ##
 InstallGlobalFunction( FrattiniExtensionMethod, function( arg )
-    local size, prop, code, free, ext, i;
+    local size, prop, uncoded, free, ext, i;
 
     # catch the arguments
     size := arg[1];
     if Length( arg ) = 1 then
         prop := rec();
-        code := false;
+        uncoded := false;
     elif Length( arg ) = 2 then
         if IsBool( arg[2] ) then
-            code := arg[2];
+            uncoded := arg[2];
             prop := rec();
         else
             prop := arg[2];
-            code := false;
+            uncoded := false;
         fi;
     else
         prop := arg[2];
-        code := arg[3];
+        uncoded := arg[3];
     fi;
 
     # catch the case of size = 1 
@@ -297,7 +297,7 @@ InstallGlobalFunction( FrattiniExtensionMethod, function( arg )
            IsBound( prop.nonsupsol ) or
            IsBound( prop.nonpnorm ) then 
             return [];
-        elif not code then
+        elif not uncoded then
             return [rec( code := 0,
                          order := 1,
                          isFrattiniFree := true,
@@ -313,7 +313,7 @@ InstallGlobalFunction( FrattiniExtensionMethod, function( arg )
     free := FrattiniFactorCandidates( size, prop );
     Info( InfoGrpCon, 1, "found ",Length( free )," candidates ", "\n");
     Info( InfoGrpCon, 1, "compute Frattini extensions: ");
-    ext  := FrattiniExtensions( free, size, code );
+    ext  := FrattiniExtensions( free, size, uncoded );
     Info( InfoGrpCon, 1, "found ", Length( Flat(ext) )," extensions ", "\n");
 
     return ext;
