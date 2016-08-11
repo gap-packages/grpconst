@@ -114,6 +114,7 @@ InstallGlobalFunction( CyclicSplitExtensionsDown,
 function( arg )
     local G, q, uncoded, res, AutG, C, g, AutC, genC, D, norms, f, N, hom, 
           F, gensN, gensF, 
+          niceMon, niceAutG, gensAutG, gensNiceAutG,
           imgsF, gens, r, genU, U, genF, i, S, ind, aut, imgs, AutF, 
           Sind, reps, E, l;
 
@@ -136,10 +137,13 @@ function( arg )
 
     # get automorphism group of G
     AutG := AutomorphismGroup( G );
-    NiceMonomorphism( AutG );
+    niceMon := NiceMonomorphism( AutG );
+    niceAutG := NiceObject( AutG );
+    gensNiceAutG := GeneratorsOfGroup( niceAutG );
+    gensAutG := List(gensNiceAutG, x -> PreImage(niceMon, x));
     Info( InfoGrpCon, 3, "    aut group has size ", Size(AutG));
 
-    # compute normal subgroups and orbits
+    # compute orbits of normal subgroups with cyclic quotients
     norms := NormalSubgroupsCyclicFactor( G, q-1 );
     f := function( pt, a ) return Image( a, pt ); end;
     norms := List( Orbits( AutG, norms, f ), x -> x[1] );
@@ -166,7 +170,9 @@ function( arg )
         
         # compute cosets
         Info( InfoGrpCon, 4, "      compute stabilizer");
-        S := Stabilizer( AutG, N, f );
+        S := Stabilizer( niceAutG, N, gensNiceAutG, gensAutG, f );
+        S := PreImage( niceMon, S );
+
         ind := [];
         Info( InfoGrpCon, 4, "      compute induced subgroup");
         for aut in GeneratorsOfGroup( S ) do
