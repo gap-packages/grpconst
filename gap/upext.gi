@@ -6,17 +6,6 @@
 
 #############################################################################
 ##
-#F SolvableResidual( G )
-##
-InstallGlobalFunction( SolvableResidual,
-function( G )
-    local D;
-    D := DerivedSeriesOfGroup( G );
-    return D[Length(D)];
-end );
-
-#############################################################################
-##
 #F GroupOfInnerAutomorphismSpecial( G, A )
 ##
 InstallGlobalFunction( GroupOfInnerAutomorphismSpecial,
@@ -49,7 +38,7 @@ AutomorphismGroupSpecial := function(G)
     fi;
 
     # get char classes of G
-    N := SolvableResidual( G );
+    N := PerfectResiduum( G );
     C := Centralizer( G, N );
     U := Intersection( N, C );
 
@@ -213,15 +202,15 @@ IsomorphismTest := function( G, H )
 
     # the factor
     Info( InfoGrpCon, 4, "   Iso: test isomorphism on groups of size ",Size(G));
-    homG := NaturalHomomorphismByNormalSubgroup( G, SolvableResidual(G) );
-    homH := NaturalHomomorphismByNormalSubgroup( H, SolvableResidual(H) );
+    homG := NaturalHomomorphismByNormalSubgroup( G, PerfectResiduum(G) );
+    homH := NaturalHomomorphismByNormalSubgroup( H, PerfectResiduum(H) );
     if IdGroup( Image( homG ) ) <> IdGroup( Image( homH ) ) then
         return false;
     fi;
 
     # check for direct splittings
-    dirG := DirectSplitting( G, SolvableResidual(G) );
-    dirH := DirectSplitting( H, SolvableResidual(H) );
+    dirG := DirectSplitting( G, PerfectResiduum(G) );
+    dirH := DirectSplitting( H, PerfectResiduum(H) );
     if Length( dirG ) <> Length( dirH ) then
         return false;
     elif Length( dirG ) = 2 then
