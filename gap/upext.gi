@@ -372,7 +372,7 @@ function( G, p, aut, n )
     # sometimes useful
     # H := NicePermRep( H );
 
-    H:=Image(SmallerDegreePermutationRepresentation(H));
+#    H:=Image(SmallerDegreePermutationRepresentation(H));
     return SmallGeneratingSet( H );
 end );
 
