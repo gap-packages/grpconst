@@ -159,14 +159,6 @@ MyRatClassesPElmsReps := function(P,p)
     return cl;
 end;
 
-MyRatClassesPElmsReps2 := function(P,q)
-    local cl;
-    cl := RationalClasses(P);
-    cl := List(cl, Representative);
-    cl := Filtered(cl, x -> Order(x) = q);
-    return cl;
-end;
-
 #############################################################################
 ##
 #F SemiSimpleGroupsTS( n, p, sizes, iso )
