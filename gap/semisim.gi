@@ -116,7 +116,7 @@ end;
 #F MyRationalClassesPElements( P, p )
 ##
 MyRatClassesPElmsReps := function(P,p)
-    local o, Q, cl, l, todo, i, j, k, sc;
+    local o, Q, cl, l, todo, i, j, k;
 
     # some easy cases
     o := Size(P);
@@ -150,12 +150,6 @@ MyRatClassesPElmsReps := function(P,p)
     od;
 
     cl := cl{Filtered([1..l], x -> todo[x]=true)};
-
-    # check
-    #sc := RationalClassesPElements(P,p);
-    #sc := List(sc, Representative);
-    #sc := Filtered(sc, x -> IsInt(p/Order(x)));
-    #if Length(sc) <> Length(cl) then Error("hier"); fi;
 
     return cl;
 end;
