@@ -128,7 +128,12 @@ MyRatClassesPElmsReps := function(P,p)
 
     # try Sylow
     Q := SylowSubgroup(P,p);
-    cl := RationalClasses(Q);
+    if p = 2 then
+        # for involutions, conjugacy classes = rational classes
+        cl := ConjugacyClasses(Q);
+    else
+        cl := RationalClasses(Q);
+    fi;
     cl := List(cl, Representative);
     cl := Filtered(cl, x -> Order(x) = p);
     l := Length(cl);
