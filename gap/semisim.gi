@@ -138,23 +138,15 @@ MyRatClassesPElmsReps := function(P,p)
     cl := Filtered(cl, x -> Order(x) = p);
     l := Length(cl);
 
-    # fuse
-    todo := List([1..l], x -> true);
-    for i in [1..l-1] do
-        if todo[i] = true then 
-            for j in [i+1..l] do
-                if todo[j] = true then 
-                    for k in [1..p-1] do
-                        if IsConjugate(P, cl[i], cl[j]^k) then 
-                            todo[j] := false;
-                        fi;
-                    od;
-                fi;
-            od;
-        fi;
-    od;
+    if p = 2 then
+        # for involutions, conjugacy classes = rational classes
+        cl := List(cl, g -> ConjugacyClass(P,g));
+    else
+        cl := List(cl, g -> RationalClass(P,g));
+    fi;
 
-    cl := cl{Filtered([1..l], x -> todo[x]=true)};
+    cl := DuplicateFreeList(cl);
+    cl := List(cl, Representative);
 
     return cl;
 end;
