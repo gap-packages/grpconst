@@ -6,9 +6,9 @@
 
 #############################################################################
 ##
-#F QClasses( A, G, q )
+#F QClasses( A, q )
 ##
-QClasses := function( A, G, q )
+QClasses := function( A, q )
     local hom, P, S, cl;
 
     hom := NiceMonomorphism( A );
@@ -55,7 +55,7 @@ function( arg )
     Info( InfoGrpCon, 3, "    aut group has size ", Size(A) );
 
     # get classes
-    cl := QClasses( A, G, q );
+    cl := QClasses( A, q );
 
     # loop over classes
     Info( InfoGrpCon, 3, "    have ",Length(cl)," classes to process");
