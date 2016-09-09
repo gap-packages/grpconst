@@ -20,8 +20,11 @@ InstallGlobalFunction( AllNonSolublePerfectGroups, function( size )
     fi;
 end );
 
-ConstructAllNilpotentGroups := function( size )
-    local pr, grps, p, n, new, tmp, G, H;
+ConstructAllNilpotentGroups := function( arg )
+    local size, uncoded, pr, grps, p, n, new, tmp, G, H, D;
+
+    size := arg[1];
+    uncoded := Length( arg ) = 2 and arg[2];
 
     pr := Factors( size );
 
@@ -38,18 +41,25 @@ ConstructAllNilpotentGroups := function( size )
         tmp := [];
         for G in grps do
             for H in new do
-                Add( tmp, DirectProduct( G, H ) );
+                D := DirectProduct( G, H );
+                if uncoded then
+                    Add( tmp, D );
+                else
+                    Add( tmp, CodePcGroup( D ) );
+                fi;
             od;
         od;
         grps := tmp; 
     od;
 
-    # now we got them all
     return grps;
 end;
 
-ConstructAllSolvableNonNilpotentGroups := function( size )
-    local pr, grps, new, tmp, cl, flags;
+ConstructAllSolvableNonNilpotentGroups := function( arg )
+    local size, uncoded, pr, grps, new, tmp, cl, flags, i;
+
+    size := arg[1];
+    uncoded := Length( arg ) = 2 and arg[2];
 
     pr := Factors( size );
     grps := [];
@@ -57,12 +67,12 @@ ConstructAllSolvableNonNilpotentGroups := function( size )
     # if size is of  type p^n * q
     cl := Collected( pr );
     if Length( cl ) = 2 and cl[1][2] = 1 then
-        new := CyclicSplitExtensionMethod(cl[2][1],cl[2][2],cl[1][1],true);
+        new := CyclicSplitExtensionMethod(cl[2][1],cl[2][2],cl[1][1],uncoded);
         Append( grps, new.up );
         Append( grps, new.down );
         flags := rec( nonpnorm := Set( pr ) );
     elif Length( cl ) = 2 and cl[2][2] = 1 then
-        new := CyclicSplitExtensionMethod(cl[1][1],cl[1][2],cl[2][1],true);
+        new := CyclicSplitExtensionMethod(cl[1][1],cl[1][2],cl[2][1],uncoded);
         Append( grps, new.up );
         Append( grps, new.down );
         flags := rec( nonpnorm := Set( pr ) );
@@ -83,19 +93,21 @@ ConstructAllSolvableNonNilpotentGroups := function( size )
     fi;
 
     # remaining soluble groups
-    new := FrattiniExtensionMethod( size, flags, true );
+    new := FrattiniExtensionMethod( size, flags, uncoded );
     Append( grps, new );
+    if not uncoded then
+        for i in [1..Length(grps)] do
+            Assert(0, grps[i].order = size);
+            grps[i] := grps[i].code;
+        od;
+    fi;
 
-    # now we got them all
     return grps;
 end;
 
 ConstructAllNonSolvableGroups := function( size )
     local grps, new, tmp, G, d;
 
-    grps := [];
-
-    # non-soluble groups
     tmp := [];
     for d in DivisorsInt( size ) do
         new := AllNonSolublePerfectGroups( d );
@@ -105,6 +117,8 @@ ConstructAllNonSolvableGroups := function( size )
         fi;
         Append( tmp, new );
     od;
+
+    grps := [];
     for G in tmp do
         if Size(Centre(G)) = 1 then 
             new := UpwardsExtensionsNoCentre( G, size/Size(G) );
@@ -115,7 +129,6 @@ ConstructAllNonSolvableGroups := function( size )
         Append( grps, new );
     od;
 
-    # now we got them all
     return grps;
 end;
 
@@ -131,8 +144,8 @@ InstallGlobalFunction( ConstructAllGroups, function( size )
     if Length( pr ) <= 3 then return AllSmallGroups( size ); fi;
 
     grps := [];
-    Append( grps, ConstructAllNilpotentGroups( size ) );
-    Append( grps, ConstructAllSolvableNonNilpotentGroups( size ) );
+    Append( grps, ConstructAllNilpotentGroups( size, true ) );
+    Append( grps, ConstructAllSolvableNonNilpotentGroups( size, true ) );
     Append( grps, ConstructAllNonSolvableGroups( size ) );
 
     # now we got them all
