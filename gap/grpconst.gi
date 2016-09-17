@@ -97,8 +97,14 @@ ConstructAllSolvableNonNilpotentGroups := function( arg )
     Append( grps, new );
     if not uncoded then
         for i in [1..Length(grps)] do
-            Assert(0, grps[i].order = size);
-            grps[i] := grps[i].code;
+            if IsList(grps[i]) then
+                Assert(0, ForAll(grps[i], g -> g.order = size));
+                grps[i] := List(grps[i], g -> g.code);
+            else
+                Assert(0, IsRecord(grps[i]));
+                Assert(0, grps[i].order = size);
+                grps[i] := grps[i].code;
+            fi;
         od;
     fi;
 
