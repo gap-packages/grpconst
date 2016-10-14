@@ -30,6 +30,7 @@ ConstructAllNilpotentGroups := function( arg )
 
     # nilpotent groups come from the SmallGroups library
     grps := [PcGroupCode( 0,1 )];
+    size := 1;
     for p in Set( pr ) do
         n := Length( Filtered( pr, x -> x = p ) );
         if (p^n <> 512 and p^n <= 1000) or n <= 5  then # HACK: increase exponent limit from 3 to 5
@@ -40,6 +41,9 @@ ConstructAllNilpotentGroups := function( arg )
         fi;
         tmp := [];
         for G in grps do
+            if IsInt(G) then
+                G := PcGroupCode( G, size );
+            fi;
             for H in new do
                 D := DirectProduct( G, H );
                 if uncoded then
@@ -49,6 +53,7 @@ ConstructAllNilpotentGroups := function( arg )
                 fi;
             od;
         od;
+        size := size * p^n;
         grps := tmp; 
     od;
 
