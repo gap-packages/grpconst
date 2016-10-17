@@ -78,7 +78,7 @@ InstallGlobalFunction( AddRandomTestInfosFEM, function( arg )
                         Finfo.(j) := List( orbss[ spos[ j ] ], x ->
                                      ExponentsOfPcElement( pcgs, x ) );
                     od;
-                    Info( InfoGrpCon, 4, "  F-strategy: ", Finfo.lmin, 
+                    Info( InfoRandIso, 4, "  F-strategy: ", Finfo.lmin,
                           " generators with ", Product( List( pos ),
                           x -> Length( orbss[ x ] ) ), " combinations" );
                     return;
@@ -164,7 +164,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
     # return if LGWeights are different
     t := Set( lgws );
     if Length( t ) > 1 then
-        Info( InfoGrpCon, 3, " split ", Length( list ),
+        Info( InfoRandIso, 3, " split ", Length( list ),
               " groups with LGWeights in ", Length( t ), " sublists" );
         return rec( subl := List( t,
                 x->list{ Filtered( [1..Length(list)], y -> x=lgws[y] ) } ) );
@@ -250,10 +250,10 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
         od;
     od;
 
-    # look if the information collected in 'typscache' was identicall
+    # look if the information collected in 'typscache' was identical
     t := Set( typscache );
     if Length( t ) > 1 then
-        Info( InfoGrpCon, 3, " split ", n,
+        Info( InfoRandIso, 3, " split ", n,
               " groups with typscache in ", Length( t ), " sublists" );
         return rec( subl := List( t,
             x -> list{ Filtered( [1..Length(list)], y->x=typscache[y] ) } ));
@@ -293,7 +293,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
         gensys := List( gensys, x -> List( [ 1 .. Finfo.lmin ],
                                        y -> x[ genpos[ y ] ][ pos[ y ] ] ) );
     else
-        Info( InfoGrpCon, 1, "   no common generator strategy" );
+        Info( InfoRandIso, 1, "   no common generator strategy" );
         pos := List( pos, x -> 1 );
         gensys := List( gensys, x -> List( [ 1 .. Finfo.lmin ],
                                   y -> Concatenation( x[ genpos[ y ] ] ) ) );
@@ -349,7 +349,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
                   r[ i ].autos := Group( Concatenation( [ perm ],
                     GeneratorsOfGroup( r[ i ].autos ) ) );
                   r[ i ].autsize := Size( r[ i ].autos );
-                  Info( InfoGrpCon, 4, " autsize: ", r[ i ].autsize );
+                  Info( InfoRandIso, 4, " autsize: ", r[ i ].autsize );
                 fi;
               fi;
             else
@@ -375,7 +375,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
           fi;
         od;
         hasAutos := true;
-        Info( InfoGrpCon, 4, " ngensets: ", ngensets );
+        Info( InfoRandIso, 4, " ngensets: ", ngensets );
       fi;
 
       if hasAutos then
@@ -394,7 +394,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
               fi;
             od;
             if ident then
-              Info( InfoGrpCon, 2,
+              Info( InfoRandIso, 2,
                     " RandomIsomorphismTestFEM identifies group" );
               AddSet( disting, i );
               Unbind( r[ i ] );
@@ -403,14 +403,14 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
             fi;
           fi;
         od;
-        Info( InfoGrpCon, 4, " orbs ",
+        Info( InfoRandIso, 4, " orbs ",
               List( Compacted( r ), x -> Length( x.codes ) ) );
       fi;
-      Info( InfoGrpCon, 4, " ", List( Compacted( r ), x -> x.hits ) );
+      Info( InfoRandIso, 4, " ", List( Compacted( r ), x -> x.hits ) );
     until rem = 1 or mhits > 50;
 
     if rem > 1 then
-        Info( InfoGrpCon, 1, " ", rem,
+        Info( InfoRandIso, 1, " ", rem,
               " candidates not seperated by RandomIsomorphismTestFEM"); 
     fi;
 
@@ -436,7 +436,7 @@ InstallGlobalFunction( ReducedByIsomorphismsFEM, function( list, Finfo )
       return list; 
    fi;
 
-   Info( InfoGrpCon, 2, "  reduce ", Length(list), " groups " );
+   Info( InfoRandIso, 2, "  reduce ", Length(list), " groups " );
 
    # split up in sublist
    list := SplitUpSublistsByFpFunc( list );
@@ -458,7 +458,7 @@ InstallGlobalFunction( ReducedByIsomorphismsFEM, function( list, Finfo )
          list[ i ].isUnique := true;
          i := i + 1;
       else
-         Info( InfoGrpCon, 2, " randiso on ", Length( list[ i ] ),
+         Info( InfoRandIso, 2, " randiso on ", Length( list[ i ] ),
                " groups of size ", list[ i ][ 1 ].order, ", block ", i, "/",
                Length( list ) );
          list[ i ] := RandomIsomorphismTestFEM( list[ i ], Finfo );
@@ -509,7 +509,7 @@ ReducedByIsomorphismsFEMAnother := function( list, frec, level )
          list[ i ].isUnique := true;
          i := i + 1;
       else
-         Info( InfoGrpCon, 2, " another randiso on ", Length( list[ i ] ),
+         Info( InfoRandIso, 2, " another randiso on ", Length( list[ i ] ),
                " groups of size ", list[ i ][ 1 ].order, ", block ", i, "/",
                Length( list ) );
          list[ i ] := RandomIsomorphismTestFEM( list[ i ], Finfo );
