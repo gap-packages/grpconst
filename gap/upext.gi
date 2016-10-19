@@ -124,7 +124,7 @@ RandomIsomorphismTestUEM := function( G, H )
     cocl := List( [ G, H ], CocGroup );
     cocr := DiffCocList( cocl, false );
     if cocr[ Length( cocr ) ] <> fail then
-        Info( InfoGrpCon, 2, "RandomIsomorphismTestUEM distinguishs groups" );
+        Info( InfoRandIso, 2, "RandomIsomorphismTestUEM distinguishs groups" );
         return false;
     fi;
 
@@ -151,11 +151,11 @@ RandomIsomorphismTestUEM := function( G, H )
         fi;
     od;
     if pos = fail then
-        Info( InfoGrpCon, 1, "RandomIsomorphismTestUEM: ",
+        Info( InfoRandIso, 1, "RandomIsomorphismTestUEM: ",
                          " no generating system found" );
         return fail;
     fi;
-    Info( InfoGrpCon, 3, "RandomIsomorphismTestUEM: ", qual,
+    Info( InfoRandIso, 3, "RandomIsomorphismTestUEM: ", qual,
                          " generating system candidates" );
 
     j := 0;
@@ -167,7 +167,7 @@ RandomIsomorphismTestUEM := function( G, H )
             gens1 := List( cocl[ 1 ], Random );
             f := f + 1;
             if j + f > 10000 then
-                Info( InfoGrpCon, 2,
+                Info( InfoRandIso, 2,
                       "RandomIsomorphismTestUEM failed to decide" );
                 return fail;
             fi;
@@ -176,18 +176,18 @@ RandomIsomorphismTestUEM := function( G, H )
             gens2 := List( cocl[ 2 ], Random );
             f := f + 1;
             if j + f > 10000 then
-                Info( InfoGrpCon, 2,
+                Info( InfoRandIso, 2,
                       "RandomIsomorphismTestUEM failed to decide" );
                 return fail;
             fi;
         until Size( Group( gens2 ) ) = size;
         if GroupHomomorphismByImages( G, H, gens1, gens2 ) <> fail then
-            Info( InfoGrpCon, 2, "RandomIsomorphismTestUEM ",
+            Info( InfoRandIso, 2, "RandomIsomorphismTestUEM ",
                                 "found isomorphism" );
             return true;
         fi;
         if j mod 50 = 0 then
-            Info( InfoGrpCon, 5, "RandomIsomorphismTestUEM: ", j,
+            Info( InfoRandIso, 5, "RandomIsomorphismTestUEM: ", j,
                                  " loops without isomorphism" );
         fi;
     od;
