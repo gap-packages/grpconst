@@ -269,10 +269,17 @@ end;
 #F IsomorphismClasses( list )
 ##
 IsomorphismClasses := function( list )
-    local sub, fin, G, f, j, i, g;
+    local sub, fin, G, f, j, i, g, finger;
     
     if Length( list ) <= 1 then return list ; fi;
     Info( InfoGrpCon, 3,"   Iso: test isom on ", Length(list)," groups ");
+
+    G := Group( list[1], () );
+    if ID_AVAILABLE(Size(G)) <> fail then
+        finger := IdGroup;
+    else
+        finger := FingerprintFF;
+    fi;
 
     # first compute fingerprints
     sub := [];
@@ -283,7 +290,7 @@ IsomorphismClasses := function( list )
         fi;
         g := list[i];
         G := Group( g, () );
-        f := FingerprintFF( G );
+        f := finger( G );
         j := Position( fin, f );
         if IsBool( j ) then
             Add( sub, [g] );
