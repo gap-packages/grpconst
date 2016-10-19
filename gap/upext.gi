@@ -432,11 +432,6 @@ function( P, stepsize )
         Info( InfoGrpCon, 1, "extend groups of size ", d*size,
                             " by primes ",pr );
 
-        # reduce to isomorphism classes
-        if i > 1 then
-            Info( InfoGrpCon, 2, "Iso: reduce to isomorphism clasess \n");
-            grps[i] := IsomorphismClasses( grps[i] );
-        fi;
         n := Length( grps[i] );
 
         # extend each group in turn
@@ -453,12 +448,12 @@ function( P, stepsize )
                 Append( grps[j], ext );
             od;
         od;
+
+        # reduce to isomorphism classes
+        Info( InfoGrpCon, 2, "Iso: reduce to isomorphism clasess \n");
+        grps[i+1] := IsomorphismClasses( grps[i+1] );
     od;
 
-    # reduce the largest groups
-    i := Length(div);
-    Info( InfoGrpCon, 2, "Iso: reduce to isomorphism clasess \n");
-    grps[i] := IsomorphismClasses( grps[i] );
     Info( InfoGrpCon, 1, "extensions for steps ",div );
 
     # go back to groups
