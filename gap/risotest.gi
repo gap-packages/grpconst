@@ -264,8 +264,8 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
     genpos := Concatenation( List( [ 1 .. Length( Finfo.geninds ) ], 
                                 x -> x + 0 * [ 1 .. Finfo.geninds[ x ] ] ) );
     poses := Cartesian( List( genpos, x -> [ 1..Length(gensys[1][x]) ] ) );
-    inds  := List( poses, x -> Product( List( [ 1 .. Finfo.lmin ],
-                   y -> Length( gensys[ 1 ][ genpos[ y ] ][ x[ y ] ] ) ) ) );
+    inds  := List( poses, x -> Product( [ 1 .. Finfo.lmin ],
+                   y -> Length( gensys[ 1 ][ genpos[ y ] ][ x[ y ] ] ) ) );
     SortParallel( inds, poses );
 
     # test them
@@ -299,7 +299,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
                                   y -> Concatenation( x[ genpos[ y ] ] ) ) );
     fi;
 
-    ngensets := Product( List( gensys[ 1 ], Length ) );
+    ngensets := Product( gensys[ 1 ], Length );
 
     # start finding presentations
     r := List( list, x -> rec(

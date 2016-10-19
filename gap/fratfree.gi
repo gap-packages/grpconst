@@ -237,8 +237,8 @@ InstallGlobalFunction( FrattiniFreeBySocle, function( sizeA, sizeF, flags )
     if not CheckFlags( flags ) then return []; fi;
 
     # set up and compute sizes
-    A := List( Collected(FactorsInt(sizeA)), x -> [x[2], x[1]] );
-    max := Product( List( A, x -> SizeOfGL( x[1], x[2] ) ) );
+    A := Collected(FactorsInt(sizeA));
+    max := Product( A, x -> SizeOfGL( x[2], x[1] ) );
     if not IsBool( sizeF ) then
         sizeK := Gcd( sizeF / sizeA, max );
     else
@@ -250,7 +250,7 @@ InstallGlobalFunction( FrattiniFreeBySocle, function( sizeA, sizeF, flags )
     if IsBool( sizeK ) then return []; fi;
     
     # construct semisimple groups
-    semi := List( A, x -> SemiSimpleGroups( x[1], x[2], sizeK, flags ) );
+    semi := List( A, x -> SemiSimpleGroups( x[2], x[1], sizeK, flags ) );
 
     # now construct corresponding pc-groups
     all := SocleComplements( semi, sizeK );

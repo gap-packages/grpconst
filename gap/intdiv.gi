@@ -41,7 +41,7 @@ end;
 #F SizeOfGL( n, p )
 ##
 SizeOfGL := function( n, p )
-    return Product( List( [1..n], x -> p^n - p^(x-1) ) );
+    return Product( [1..n], x -> p^n - p^(x-1) );
 end;
 
 #############################################################################
@@ -58,8 +58,7 @@ end;
 #F MaximalAutSize( n )
 ##
 MaximalAutSize := function( n )
-    local s, t;
+    local s;
     s := Collected( FactorsInt( n ) );
-    t := List( s, x -> SizeOfGL( x[2], x[1] ) );
-    return Product( t );
+    return Product( s, x -> SizeOfGL( x[2], x[1] ) );
 end;
