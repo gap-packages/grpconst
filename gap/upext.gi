@@ -277,7 +277,11 @@ IsomorphismClasses := function( list )
     # first compute fingerprints
     sub := [];
     fin := [];
-    for g in list do
+    for i in [1..Length(list)] do
+        if InfoLevel(InfoGrpCon) >= 3 then
+            Print("\r", "#I      computing fingerprint ", i, "/", Length(list), "\c");
+        fi;
+        g := list[i];
         G := Group( g, () );
         f := FingerprintFF( G );
         j := Position( fin, f );
@@ -288,14 +292,17 @@ IsomorphismClasses := function( list )
             Add( sub[j], g );
         fi;
     od; 
+    if InfoLevel(InfoGrpCon) >= 3 then
+        Print("\r");
+    fi;
     SortBy( sub, Length );
     Info( InfoGrpCon, 3, "   Iso: splitted up in sublists of length ",
                         List( sub, Length ) );
 
     # now reduce
     for i in [1..Length(sub)] do
-        Info( InfoGrpCon, 3, "   Iso: start sublist ", i ," of ", Length(sub),
-              " with length ", Length(sub[i]) );
+        Info( InfoGrpCon, 3, "   Iso: start sublist ", i ,"/", Length(sub),
+              " of length ", Length(sub[i]) );
         sub[i] := ReducedList( sub[i] ); 
     od;
     sub := Concatenation( sub );
