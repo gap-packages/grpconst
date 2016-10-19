@@ -288,7 +288,7 @@ IsomorphismClasses := function( list )
             Add( sub[j], g );
         fi;
     od; 
-    Sort( sub, function( x, y ) return Length(x)<Length(y); end );
+    SortBy( sub, Length );
     Info( InfoGrpCon, 3, "   Iso: splitted up in sublists of length ",
                         List( sub, Length ) );
 
