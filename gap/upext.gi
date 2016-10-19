@@ -201,7 +201,7 @@ IsomorphismTest := function( G, H )
     local homG, homH, dirG, dirH, res, i;
 
     # the factor
-    Info( InfoGrpCon, 4, "   Iso: test isomorphism on groups of size ",Size(G));
+    Info( InfoGrpCon, 4, "    Iso: test isomorphism on groups of size ",Size(G));
     homG := NaturalHomomorphismByNormalSubgroup( G, PerfectResiduum(G) );
     homH := NaturalHomomorphismByNormalSubgroup( H, PerfectResiduum(H) );
     if IdGroup( Image( homG ) ) <> IdGroup( Image( homH ) ) then
@@ -294,8 +294,8 @@ IsomorphismClasses := function( list )
 
     # now reduce
     for i in [1..Length(sub)] do
-        Info( InfoGrpCon, 3, "   Iso: start sublist of length ", 
-              Length(sub[i]) );
+        Info( InfoGrpCon, 3, "   Iso: start sublist ", i ," of ", Length(sub),
+              " with length ", Length(sub[i]) );
         sub[i] := ReducedList( sub[i] ); 
     od;
     sub := Concatenation( sub );

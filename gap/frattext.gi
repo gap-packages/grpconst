@@ -142,8 +142,8 @@ InstallGlobalFunction( FrattiniExtensionsOfCode, function( code, o )
             modu := Filtered( modus[j], x -> x.dimension <= tup[2] );
             modu := List( modu, x -> EnlargedModule( x, F, H ) );
 
-            Info( InfoGrpCon, 3,"   start group ", i, " with ",
-                                    Length(modu)," modules");
+            Info( InfoGrpCon, 3,"   start group ", i, " of ", Length(sub),
+                                ", with ", Length(modu)," modules");
 
             # loop over modules
             count := 1;
