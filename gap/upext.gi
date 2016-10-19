@@ -305,28 +305,6 @@ end;
 
 #############################################################################
 ##
-#F NicePermRep( G )
-##
-NicePermRep := function( G )
-    local gens, P, cl, U, hom, N, d;
-
-    # small degree
-    cl := ConjugacyClassesSubgroups( G );
-    cl := List( cl, Representative );
-    Sort( cl, function( x, y ) return Size(x) > Size(y); end );
-
-    for U in cl do
-        if Size( Core(G, U) ) = 1 then
-            P := Action( G, RightCosets(G,U), OnRight );
-            hom := ActionHomomorphism( G, P );
-            gens := SmallGeneratingSet( P );
-            return Group( gens, () );
-        fi;
-    od;
-end;
-
-#############################################################################
-##
 #F CyclicExtensionByTuple( G, p, aut, n )
 ##
 InstallGlobalFunction( CyclicExtensionByTuple,

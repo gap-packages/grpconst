@@ -63,18 +63,3 @@ MaximalAutSize := function( n )
     t := List( s, x -> SizeOfGL( x[2], x[1] ) );
     return Product( t );
 end;
-
-#############################################################################
-##
-#F MaximalDivisorsInt( n )
-##
-MaximalDivisorsInt := function( n )
-    local f, d, i;
-    f := FactorsInt(n);
-    d := [];
-    for i in f do
-        AddSet( d, n/i );
-    od;
-    return d;
-end;
-
