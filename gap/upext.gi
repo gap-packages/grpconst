@@ -303,7 +303,7 @@ IsomorphismClasses := function( list )
         Print("\r");
     fi;
     SortBy( sub, Length );
-    Info( InfoGrpCon, 3, "   Iso: splitted up in sublists of length ",
+    Info( InfoGrpCon, 3, "   Iso: split up in sublists of length ",
                         List( sub, Length ) );
 
     # now reduce
