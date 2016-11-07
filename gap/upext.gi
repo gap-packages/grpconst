@@ -231,9 +231,9 @@ end;
 
 #############################################################################
 ##
-#F ReducedList( list )
+#F ReducedList( size, list )
 ##
-ReducedList := function( list )
+ReducedList := function( size, list )
     local rem, types, G, new, i, H, iso, g, h;
 
     if Length( list ) <= 1 then return list; fi;
@@ -244,6 +244,7 @@ ReducedList := function( list )
     while Length(rem) > 0 do
         g := list[rem[1]];
         G := Group( g, () );
+        SetSize( G, size );
         new := [rem[1]];
         Add( types, g );
 
@@ -251,6 +252,7 @@ ReducedList := function( list )
         for i in [2..Length(rem)] do
             h := list[rem[i]];
             H := Group( h, () );
+            SetSize( H, size );
             iso := IsomorphismTest( G, H );
             if iso then
                 Add( new, rem[i] );
@@ -266,16 +268,16 @@ end;
 
 #############################################################################
 ##
-#F IsomorphismClasses( list )
+#F IsomorphismClasses( size, list )
 ##
-IsomorphismClasses := function( list )
+IsomorphismClasses := function( size, list )
     local sub, fin, G, f, j, i, g, finger;
     
     if Length( list ) <= 1 then return list ; fi;
     Info( InfoGrpCon, 3,"   Iso: test isom on ", Length(list)," groups ");
 
-    G := Group( list[1], () );
-    if ID_AVAILABLE(Size(G)) <> fail then
+    Assert(0, size = Size( Group( list[1], () ) ));
+    if ID_AVAILABLE(size) <> fail then
         finger := IdGroup;
     else
         finger := FingerprintFF;
@@ -290,6 +292,7 @@ IsomorphismClasses := function( list )
         fi;
         g := list[i];
         G := Group( g, () );
+        SetSize( G, size );
         f := finger( G );
         j := Position( fin, f );
         if IsBool( j ) then
@@ -310,7 +313,7 @@ IsomorphismClasses := function( list )
     for i in [1..Length(sub)] do
         Info( InfoGrpCon, 3, "   Iso: start sublist ", i ,"/", Length(sub),
               " of length ", Length(sub[i]) );
-        sub[i] := ReducedList( sub[i] ); 
+        sub[i] := ReducedList( size, sub[i] );
     od;
     sub := Concatenation( sub );
     Info( InfoGrpCon, 3, "   Iso: reduced to ",Length(sub)," groups" );
@@ -361,7 +364,6 @@ function( G, p, aut, n )
         Error("wrong up ext \n");
     fi;
 
-    # sometimes useful
     H := Image( SmallerDegreePermutationRepresentation( H : cheap ) );
 
     return SmallGeneratingSet( H );
@@ -465,7 +467,7 @@ function( P, stepsize )
 
         # reduce to isomorphism classes
         Info( InfoGrpCon, 2, "Iso: reduce to isomorphism clasess \n");
-        grps[i+1] := IsomorphismClasses( grps[i+1] );
+        grps[i+1] := IsomorphismClasses( div[i+1] * size, grps[i+1] );
     od;
 
     Info( InfoGrpCon, 1, "extensions for steps ",div );
