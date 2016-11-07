@@ -273,7 +273,7 @@ InstallGlobalFunction( FrattiniFreeBySize, function( size, flags )
     # check the flags 
     if not CheckFlags( flags ) then return []; fi;
 
-    # get all possible sockes
+    # get all possible socles
     socs := DivisorsInt( size );
     socs := Filtered( socs, x -> x > 1 );
 
