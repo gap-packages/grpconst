@@ -33,7 +33,7 @@ ConstructAllNilpotentGroups := function( arg )
     size := 1;
     for p in Set( pr ) do
         n := Length( Filtered( pr, x -> x = p ) );
-        if (p^n <> 512 and p^n <= 1000) or n <= 5  then # HACK: increase exponent limit from 3 to 5
+        if (p^n <> 512 and p^n <= 1000) or n <= 7 then
             new := AllSmallGroups( p^n, IsNilpotent, true );
         else
             Print("sorry - prime powers in order are too large\n");
