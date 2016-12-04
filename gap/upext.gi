@@ -93,7 +93,7 @@ DirectSplitting := function( G, N )
    if Size(U) = 1 then return [G, C]; fi;
 
    if IsSolvableGroup( U ) then
-       cl := Complementclasses( C, U );
+       cl := ComplementClassesRepresentatives( C, U );
        cl := Filtered( cl, x -> IsNormal(G,x) );
 
        if Length(cl)>0 then

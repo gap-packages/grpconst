@@ -206,7 +206,7 @@ InstallGlobalFunction( FrattiniExtensionsOfGroup, function( F, size )
         Error(" group must be Frattini free ");
     fi;
     S := FittingSubgroup( F );
-    K := Complementclasses( F, S )[1];
+    K := ComplementClassesRepresentatives( F, S )[1];
     pcgs := PcgsByPcSequence( FamilyObj( One(F) ),
                               Concatenation( Pcgs( K ), Pcgs(S) ) );
     code := rec( code := CodePcgs( pcgs ),
