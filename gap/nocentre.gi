@@ -120,7 +120,7 @@ ExtensionsByGroupNoCentre := function( N, H )
     # compute direct product
     Info( InfoGrpCon, 2, " compute direct product and projections ");
     D := DirectProduct( A, H );
-    gensN := List( GeneratorsOfGroup( I ), x -> Tuple( [x, Identity(H)] ) );
+    gensN := List( GeneratorsOfGroup( I ), x -> DirectProductElement( [x, Identity(H)] ) );
 
     # compute perm reps
     Info( InfoGrpCon, 2, " compute perm rep of D ");
@@ -176,7 +176,7 @@ ExtensionsByGroupNoCentre := function( N, H )
             for g in GeneratorsOfGroup( H ) do
                 h := Image( new, g );
                 h := PreImagesRepresentative( hom, h );
-                h := Tuple( [h, g ] );
+                h := DirectProductElement( [h, g ] );
                 Add( gens, h );
             od;
             Append( gens, gensN );
