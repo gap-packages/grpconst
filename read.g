@@ -19,14 +19,14 @@ ReadPackage( "grpconst", "gap/disting.gi");
 ##
 ## files containing the cyclic split extension method
 ##
-ReadPackage( "grpconst/gap/cycl.gi");
+ReadPackage( "grpconst", "gap/cycl.gi");
 
 #############################################################################
 ##
 ## files containing the upwards extension method
 ##
-ReadPackage( "grpconst/gap/upext.gi");
-ReadPackage( "grpconst/gap/nocentre.gi");
+ReadPackage( "grpconst", "gap/upext.gi");
+ReadPackage( "grpconst", "gap/nocentre.gi");
 
 #############################################################################
 ##

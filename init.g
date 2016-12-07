@@ -4,6 +4,6 @@
 ##                                                               Bettina Eick
 
 # Read .gd files
-ReadPackage( "grpconst/gap/grpconst.gd");
+ReadPackage( "grpconst", "gap/grpconst.gd");
 
 
