@@ -63,6 +63,7 @@ Dependencies := rec(
   ExternalConditions := [] ),
 
 AvailabilityTest := ReturnTrue,
+TestFile := "tst/testall.g",
 Autoload := false,
 Keywords := ["constructing groups of small order", 
              "Frattini extension method",
