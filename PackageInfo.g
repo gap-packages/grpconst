@@ -15,6 +15,7 @@ Persons := [
       LastName      := "Besche",
       FirstNames    := "Hans Ulrich",
       IsAuthor      := true,
+      IsMaintainer  := false,
       Place         := "Braunschweig"),
 
  rec(
