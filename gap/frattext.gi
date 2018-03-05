@@ -3,8 +3,6 @@
 #W  frattext.gi                 GrpConst                         Bettina Eick
 #W                                                         Hans Ulrich Besche
 ##
-Revision.("grpconst/gap/frattext_gi") :=
-    "@(#)$Id: frattext.gi,v 1.13 2007/05/08 11:11:51 gap Exp $";
 
 #############################################################################
 ##

@@ -3,8 +3,6 @@
 #W  cycl.gi                     GrpConst                         Bettina Eick
 #W                                                         Hans Ulrich Besche
 ##
-Revision.("grpconst/gap/cycl_gi") :=
-    "@(#)$Id: cycl.gi,v 1.11 2011/01/31 12:18:13 gap Exp $";
 
 #############################################################################
 ##

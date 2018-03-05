@@ -3,8 +3,6 @@
 #W  semisim.gi                  GrpConst                         Bettina Eick
 #W                                                         Hans Ulrich Besche
 ##
-Revision.("grpconst/gap/semisim_gi") :=
-    "@(#)$Id: semisim.gi,v 1.7 2011/01/31 12:18:13 gap Exp $";
 
 #############################################################################
 ##

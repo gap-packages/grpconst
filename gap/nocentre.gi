@@ -3,8 +3,6 @@
 #W  nocentre.gi                 GrpConst                         Bettina Eick
 #W                                                         Hans Ulrich Besche
 ##
-Revision.("grpconst/gap/nocentre_gi") :=
-    "@(#)$Id: nocentre.gi,v 1.5 2010/10/21 07:00:17 gap Exp $";
 
 #############################################################################
 ##

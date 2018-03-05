@@ -3,8 +3,6 @@
 #W  intdiv.gi                  GrpConst                          Bettina Eick
 #W                                                         Hans Ulrich Besche
 ##
-Revision.("grpconst/gap/indiv_gi") :=
-    "@(#)$Id: intdiv.gi,v 1.3 2005/02/15 12:19:24 gap Exp $";
 
 #############################################################################
 ##

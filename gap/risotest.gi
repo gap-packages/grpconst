@@ -3,8 +3,6 @@
 #W  risotest.gi                GrpConst                    Hans Ulrich Besche
 #W                                                               Bettina Eick
 ##
-Revision.("grpconst/gap/risotest_gi") :=
-    "@(#)$Id: risotest.gi,v 1.13 1999/10/15 17:32:49 gap Exp $";
 
 #############################################################################
 ##

@@ -3,8 +3,6 @@
 #W  irred.gi                    GrpConst                         Bettina Eick
 #W                                                         Hans Ulrich Besche
 ##
-Revision.("grpconst/gap/irred_gi") :=
-    "@(#)$Id: irred.gi,v 1.10 2004/11/01 13:21:31 gap Exp $";
 
 #############################################################################
 ##

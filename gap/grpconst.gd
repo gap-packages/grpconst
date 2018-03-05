@@ -3,8 +3,6 @@
 #W  grpconst.gd                   Grpconst                       Bettina Eick
 #W                                                         Hans Ulrich Besche
 ##
-Revision.("grpconst/gap/grpconst_gd") :=
-    "@(#)$Id: grpconst.gd,v 1.11 2007/05/08 11:11:51 gap Exp $";
 
 #############################################################################
 ##

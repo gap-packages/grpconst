@@ -3,8 +3,6 @@
 #W  disting.gi                GAP library                  Hans Ulrich Besche
 #W                                                               Bettina Eick
 ##
-Revision.("grpconst/gap/disting_gi") :=
-    "@(#)$Id: disting.gi,v 1.3 2005/02/22 11:17:23 gap Exp $";
 
 #############################################################################
 ##

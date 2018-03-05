@@ -3,8 +3,6 @@
 #W  upext.gi                      GrpConst                       Bettina Eick
 #W                                                         Hans Ulrich Besche
 ##
-Revision.("grpconst/gap/upext_gi") :=
-    "@(#)$Id: upext.gi,v 1.9 2005/05/06 12:25:32 gap Exp $";
 
 #############################################################################
 ##
