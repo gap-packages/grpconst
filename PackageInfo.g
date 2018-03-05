@@ -37,12 +37,18 @@ Status := "accepted",
 CommunicatedBy := "Charles Wright (Eugene)",
 AcceptDate := "07/1999",
 
-PackageWWWHome := "http://www.icm.tu-bs.de/~beick/so.html",
-
+PackageWWWHome  := "https://gap-packages.github.io/grpconst/",
+README_URL      := Concatenation( ~.PackageWWWHome, "README" ),
+PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+SourceRepository := rec(
+    Type := "git",
+    URL := "https://github.com/gap-packages/grpconst",
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+ArchiveURL      := Concatenation( ~.SourceRepository.URL,
+                                 "/releases/download/v", ~.Version,
+                                 "/grpconst-", ~.Version ),
 ArchiveFormats := ".tar.gz",
-ArchiveURL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/grpconst-2.5",
-README_URL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/README",
-PackageInfoURL := "http://www.icm.tu-bs.de/~beick/soft/grpconst/PackageInfo.g",
 
 AbstractHTML := 
 "The <span class=\"pkgname\">GrpConst</span> package contains methods to construct up to isomorphism the groups of a given order. The FrattiniExtensionMethod constructs all soluble groups of a given order. On request it gives only those that are (or are not) nilpotent or supersolvable or that do (or do not) have normal Sylow subgroups for some given set of primes. The CyclicSplitExtensionMethod constructs all groups having a normal Sylow subgroup for orders of the type p^n *q. The method relies on the availability of a list of all groups of order p^n. The UpwardsExtensions algorithm takes as input a permutation group G and a positive integer s and returns a list of permutation groups, one for each extension of G by a soluble group of order a divisor of s. This method can used to construct the non-solvable groups of a given order by taking the perfect groups of certain orders as input for G. The programs in this package have been used to construct a large part of the Small Groups library.",
@@ -65,7 +71,6 @@ Dependencies := rec(
 
 AvailabilityTest := ReturnTrue,
 TestFile := "tst/testall.g",
-Autoload := false,
 Keywords := ["constructing groups of small order", 
              "Frattini extension method",
              "Cyclic split extension method",
