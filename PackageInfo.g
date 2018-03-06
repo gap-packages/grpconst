@@ -23,7 +23,7 @@ Persons := [
       FirstNames    := "Bettina",
       IsAuthor      := true,
       IsMaintainer  := true,
-      Email         := "b.eick@tu-bs.de",
+      Email         := "beick@tu-bs.de",
       WWWHome       := "http://www.icm.tu-bs.de/~beick",
       PostalAddress := Concatenation( [
             "Institut Computational Mathematics\n",
