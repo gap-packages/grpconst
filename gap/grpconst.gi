@@ -20,7 +20,7 @@ InstallGlobalFunction( AllNonSolublePerfectGroups, function( size )
     fi;
 end );
 
-ConstructAllNilpotentGroups := function( arg )
+BindGlobal( "ConstructAllNilpotentGroups", function( arg )
     local size, uncoded, pr, grps, p, n, new, tmp, G, H, D;
 
     size := arg[1];
@@ -58,9 +58,9 @@ ConstructAllNilpotentGroups := function( arg )
     od;
 
     return grps;
-end;
+end );
 
-ConstructAllSolvableNonNilpotentGroups := function( arg )
+BindGlobal( "ConstructAllSolvableNonNilpotentGroups", function( arg )
     local size, uncoded, pr, grps, new, tmp, cl, flags, i;
 
     size := arg[1];
@@ -114,9 +114,9 @@ ConstructAllSolvableNonNilpotentGroups := function( arg )
     fi;
 
     return grps;
-end;
+end );
 
-ConstructAllNonSolvableGroups := function( size )
+BindGlobal( "ConstructAllNonSolvableGroups", function( size )
     local grps, new, tmp, G, d;
 
     tmp := [];
@@ -141,7 +141,7 @@ ConstructAllNonSolvableGroups := function( size )
     od;
 
     return grps;
-end;
+end );
 
 #############################################################################
 ##
