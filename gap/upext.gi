@@ -371,6 +371,28 @@ end );
 
 #############################################################################
 ##
+#F ConjugatingElement( G, inn )
+##
+ConjugatingElement := function( G, inn )
+    local elm, C, g, h, n, gens, imgs, i;
+
+    elm := Identity( G );
+    C   := G;
+    gens := GeneratorsOfGroup( G );
+    imgs := List( gens, x -> Image( inn, x ) );
+    for i in [1..Length(gens)] do
+        g := gens[i];
+        h := imgs[i];
+        n := RepresentativeAction( C, g, h );
+        elm := elm * n;
+        C := Centralizer( C, g^n );
+        gens := List( gens, x -> x ^ n );
+    od;
+    return elm;
+end;
+
+#############################################################################
+##
 #F CyclicExtensions( G, p )
 ##
 InstallGlobalFunction( CyclicExtensions,
