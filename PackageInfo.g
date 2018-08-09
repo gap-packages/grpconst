@@ -6,8 +6,8 @@ SetPackageInfo( rec(
 
 PackageName := "GrpConst",
 Subtitle := "Constructing the Groups of a Given Order",
-Version := "2.6",
-Date := "08/03/2018",
+Version := "2.6.1",
+Date := "09/08/2018",
 
 Persons := [
 
