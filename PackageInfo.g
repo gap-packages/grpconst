@@ -6,8 +6,8 @@ SetPackageInfo( rec(
 
 PackageName := "GrpConst",
 Subtitle := "Constructing the Groups of a Given Order",
-Version := "2.6",
-Date := "08/03/2018",
+Version := "2.6.1",
+Date := "09/08/2018",
 
 Persons := [
 
@@ -31,6 +31,24 @@ Persons := [
             "Pockelsstr. 14\n D-38106 Braunschweig\n Germany" ] ),
       Place         := "Braunschweig",
       Institution   := "TU Braunschweig"),
+
+  rec(
+    LastName      := "Horn",
+    FirstNames    := "Max",
+    IsAuthor      := false,
+    IsMaintainer  := true,
+    Email         := "max.horn@math.uni-giessen.de",
+    WWWHome       := "http://www.quendi.de/math",
+    PostalAddress := Concatenation(
+                       "AG Algebra\n",
+                       "Mathematisches Institut\n",
+                       "Justus-Liebig-Universität Gießen\n",
+                       "Arndtstraße 2\n",
+                       "35392 Gießen\n",
+                       "Germany" ),
+    Place         := "Gießen",
+    Institution   := "Justus-Liebig-Universität Gießen"
+  ),
 ],
 
 Status := "accepted",
