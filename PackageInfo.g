@@ -6,8 +6,8 @@ SetPackageInfo( rec(
 
 PackageName := "GrpConst",
 Subtitle := "Constructing the Groups of a Given Order",
-Version := "2.6.1",
-Date := "09/08/2018", # dd/mm/yyyy format
+Version := "2.6.2",
+Date := "11/10/2018", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -17,7 +17,7 @@ Persons := [
       FirstNames    := "Hans Ulrich",
       IsAuthor      := true,
       IsMaintainer  := false,
-      Place         := "Braunschweig"),
+      Place         := ""),
 
  rec(
       LastName      := "Eick",
@@ -25,11 +25,13 @@ Persons := [
       IsAuthor      := true,
       IsMaintainer  := true,
       Email         := "beick@tu-bs.de",
-      WWWHome       := "http://www.icm.tu-bs.de/~beick",
-      PostalAddress := Concatenation( [
-            "Institut Computational Mathematics\n",
-            "TU Braunschweig\n",
-            "Pockelsstr. 14\n D-38106 Braunschweig\n Germany" ] ),
+      WWWHome       := "http://www.iaa.tu-bs.de/beick",
+      PostalAddress := Concatenation(
+               "Institut Analysis und Algebra\n",
+               "TU Braunschweig\n",
+               "Universitätsplatz 2\n",
+               "D-38106 Braunschweig\n",
+               "Germany" ),
       Place         := "Braunschweig",
       Institution   := "TU Braunschweig"),
 
