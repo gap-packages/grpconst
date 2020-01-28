@@ -6,8 +6,9 @@ SetPackageInfo( rec(
 
 PackageName := "GrpConst",
 Subtitle := "Constructing the Groups of a Given Order",
-Version := "2.6.1",
-Date := "09/08/2018",
+Version := "2.6.2",
+Date := "28/01/2020", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
 
@@ -16,7 +17,7 @@ Persons := [
       FirstNames    := "Hans Ulrich",
       IsAuthor      := true,
       IsMaintainer  := false,
-      Place         := "Braunschweig"),
+      Place         := ""),
 
  rec(
       LastName      := "Eick",
@@ -24,11 +25,13 @@ Persons := [
       IsAuthor      := true,
       IsMaintainer  := true,
       Email         := "beick@tu-bs.de",
-      WWWHome       := "http://www.icm.tu-bs.de/~beick",
-      PostalAddress := Concatenation( [
-            "Institut Computational Mathematics\n",
-            "TU Braunschweig\n",
-            "Pockelsstr. 14\n D-38106 Braunschweig\n Germany" ] ),
+      WWWHome       := "http://www.iaa.tu-bs.de/beick",
+      PostalAddress := Concatenation(
+               "Institut Analysis und Algebra\n",
+               "TU Braunschweig\n",
+               "Universitätsplatz 2\n",
+               "D-38106 Braunschweig\n",
+               "Germany" ),
       Place         := "Braunschweig",
       Institution   := "TU Braunschweig"),
 
@@ -37,17 +40,16 @@ Persons := [
     FirstNames    := "Max",
     IsAuthor      := false,
     IsMaintainer  := true,
-    Email         := "max.horn@math.uni-giessen.de",
-    WWWHome       := "http://www.quendi.de/math",
+    Email         := "max.horn@uni-siegen.de",
+    WWWHome       := "https://www.quendi.de/math",
     PostalAddress := Concatenation(
-                       "AG Algebra\n",
-                       "Mathematisches Institut\n",
-                       "Justus-Liebig-Universität Gießen\n",
-                       "Arndtstraße 2\n",
-                       "35392 Gießen\n",
+                       "Department Mathematik\n",
+                       "Universität Siegen\n",
+                       "Walter-Flex-Straße 3\n",
+                       "57072 Siegen\n",
                        "Germany" ),
-    Place         := "Gießen",
-    Institution   := "Justus-Liebig-Universität Gießen"
+    Place         := "Siegen",
+    Institution   := "Universität Siegen"
   ),
 ],
 
