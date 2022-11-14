@@ -240,7 +240,7 @@ InstallGlobalFunction( IrreducibleGroupsByEmbeddings, function(n,p,size)
 
         # in all other cases loop over all groups
         else
-            all := AllGroups( d, IsSolvableGroup );
+            all := AllSmallGroups( d, IsSolvableGroup );
             for L in all do
                 Append( cl, IrreducibleEmbeddings( n, p, L ) );
             od;

@@ -198,7 +198,7 @@ UpwardsExtensionsNoCentre := function( N, stepsize )
     if stepsize = 1 then
         return [N];
     fi;
-    all := AllGroups( stepsize, IsSolvableGroup, true );
+    all := AllSmallGroups( stepsize, IsSolvableGroup, true );
     res := [];
     for G in all do
         IsPGroup( G );
