@@ -492,7 +492,7 @@ end);
 ## If these (and `DistinguishGroups') have failed, this function can try
 ## alternative elements of the frattinifactor. The function is usefull e.g.
 ## for some groups of size 1728.
-ReducedByIsomorphismsFEMAnother := function( list, frec, level )
+BindGlobal( "ReducedByIsomorphismsFEMAnother", function( list, frec, level )
 
    local i, tlist, Finfo;
 
@@ -532,4 +532,4 @@ ReducedByIsomorphismsFEMAnother := function( list, frec, level )
    Sort( tlist, function( x, y ) return Length(x) < Length(y); end );
 
    return Concatenation( Filtered( list, IsRecord ), tlist );
-end;
+end );

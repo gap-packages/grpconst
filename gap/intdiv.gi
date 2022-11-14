@@ -8,23 +8,23 @@
 ##
 #F UnknownSize( sizes, n ) . . .check
 ##
-UnknownSize := function( sizes, n )
+BindGlobal( "UnknownSize", function( sizes, n )
     return not ForAny( sizes, x -> IsInt(x/n) );
-end;
+end );
 
 #############################################################################
 ##
 #F KnownSize( sizes, n ) . . .check
 ##
-KnownSize := function( sizes, n )
+BindGlobal( "KnownSize", function( sizes, n )
     return ForAny( sizes, x -> IsInt(x/n) );
-end;
+end );
 
 #############################################################################
 ##
 #F MinimizeList( list ) . . . . . . . . . . . . . . . . . . . . . reduce list
 ##
-MinimizeList := function( list )
+BindGlobal( "MinimizeList", function( list )
     local new, l;
     new := list{[1]};
     for l in list{[2..Length(list)]} do
@@ -34,31 +34,31 @@ MinimizeList := function( list )
         fi;
     od;
     return new;
-end;
+end );
 
 #############################################################################
 ##
 #F SizeOfGL( n, p )
 ##
-SizeOfGL := function( n, p )
+BindGlobal( "SizeOfGL", function( n, p )
     return Product( [1..n], x -> p^n - p^(x-1) );
-end;
+end );
 
 #############################################################################
 ##
 #F IsCubeFree( m )
 ##
-IsCubeFree := function( m )
+BindGlobal( "IsCubeFree", function( m )
     return ForAll( Collected(Factors(m)), x -> x[2] <= 2 );
-end;
+end );
 
 
 #############################################################################
 ##
 #F MaximalAutSize( n )
 ##
-MaximalAutSize := function( n )
+BindGlobal( "MaximalAutSize", function( n )
     local s;
     s := Collected( FactorsInt( n ) );
     return Product( s, x -> SizeOfGL( x[2], x[1] ) );
-end;
+end );

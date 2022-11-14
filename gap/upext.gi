@@ -27,7 +27,7 @@ end );
 ##
 ## Characteristic direct products are a special case.
 ##
-AutomorphismGroupSpecial := function(G)
+BindGlobal( "AutomorphismGroupSpecial", function(G)
     local N, C, U, 
           AN, AC, gensN, gensC, idN, idC, gens, autos, aut, imgs, auto,
           cls, tups, subl, tup, ext, tmp, cl, imgtup, n, orb, g, max, k, 
@@ -75,13 +75,13 @@ AutomorphismGroupSpecial := function(G)
     fi;
     Info( InfoGrpCon, 3, "   Aut: compute aut group - general case ");
     return AutomorphismGroup( G );
-end;
+end );
 
 #############################################################################
 ##
 #F DirectSplitting( G, N )
 ##
-DirectSplitting := function( G, N )
+BindGlobal( "DirectSplitting", function( G, N )
    local C, U, cl, norm;
    
    C := Centralizer( G, N );
@@ -111,13 +111,13 @@ DirectSplitting := function( G, N )
    else
        return [G];
    fi;
-end;
+end );
 
 #############################################################################
 ##
 #F RandomIsomorphismTestUEM( G, H )
 ##
-RandomIsomorphismTestUEM := function( G, H )
+BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
     local cocl, cocr, size, ngens, size_inner, elms, poses, pos, qual, i, j,
           gens1, gens2, f, tpos, tqual, len_classes;
 
@@ -191,13 +191,13 @@ RandomIsomorphismTestUEM := function( G, H )
                                  " loops without isomorphism" );
         fi;
     od;
-end;
+end );
 
 #############################################################################
 ##
 #F IsomorphismTest( G, H )
 ##
-IsomorphismTest := function( G, H )
+BindGlobal( "IsomorphismTest", function( G, H )
     local homG, homH, dirG, dirH, res, i;
 
     # the factor
@@ -227,13 +227,13 @@ IsomorphismTest := function( G, H )
 
     # the final test - both groups are not direct splittings
     return not IsBool( IsomorphismGroups( G, H ) );
-end;
+end );
 
 #############################################################################
 ##
 #F ReducedList( size, list )
 ##
-ReducedList := function( size, list )
+BindGlobal( "ReducedList", function( size, list )
     local rem, types, G, new, i, H, iso, g, h;
 
     if Length( list ) <= 1 then return list; fi;
@@ -264,13 +264,13 @@ ReducedList := function( size, list )
     od;
 
     return types;
-end;  
+end );  
 
 #############################################################################
 ##
 #F IsomorphismClasses( size, list )
 ##
-IsomorphismClasses := function( size, list )
+BindGlobal( "IsomorphismClasses", function( size, list )
     local sub, fin, G, f, j, i, g, finger;
     
     if Length( list ) <= 1 then return list ; fi;
@@ -318,7 +318,7 @@ IsomorphismClasses := function( size, list )
     sub := Concatenation( sub );
     Info( InfoGrpCon, 3, "   Iso: reduced to ",Length(sub)," groups" );
     return sub;
-end;
+end );
 
 #############################################################################
 ##
@@ -373,7 +373,7 @@ end );
 ##
 #F ConjugatingElement( G, inn )
 ##
-ConjugatingElement := function( G, inn )
+BindGlobal( "ConjugatingElement", function( G, inn )
     local elm, C, g, h, n, gens, imgs, i;
 
     elm := Identity( G );
@@ -389,7 +389,7 @@ ConjugatingElement := function( G, inn )
         gens := List( gens, x -> x ^ n );
     od;
     return elm;
-end;
+end );
 
 #############################################################################
 ##

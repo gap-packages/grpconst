@@ -103,7 +103,7 @@ end );
 ##
 #F FilterByFlags( grps, flags )
 ##
-FilterByFlags := function( grps, flags )
+BindGlobal( "FilterByFlags", function( grps, flags )
     local p;
     if IsBound( flags.nonnilpot ) then
         grps := Filtered( grps, x -> Size( x ) > 1 );
@@ -117,7 +117,7 @@ FilterByFlags := function( grps, flags )
         grps := Filtered( grps, x -> Set( SocleDimensions(x) ) <> [1] );
     fi;
     return grps;
-end;
+end );
 
 #############################################################################
 ##
@@ -294,9 +294,9 @@ end );
 ##
 #F DecodeList( list ) . . . . . . . . . . . . . . . . .decode a list of codes 
 ##
-DecodeList := function( list )
+BindGlobal( "DecodeList", function( list )
     return List( list, x -> PcGroupCodeRec( x ) );
-end;
+end );
 
 #############################################################################
 ##
@@ -321,7 +321,7 @@ end );
 ##
 #F FrattFreeNonNilUpToSize( soc, limit ) . .  compute non-nilpotent ff groups
 ##
-FrattiniFreeNonNilUpToSize := function( soc, limit )
+BindGlobal( "FrattiniFreeNonNilUpToSize", function( soc, limit )
     local sizs, pos, rem, new, grps, i, j, tmp, flags, max;
    
     # all possible sizes
@@ -351,13 +351,13 @@ FrattiniFreeNonNilUpToSize := function( soc, limit )
     od;
             
     return grps;
-end;
+end );
 
 #############################################################################
 ##
 #F CheckFrattFreeNonNil( limit ) . . . . . . . . . . . . . . .a check routine
 ##
-CheckFrattFreeNonNil := function( n )
+BindGlobal( "CheckFrattFreeNonNil", function( n )
     local socs, erg1, soc, new, erg2;
 
     socs := [2..QuoInt(n,2)];
@@ -381,5 +381,5 @@ CheckFrattFreeNonNil := function( n )
   
     return erg1 = erg2;
 
-end;
+end );
 

@@ -8,7 +8,7 @@
 ##
 #F QClasses( A, q )
 ##
-QClasses := function( A, q )
+BindGlobal( "QClasses", function( A, q )
     local hom, P, S, cl;
 
     hom := NiceMonomorphism( A );
@@ -26,7 +26,7 @@ QClasses := function( A, q )
     cl := MyRatClassesPElmsReps( P, q );
     cl := List( cl, x -> PreImage(hom, x));
     return cl;
-end;
+end );
 
 #############################################################################
 ##
@@ -86,7 +86,7 @@ end);
 ##
 #F NormalSubgroupsCyclicFactor( G, d )
 ##
-NormalSubgroupsCyclicFactor := function( G, d )
+BindGlobal( "NormalSubgroupsCyclicFactor", function( G, d )
     local nat, F, norms, i, max;
 
     nat := MaximalAbelianQuotient( G );
@@ -104,7 +104,7 @@ NormalSubgroupsCyclicFactor := function( G, d )
         od;
     fi;
     return List( norms, x -> PreImage( nat,x ) );
-end;
+end );
 
 #############################################################################
 ##
@@ -274,7 +274,7 @@ function( arg )
 end );
 
 #############################################################################
-NumberChecks := function( p, n, q )
+BindGlobal( "NumberChecks", function( p, n, q )
     local o, k, i, G, u, d;
     o := p^n * q;
     k := NumberSmallGroups( o );
@@ -291,5 +291,5 @@ NumberChecks := function( p, n, q )
         fi;
     od;
     return rec( up := u, down := d );
-end;
+end );
 
