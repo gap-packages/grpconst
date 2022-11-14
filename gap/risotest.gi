@@ -62,7 +62,7 @@ InstallGlobalFunction( AddRandomTestInfosFEM, function( arg )
         poses := nposes;
     od;
 
-    # sort the strategies acording to the number of generating sets
+    # sort the strategies according to the number of generating sets
     typs := List( orbss, Length );
     qual := List( poses, x-> Product( typs{ x } ) );
     SortParallel( qual, poses );
@@ -411,7 +411,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
 
     if rem > 1 then
         Info( InfoRandIso, 1, " ", rem,
-              " candidates not seperated by RandomIsomorphismTestFEM"); 
+              " candidates not separated by RandomIsomorphismTestFEM"); 
     fi;
 
     return rec( 
@@ -487,10 +487,10 @@ end);
 ##
 #F ReducedByIsomorphismsFEMAnother( list, frec, level )
 ##
-## The function `ReducedByIsomorphismsFEM' allways uses the first strategy
+## The function `ReducedByIsomorphismsFEM' always uses the first strategy
 ## for the elements of the frattinifactor choiced by `AddRandomTestInfosFEM'.
 ## If these (and `DistinguishGroups') have failed, this function can try
-## alternative elements of the frattinifactor. The function is usefull e.g.
+## alternative elements of the frattinifactor. The function is useful e.g.
 ## for some groups of size 1728.
 ReducedByIsomorphismsFEMAnother := function( list, frec, level )
 

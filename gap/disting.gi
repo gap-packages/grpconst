@@ -23,11 +23,11 @@ InstallGlobalFunction( DiffCocList, function( coclist, flagwordtest )
 
    Info( InfoRandIso, 2, "    DiffCocList starts" );
 
-   # general informations
+   # general information
    orders := List( coclist[ 1 ], x -> Order( x[ 1 ][ 1 ] ) );
    lencoc := Length( coclist[ 1 ] );
 
-   # create a list of usefull tests on the powermap
+   # create a list of useful tests on the powermap
    fpcand := [ ];
    for i in [ 2 .. lencoc ] do
       for j in Filtered( [ 2..orders[i]-1 ], x -> Gcd( x, orders[i]) = 1 ) do
@@ -60,7 +60,7 @@ InstallGlobalFunction( DiffCocList, function( coclist, flagwordtest )
       Add( fpqual, [ Length( sfinps ), Length( finps[ 1 ] ) ] );
    od;
 
-   # find the test best spliting the list of groups
+   # find the test best splitting the list of groups
    pos := Position( fpqual, Maximum( fpqual ) );
    if fpqual[ pos ][ 1 ] > 1 then
       Info( InfoRandIso, 2, "    DiffCocList split ", Length( coclist ),
@@ -68,7 +68,7 @@ InstallGlobalFunction( DiffCocList, function( coclist, flagwordtest )
       return [ fpcand[ pos ] ];
    fi;
 
-   # find the test best spliting the clusters and call DiffCocList recursive
+   # find the test best splitting the clusters and call DiffCocList recursive
    if fpqual[ pos ][ 2 ] > 1 then 
       for j in [ 1 .. Length( coclist ) ] do
          coclist[ j ] := DiffCoc( coclist[ j ], fpcand[ pos ][ 2 ],
@@ -97,7 +97,7 @@ InstallGlobalFunction( DiffCocList, function( coclist, flagwordtest )
       i := i + Length( j );
    od;
 
-   # loop over the sugested words 
+   # loop over the suggested words 
    # 4: Comm( g1, g2 ) * a ^ 2
    # 5: Comm( g1, g2 ) * a ^ 3
    for word in [ 4 .. 5 ] do
@@ -182,7 +182,7 @@ InstallGlobalFunction( DistinguishGroups, function( list, flagwordtest )
          finps := DiffCocList( cocs, flagwordtest );
 
          if finps[ Length( finps ) ] <> fail then
-            # separation was succesful
+            # separation was successful
             finps := finps[ Length( finps ) ];
             finps := List( cocs, x -> Collected( EvalFpCoc( x,finps ) ) );
 
@@ -206,7 +206,7 @@ InstallGlobalFunction( DistinguishGroups, function( list, flagwordtest )
             fi;
 
          else
-            Info( InfoRandIso, 1, "   IdentifyGroups could not seperate" );
+            Info( InfoRandIso, 1, "   IdentifyGroups could not separate" );
          fi;
       fi;
       i := i + 1;
