@@ -256,7 +256,7 @@ InstallGlobalFunction( IrreducibleGroups, function( n, p, size )
     #elif p^n < 256 and PRIM_AVAILABLE then
     elif IsAvailableIrreducibleSolvableGroupData(n,p) then
         return IrreducibleGroupsByCatalogue(n,p,size);
-    elif not IsBool( SMALL_AVAILABLE(size) ) then
+    elif SmallGroupsAvailable(size) then
         return IrreducibleGroupsByEmbeddings(n,p,size);
     else 
         return fail;

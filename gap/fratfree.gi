@@ -372,7 +372,7 @@ BindGlobal( "CheckFrattFreeNonNil", function( n )
     Print( erg1, "\n");
 
     erg2 := List( Difference( [2..n], [512] ), x -> 
-            IdsOfAllGroups( x, FrattinifactorSize, x, 
+            IdsOfAllSmallGroups( x, FrattinifactorSize, x, 
                                IsAbelian, false,
                                IsSolvableGroup, true ) );
     erg2 := Concatenation( erg2 );

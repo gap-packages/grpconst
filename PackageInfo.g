@@ -85,7 +85,11 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.7",
-  NeededOtherPackages := [["autpgrp", ">=1.6"], ["irredsol", ">=1.2"]],
+  NeededOtherPackages := [
+    ["autpgrp", ">=1.6"],
+    ["irredsol", ">=1.2"],
+    ["smallgrp", ">=1.4"],
+  ],
   SuggestedOtherPackages := [],
   ExternalConditions := [] ),
 
