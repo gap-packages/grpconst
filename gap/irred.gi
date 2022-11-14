@@ -49,7 +49,7 @@ end );
 ##
 #F Check conjugacy of groups 
 ##
-AreConjugateGroups := function( M, G, H )
+BindGlobal( "AreConjugateGroups", function( M, G, H )
     local nat, g, iso, aut, a, h, C, i, r;
 
     Print("    compute images \n");
@@ -84,7 +84,7 @@ AreConjugateGroups := function( M, G, H )
         if not IsBool(r) then return true; fi;
     od;
     return false;
-end;
+end );
 
 InstallGlobalFunction( ReduceToClasses, function( M, list )
     local gens, reps, U, orb, c, g, new;
@@ -267,7 +267,7 @@ end );
 ##
 #F Test to check embeddings versus catalogue
 ##
-TestIrred := function(limit, start)
+BindGlobal( "TestIrred", function(limit, start)
     local ppi, q, p, n, max, size, emb, cat;
     ppi := Filtered([start..255], x -> IsPrimePowerInt(x) and not IsPrime(x));
     for q in ppi do
@@ -287,4 +287,4 @@ TestIrred := function(limit, start)
             fi;
         od;
     od;
-end; 
+end ); 

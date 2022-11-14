@@ -8,7 +8,7 @@
 ##
 #F PermRepDP( D ) . . . . . . . . . . . . . permutation rep of direct product
 ##
-PermRepDP := function( D )
+BindGlobal( "PermRepDP", function( D )
     local A, B, operA, operB, G, emb1, emb2;
 
     A := Image( Projection( D, 1 ) );
@@ -20,13 +20,13 @@ PermRepDP := function( D )
     emb2 := Embedding( G, 2 );
     return [operA * emb1, operB * emb2];
 
-end;
+end );
 
 #############################################################################
 ##
 #F PermOper( oper, elms ) . . . . . . . . perm rep of direct product elements
 ##
-PermOper := function( oper, gens )
+BindGlobal( "PermOper", function( oper, gens )
     local new, g, h1, h2, h;
     new := [];
     for g in gens do
@@ -36,14 +36,14 @@ PermOper := function( oper, gens )
         Add( new, h );
     od;
     return Group( new, () );
-end;
+end );
 
 
 #############################################################################
 ##
 #F CosetReps . . . . . . . . . . . . . double coset reps for induced aut grps
 ##
-CosetReps := function( C, hom, NU, NL )
+BindGlobal( "CosetReps", function( C, hom, NU, NL )
     local U, H, CU, gens, oper, g, imgs, aut, CL, reps;
 
     if Size( C ) = 1 then return [Identity(C)]; fi;
@@ -81,14 +81,14 @@ CosetReps := function( C, hom, NU, NL )
     reps := DoubleCosets( C, CL, CU );
     #reps := DoubleCosets( C, CU, CL );
     return List( reps, Representative );
-end;
+end );
  
 #############################################################################
 ##
 ## N is a center-free perfect group and H is soluble.
 ## classify extensions of N by H up to isomorphism
 ##
-ExtensionsByGroupNoCentre := function( N, H )
+BindGlobal( "ExtensionsByGroupNoCentre", function( N, H )
     local A, I, hom, O, clU, B, clL, f, D, gensN, oper, pairs, U, L, nat, 
           F, iso, res, NU, NL, C, reps, r, new, gens, G, pair, g, h;
 
@@ -187,13 +187,13 @@ ExtensionsByGroupNoCentre := function( N, H )
     od;
     
     return res;
-end;
+end );
 
 #############################################################################
 ##
 #F UpwardsExtensionsNoCentre( N, stepsize )
 ##
-UpwardsExtensionsNoCentre := function( N, stepsize )
+BindGlobal( "UpwardsExtensionsNoCentre", function( N, stepsize )
     local all, res, G, tmp;
     if stepsize = 1 then
         return [N];
@@ -207,5 +207,5 @@ UpwardsExtensionsNoCentre := function( N, stepsize )
         Append( res, tmp );
     od;
     return res;
-end;
+end );
 

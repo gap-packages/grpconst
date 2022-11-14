@@ -8,14 +8,14 @@
 ##
 #F IntCoefficients( primes, vec )
 ##
-IntCoefficients := function( primes, vec )
+BindGlobal( "IntCoefficients", function( primes, vec )
     local int, i;
     int := 0;
     for i in [1..Length(primes)] do
         int := int * primes[i] + vec[i];
     od;
     return int;
-end;
+end );
 
 #############################################################################
 ##
@@ -65,7 +65,7 @@ end );
 ##
 #F CentralModules( F, field, d )
 ##
-CentralModules := function( F, field, d )
+BindGlobal( "CentralModules", function( F, field, d )
     local modus, i, mats, modu;
     modus := [];
     for i in [2..d] do
@@ -76,18 +76,18 @@ CentralModules := function( F, field, d )
         Add( modus, modu );
     od;
     return modus;
-end;
+end );
 
 #############################################################################
 ##
 #F IsCentralExtension( F, ext )
 ##
-IsCentralExtension := function( F, ext )
+BindGlobal( "IsCentralExtension", function( F, ext )
     local pcgs, N;
     pcgs := Pcgs( ext );
     N := Subgroup( ext, pcgs{[Length(Pcgs(F))+1..Length(pcgs)]} );
     return IsElementaryAbelian(N) and IsCentral( ext, N );
-end;
+end );
 
 #############################################################################
 ##

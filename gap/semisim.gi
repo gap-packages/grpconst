@@ -78,7 +78,7 @@ end );
 ##
 #F ComputeSocleDimensions( iso, U )
 ##
-ComputeSocleDimensions := function( iso, U )
+BindGlobal( "ComputeSocleDimensions", function( iso, U )
     local gens, mats, modu, comp, dims;
     gens := GeneratorsOfGroup(U);
     mats := List( gens, x -> PreImagesRepresentative(iso, x) );
@@ -87,13 +87,13 @@ ComputeSocleDimensions := function( iso, U )
     dims := List( comp, x -> x.dimension );
     Sort( dims );
     SetSocleDimensions( U, dims );
-end;
+end );
 
 #############################################################################
 ##
 #F ReduceConjugates( P, all )
 ##
-ReduceConjugates := function( P, all )
+BindGlobal( "ReduceConjugates", function( P, all )
     local sub, U, found, j;
 
     sub := [];
@@ -109,13 +109,13 @@ ReduceConjugates := function( P, all )
         if not found then Add( sub, U ); fi;
     od;
     return sub;
-end;
+end );
 
 #############################################################################
 ##
 #F MyRationalClassesPElements( P, p )
 ##
-MyRatClassesPElmsReps := function(P,p)
+BindGlobal( "MyRatClassesPElmsReps", function(P,p)
     local o, Q, cl, l, todo, i, j, k;
 
     # some easy cases
@@ -149,7 +149,7 @@ MyRatClassesPElmsReps := function(P,p)
     cl := List(cl, Representative);
 
     return cl;
-end;
+end );
 
 #############################################################################
 ##
@@ -157,7 +157,7 @@ end;
 ##
 ## Case for trivial sizes; that is, sizes = [q] for q = 1 or q prime
 ##
-SemiSimpleGroupsTS := function( n, p, sizes, iso )
+BindGlobal( "SemiSimpleGroupsTS", function( n, p, sizes, iso )
     local M, P, q, sub, new, i;
 
     # set up
@@ -178,7 +178,7 @@ SemiSimpleGroupsTS := function( n, p, sizes, iso )
     # add info
     for i in [1..Length(sub)] do ComputeSocleDimensions( iso, sub[i] ); od;
     return sub;
-end;
+end );
 
 #############################################################################
 ##
@@ -186,7 +186,7 @@ end;
 ##
 ## General case without restrictions.
 ##
-SemiSimpleGroupsGC := function( n, p, sizes, iso )
+BindGlobal( "SemiSimpleGroupsGC", function( n, p, sizes, iso )
     local M, P, irr, d, i, new, subdir, part, cand, list, all, emb, sub;
 
     M := Source( iso );
@@ -227,7 +227,7 @@ SemiSimpleGroupsGC := function( n, p, sizes, iso )
         Append( subdir, sub );
     od;
     return subdir; 
-end; 
+end ); 
 
 #############################################################################
 ##
@@ -235,7 +235,7 @@ end;
 ##
 ## Supersolvable case: Irreducible constituents are 1-dim.
 ##
-SemiSimpleGroupsSS := function( n, p, sizes, iso )
+BindGlobal( "SemiSimpleGroupsSS", function( n, p, sizes, iso )
     local M, P, irr, i, new, part, cand, all, list, emb, sub;
 
     M := Source( iso );
@@ -269,7 +269,7 @@ SemiSimpleGroupsSS := function( n, p, sizes, iso )
     # add some information
     for i in [1..Length(sub)] do SetSocleDimensions( sub[i], part ); od;
     return sub;
-end;
+end );
 
 #############################################################################
 ##
@@ -277,7 +277,7 @@ end;
 ##
 ## Cubefree case: n = 2 and groups have cubefree order not divisible by p 
 ##
-SemiSimpleGroupsCF := function( n, p, sizes, iso )
+BindGlobal( "SemiSimpleGroupsCF", function( n, p, sizes, iso )
     local irr, i, new, a, b, M, C, D, d, K, k, g, act, sub, nat, dia;
 
     if n <> 2 then Error("need n = 2 for this case"); fi;
@@ -336,7 +336,7 @@ SemiSimpleGroupsCF := function( n, p, sizes, iso )
     
     # return 
     return Concatenation( irr, dia );
-end;
+end );
 
 #############################################################################
 ##
