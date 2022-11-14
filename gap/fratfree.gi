@@ -238,7 +238,7 @@ InstallGlobalFunction( FrattiniFreeBySocle, function( sizeA, sizeF, flags )
 
     # set up and compute sizes
     A := Collected(FactorsInt(sizeA));
-    max := Product( A, x -> SizeOfGL( x[2], x[1] ) );
+    max := Product( A, x -> GRPCONST_SizeOfGL( x[2], x[1] ) );
     if not IsBool( sizeF ) then
         sizeK := Gcd( sizeF / sizeA, max );
     else
