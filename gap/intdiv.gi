@@ -38,14 +38,6 @@ end );
 
 #############################################################################
 ##
-#F GRPCONST_SizeOfGL( n, p )
-##
-BindGlobal( "GRPCONST_SizeOfGL", function( n, p )
-    return Product( [1..n], x -> p^n - p^(x-1) );
-end );
-
-#############################################################################
-##
 #F IsCubeFree( m )
 ##
 BindGlobal( "IsCubeFree", function( m )
@@ -60,5 +52,5 @@ end );
 BindGlobal( "MaximalAutSize", function( n )
     local s;
     s := Collected( FactorsInt( n ) );
-    return Product( s, x -> GRPCONST_SizeOfGL( x[2], x[1] ) );
+    return Product( s, x -> SizeGL( x[2], x[1] ) );
 end );
