@@ -79,6 +79,9 @@ end);
 ##
 InstallGlobalFunction( CyclicGenerator,
 function( C )
+    if IsTrivial( C ) then
+        return One( C );
+    fi;
     return MinimalGeneratingSet( C )[ 1 ];
 end);
 
