@@ -96,7 +96,7 @@ BindGlobal( "ExtensionsByGroupNoCentre", function( N, H )
     Info( InfoGrpCon, 2, " compute Aut N ");
     A := AutomorphismGroup(N);
     I := InnerAutomorphismsAutomorphismGroup(A);
-    hom := NaturalHomomorphismByNormalSubgroup( A, I );
+    hom := NaturalHomomorphismByNormalSubgroupNC( A, I );
     O := Image(hom);
 
     # possible projections in O
@@ -131,7 +131,7 @@ BindGlobal( "ExtensionsByGroupNoCentre", function( N, H )
     pairs := [];
     for U in clU do
         for L in clL do
-            nat := NaturalHomomorphismByNormalSubgroup( H, L );
+            nat := NaturalHomomorphismByNormalSubgroupNC( H, L );
             F := Image( nat );
             if Size(U) = Size( F ) then
                 if IdGroup( U ) = IdGroup( F ) then

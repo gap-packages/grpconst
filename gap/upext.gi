@@ -202,8 +202,8 @@ BindGlobal( "IsomorphismTest", function( G, H )
 
     # the factor
     Info( InfoGrpCon, 4, "    Iso: test isomorphism on groups of size ",Size(G));
-    homG := NaturalHomomorphismByNormalSubgroup( G, PerfectResiduum(G) );
-    homH := NaturalHomomorphismByNormalSubgroup( H, PerfectResiduum(H) );
+    homG := NaturalHomomorphismByNormalSubgroupNC( G, PerfectResiduum(G) );
+    homH := NaturalHomomorphismByNormalSubgroupNC( H, PerfectResiduum(H) );
     if IdGroup( Image( homG ) ) <> IdGroup( Image( homH ) ) then
         return false;
     fi;

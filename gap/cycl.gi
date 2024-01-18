@@ -153,7 +153,7 @@ function( arg )
     res := [];
     for N in norms do
 
-        hom := NaturalHomomorphismByNormalSubgroup(G, N);
+        hom := NaturalHomomorphismByNormalSubgroupNC(G, N);
         F := Image( hom );
         genF  := CyclicGenerator( F ); 
         gensN := Pcgs(N);
