@@ -81,7 +81,7 @@ PackageDoc := rec(
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Constructing the Groups of a Given Order",
-  Autoload  := true),
+),
 
 Dependencies := rec(
   GAP := ">=4.7",
