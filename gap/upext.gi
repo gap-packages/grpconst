@@ -23,14 +23,14 @@ end );
 
 #############################################################################
 ##
-#F AutomorphismGroupSpecial(G) 
+#F AutomorphismGroupSpecial(G)
 ##
 ## Characteristic direct products are a special case.
 ##
 BindGlobal( "AutomorphismGroupSpecial", function(G)
-    local N, C, U, 
+    local N, C, U,
           AN, AC, gensN, gensC, idN, idC, gens, autos, aut, imgs, auto,
-          cls, tups, subl, tup, ext, tmp, cl, imgtup, n, orb, g, max, k, 
+          cls, tups, subl, tup, ext, tmp, cl, imgtup, n, orb, g, max, k,
           i, I, A, img, t, len, all, vec, done, o;
 
     if HasAutomorphismGroup( G ) then
@@ -43,7 +43,7 @@ BindGlobal( "AutomorphismGroupSpecial", function(G)
     U := Intersection( N, C );
 
     # catch the direct product case
-    if Size(C) > 1 and Size(N) > 1 and Size(U) = 1 and 
+    if Size(C) > 1 and Size(N) > 1 and Size(U) = 1 and
        Size(N)*Size(C)=Size(G) then
 
         Info( InfoGrpCon, 3, "   Aut: compute aut group - direct product case");
@@ -57,14 +57,14 @@ BindGlobal( "AutomorphismGroupSpecial", function(G)
         for aut in GeneratorsOfGroup( AN ) do
             imgs := List( gensN, x -> Image(aut, x) );
             Append( imgs, gensC );
-            auto := GroupHomomorphismByImagesNC( G,G,gens,imgs ); 
+            auto := GroupHomomorphismByImagesNC( G,G,gens,imgs );
             Add( autos, auto );
         od;
 
         for aut in GeneratorsOfGroup( AC ) do
             imgs := ShallowCopy( gensN );
             Append( imgs, List( gensC, x -> Image(aut, x) ) );
-            auto := GroupHomomorphismByImagesNC( G,G,gens,imgs ); 
+            auto := GroupHomomorphismByImagesNC( G,G,gens,imgs );
             Add( autos, auto );
         od;
         A := Group( autos, IdentityMapping(G) );
@@ -83,7 +83,7 @@ end );
 ##
 BindGlobal( "DirectSplitting", function( G, N )
    local C, U, cl, norm;
-   
+
    C := Centralizer( G, N );
    U := Intersection( C, N );
 
@@ -97,7 +97,7 @@ BindGlobal( "DirectSplitting", function( G, N )
        cl := Filtered( cl, x -> IsNormal(G,x) );
 
        if Length(cl)>0 then
-           return [G, cl[1]]; 
+           return [G, cl[1]];
        else
            return [G];
        fi;
@@ -119,7 +119,7 @@ end );
 ##
 BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
     local cocl, cocr, size, ngens, size_inner, elms, poses, pos, qual, i, j,
-          gens1, gens2, f, tpos, tqual, len_classes;
+          gens1, gens2, f, tpos, tqual, len_classes,free,frowords,fro;
 
     cocl := List( [ G, H ], CocGroup );
     cocr := DiffCocList( cocl, false );
@@ -130,6 +130,9 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
 
     size := Size( G );
     ngens := Length( SmallGeneratingSet( G ) );
+    free:=GeneratorsOfGroup(FreeGroup(ngens));
+    frowords:=MorFroWords(free);
+
     size_inner := size / Size( Center( G ) );
 
     cocl := List( cocl, x -> List( x, Concatenation ) );
@@ -163,7 +166,7 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
     cocl := List( cocl, x -> x{ pos } );
     while true do
         j := j + 1;
-        repeat 
+        repeat
             gens1 := List( cocl[ 1 ], Random );
             f := f + 1;
             if j + f > 10000 then
@@ -172,7 +175,8 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
                 return fail;
             fi;
         until Size( Group( gens1 ) ) = size;
-        repeat 
+        fro:=List(frowords,x->Order(MappedWord(x,free,gens1)));
+        repeat
             gens2 := List( cocl[ 2 ], Random );
             f := f + 1;
             if j + f > 10000 then
@@ -180,7 +184,9 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
                       "RandomIsomorphismTestUEM failed to decide" );
                 return fail;
             fi;
-        until Size( Group( gens2 ) ) = size;
+        # check cheap homomorphism property first, before even testing group order
+        until fro=List(frowords,x->Order(MappedWord(x,free,gens2)))
+          and Size( Group( gens2 ) ) = size;
         if GroupHomomorphismByImages( G, H, gens1, gens2 ) <> fail then
             Info( InfoRandIso, 2, "RandomIsomorphismTestUEM ",
                                 "found isomorphism" );
@@ -264,7 +270,7 @@ BindGlobal( "ReducedList", function( size, list )
     od;
 
     return types;
-end );  
+end );
 
 #############################################################################
 ##
@@ -272,7 +278,7 @@ end );
 ##
 BindGlobal( "IsomorphismClasses", function( size, list )
     local sub, fin, G, f, j, i, g, finger;
-    
+
     if Length( list ) <= 1 then return list ; fi;
     Info( InfoGrpCon, 3,"   Iso: test isom on ", Length(list)," groups ");
 
@@ -301,7 +307,7 @@ BindGlobal( "IsomorphismClasses", function( size, list )
         else
             Add( sub[j], g );
         fi;
-    od; 
+    od;
     if InfoLevel(InfoGrpCon) >= 3 then
         Print("\r");
     fi;
@@ -331,7 +337,7 @@ function( G, p, aut, n )
     # all shifting perms
     gens := GeneratorsOfGroup( G );
     d    := LargestMovedPointPerms( gens );
-    shifts := List( [1..p], x -> MappingPermListList( [1..d], 
+    shifts := List( [1..p], x -> MappingPermListList( [1..d],
                     [(x-1)*d+1..x*d] ) );
 
     # the base
@@ -340,12 +346,12 @@ function( G, p, aut, n )
         x := g;
         m := g;
         for i in [1..p-1] do
-            m := Image( aut, m ); 
+            m := Image( aut, m );
             x := x * (m^shifts[i+1]);
         od;
         Add( base, x );
     od;
-    
+
     # the cyclic extension
     x := n^shifts[p];
     shift := [];
@@ -358,9 +364,9 @@ function( G, p, aut, n )
     shift := PermList( shift );
     shift := x^-1 * shift;
     Add( base, shift );
-    
+
     H := Group( base, () );
-    if not Size(H) = Size(G)*p then 
+    if not Size(H) = Size(G)*p then
         Error("wrong up ext \n");
     fi;
 
@@ -422,8 +428,8 @@ function( G, p )
     for a in cl do
         h := PreImagesRepresentative( iso, a );
         e := h^p;
-        m := ConjugatingElement( G, e ); 
- 
+        m := ConjugatingElement( G, e );
+
         C := Centre( G );
         fix := Filtered( RightCoset( C, m ), x -> Image(h,x) = x );
 
@@ -455,7 +461,7 @@ function( P, stepsize )
     if IsList( P ) then
         size := Gcd( List( P, Size ) );
         for i in [ 1 .. Length( P ) ] do
-           Add( grps[ Position( div, Size( P[ i ] ) / size ) ], 
+           Add( grps[ Position( div, Size( P[ i ] ) / size ) ],
                 SmallGeneratingSet( P[ i ] ) );
         od;
     elif IsGroup( P ) then
