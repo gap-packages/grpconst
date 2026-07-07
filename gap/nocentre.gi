@@ -82,14 +82,14 @@ BindGlobal( "CosetReps", function( C, hom, NU, NL )
     #reps := DoubleCosets( C, CU, CL );
     return List( reps, Representative );
 end );
- 
+
 #############################################################################
 ##
 ## N is a center-free perfect group and H is soluble.
 ## classify extensions of N by H up to isomorphism
 ##
 BindGlobal( "ExtensionsByGroupNoCentre", function( N, H )
-    local A, I, hom, O, clU, B, clL, f, D, gensN, oper, pairs, U, L, nat, 
+    local A, I, hom, O, clU, B, clL, f, D, gensN, oper, pairs, U, L, nat,
           F, iso, res, NU, NL, C, reps, r, new, gens, G, pair, g, h;
 
     # the automorphism group of N
@@ -170,8 +170,8 @@ BindGlobal( "ExtensionsByGroupNoCentre", function( N, H )
         for r in reps do
             new := pair * r;
 
-            Info( InfoGrpCon, 4, 
-                  "   compute generators of subdirect product "); 
+            Info( InfoGrpCon, 4,
+                  "   compute generators of subdirect product ");
             gens := [];
             for g in GeneratorsOfGroup( H ) do
                 h := Image( new, g );
@@ -185,7 +185,7 @@ BindGlobal( "ExtensionsByGroupNoCentre", function( N, H )
             Add( res, PermOper( oper, gens ) );
         od;
     od;
-    
+
     return res;
 end );
 
@@ -208,4 +208,3 @@ BindGlobal( "UpwardsExtensionsNoCentre", function( N, stepsize )
     od;
     return res;
 end );
-

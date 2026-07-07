@@ -1,4 +1,3 @@
-
 for l in [8..10] do
     s := Filtered([1..2000], x -> Length(Factors(x)) = l);
     s := Filtered(s, x -> not IsPrimePowerInt(x));
@@ -13,5 +12,3 @@ for l in [8..10] do
         Print(i," done of ",Length(s)," for ",l,"\n");
     od;
 od;
-        
-

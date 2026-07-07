@@ -16,7 +16,7 @@
 ##   pnormal   = list of primes   - groups with normal Sylowgroup
 ##   nonpnorm  = list of primes   - groups without normal Sylowgroup
 ##
-## If a flag is bound, then the algorithm constructs the groups with 
+## If a flag is bound, then the algorithm constructs the groups with
 ## this property only. Otherwise the flag should be unbound.
 ## Note: only the positive flags yield an improved efficiency of the method.
 ##
@@ -31,7 +31,7 @@ InstallGlobalFunction( CheckFlags, function( flags )
     (IsBound( flags.supersol ) and flags.supersol <> true ) or
     (IsBound( flags.nonsupsol ) and flags.nonsupsol <> true ) or
     (IsBound( flags.pnormal ) and not IsList( flags.pnormal ) ) or
-    (IsBound( flags.nonpnorm ) and not IsList( flags.nonpnorm ) ) 
+    (IsBound( flags.nonpnorm ) and not IsList( flags.nonpnorm ) )
     then
         Error("not a possible flags record");
     fi;
@@ -54,7 +54,7 @@ InstallGlobalFunction( CheckFlags, function( flags )
         flags.nonnilpot := true;
     fi;
 
-    # pnormal 
+    # pnormal
     if IsBound( flags.pnormal ) and IsBound( flags.nonpnorm ) then
         if Length(Intersection( flags.pnormal, flags.nonpnorm ))>0 then
             return false;
@@ -65,10 +65,10 @@ InstallGlobalFunction( CheckFlags, function( flags )
     if IsBound( flags.nonpnorm ) then
         flags.nonnilpot := true;
     fi;
-  
+
     return true;
 end );
-    
+
 #############################################################################
 ##
 #F CompareFlagsAndSize( size, flags )
@@ -121,11 +121,11 @@ end );
 
 #############################################################################
 ##
-#F RunSubdirectProductInfo( U ) 
+#F RunSubdirectProductInfo( U )
 ##
 InstallGlobalFunction( RunSubdirectProductInfo, function( U )
     local info, proj, new, dims;
- 
+
     info := SubdirectProductInfo( U );
     proj := [];
     if HasProjections( info.groups[1] ) then
@@ -146,7 +146,7 @@ InstallGlobalFunction( RunSubdirectProductInfo, function( U )
     if HasSocleDimensions( info.groups[2] ) then
         Append( dims, SocleDimensions( info.groups[2] ) );
     fi;
-    if Length( dims ) > 0 then 
+    if Length( dims ) > 0 then
         SetSocleDimensions( U, dims );
     fi;
 end );
@@ -170,7 +170,7 @@ InstallGlobalFunction( SocleComplements, function( semi, sizes )
         for U in all do
             for V in semi[i] do
                 sub := SubdirectProducts( U, V );
-                sub := Filtered( sub, 
+                sub := Filtered( sub,
                        x -> ForAny( sizes, y -> IsInt( y / Size(x) ) ) );
                 Append( tmp, sub );
             od;
@@ -182,15 +182,15 @@ InstallGlobalFunction( SocleComplements, function( semi, sizes )
     od;
     return all;
 end );
-   
+
 #############################################################################
 ##
 #F ExtensionBySocle( U )
 ##
 ## Compute extension of socle complement by sockel as pc-group codes.
 ##
-InstallGlobalFunction( ExtensionBySocle, function( U ) 
-    local iso, n, inv, H, proj, pr, imgs, new, fac, pcgs, L; 
+InstallGlobalFunction( ExtensionBySocle, function( U )
+    local iso, n, inv, H, proj, pr, imgs, new, fac, pcgs, L;
 
     iso := IsomorphismPcGroup( U );
     #inv := GroupHomomorphismByImagesNC( Range(iso), Source(iso),
@@ -204,7 +204,7 @@ InstallGlobalFunction( ExtensionBySocle, function( U )
         inv  := fac * inv;
         imgs := List( Pcgs(H), x -> Image( inv, x ) );
         imgs := List( imgs, x -> Image( pr, x ) );
-        new  := GroupHomomorphismByImagesNC( H, Range( pr ), 
+        new  := GroupHomomorphismByImagesNC( H, Range( pr ),
                 AsList( Pcgs(H) ), imgs );
         H    := SemidirectProduct( H, new );
         fac  := Projection( H );
@@ -227,13 +227,13 @@ end );
 InstallGlobalFunction( FrattiniFreeBySocle, function( sizeA, sizeF, flags )
     local A, sizeK, max, semi, all, i;
 
-    Info( InfoGrpCon, 2, "  compute ff groups with socle ", 
+    Info( InfoGrpCon, 2, "  compute ff groups with socle ",
                               sizeA," and size ",sizeF );
 
     # check the sizes
     if not IsInt( sizeF/sizeA ) then return []; fi;
 
-    # check the flags 
+    # check the flags
     if not CheckFlags( flags ) then return []; fi;
 
     # set up and compute sizes
@@ -245,10 +245,10 @@ InstallGlobalFunction( FrattiniFreeBySocle, function( sizeA, sizeF, flags )
         sizeK := max;
     fi;
 
-    # compare flags with sizeK 
+    # compare flags with sizeK
     sizeK := CompareFlagsAndSize( sizeK, flags );
     if IsBool( sizeK ) then return []; fi;
-    
+
     # construct semisimple groups
     semi := List( A, x -> SemiSimpleGroups( x[2], x[1], sizeK, flags ) );
 
@@ -262,7 +262,7 @@ InstallGlobalFunction( FrattiniFreeBySocle, function( sizeA, sizeF, flags )
 end );
 
 
-   
+
 #############################################################################
 ##
 #F FrattiniFreeBySize( size, flags ) . . . compute ff groups of dividing size
@@ -270,7 +270,7 @@ end );
 InstallGlobalFunction( FrattiniFreeBySize, function( size, flags )
     local socs, grps, soc, max, siz, tmp;
 
-    # check the flags 
+    # check the flags
     if not CheckFlags( flags ) then return []; fi;
 
     # get all possible socles
@@ -289,10 +289,10 @@ InstallGlobalFunction( FrattiniFreeBySize, function( size, flags )
     od;
     return grps;
 end );
-            
+
 #############################################################################
 ##
-#F DecodeList( list ) . . . . . . . . . . . . . . . . .decode a list of codes 
+#F DecodeList( list ) . . . . . . . . . . . . . . . . .decode a list of codes
 ##
 BindGlobal( "DecodeList", function( list )
     return List( list, x -> PcGroupCodeRec( x ) );
@@ -308,7 +308,7 @@ InstallGlobalFunction( FrattiniFactorCandidates, function( arg )
     flags := arg[2];
     fflist := FrattiniFreeBySize( size, flags );
     pr     := Product( Set( FactorsInt( size ) ) );
-    fflist :=  Filtered( fflist, 
+    fflist :=  Filtered( fflist,
                x -> IsInt( x.order/pr ) and IsInt(size/x.order));
     if Length( arg ) = 2 then
         return fflist;
@@ -323,7 +323,7 @@ end );
 ##
 BindGlobal( "FrattiniFreeNonNilUpToSize", function( soc, limit )
     local sizs, pos, rem, new, grps, i, j, tmp, flags, max;
-   
+
     # all possible sizes
     sizs := [];
     max := MaximalAutSize( soc );
@@ -338,18 +338,18 @@ BindGlobal( "FrattiniFreeNonNilUpToSize", function( soc, limit )
         sizs := sizs*soc;
     fi;
 
-    # the flags 
+    # the flags
     flags := rec( nonnilpot := true );
 
     # now construct groups
     grps := [];
     for j in [1..Length(sizs)] do
         tmp := FrattiniFreeBySocle( soc, sizs[j], flags );
-        tmp := Filtered( tmp, 
+        tmp := Filtered( tmp,
                x -> UnknownSize( sizs{[1..j-1]}, x.order ) );
         Append( grps, tmp );
     od;
-            
+
     return grps;
 end );
 
@@ -371,15 +371,14 @@ BindGlobal( "CheckFrattFreeNonNil", function( n )
     Sort( erg1 );
     Print( erg1, "\n");
 
-    erg2 := List( Difference( [2..n], [512] ), x -> 
-            IdsOfAllSmallGroups( x, FrattinifactorSize, x, 
+    erg2 := List( Difference( [2..n], [512] ), x ->
+            IdsOfAllSmallGroups( x, FrattinifactorSize, x,
                                IsAbelian, false,
                                IsSolvableGroup, true ) );
     erg2 := Concatenation( erg2 );
     Sort( erg2 );
     Print( erg2, "\n");
-  
+
     return erg1 = erg2;
 
 end );
-

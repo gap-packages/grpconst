@@ -12,7 +12,7 @@ This is a method to construct up to isomorphism the groups of order
 $p^n \cdot q$ for different primes $p$ and $q$ which have a normal
 Sylow subgroup. We first describe the main function for this method
 and then functions for a slightly more low level access to the
-algorithms. 
+algorithms.
 
 Note that all functions described in this chapter rely on an
 efficient method for `AutomorphismGroup' for $p$-groups. Such
@@ -28,8 +28,8 @@ using the functions described in this chapter.
 
 Clearly, each of the computed groups is a split extension of a group
 of order $p^n$ and the cyclic group of order $q$. The output is a
-record with three entries <up>, <down> and <both>. Each of these 
-contains a list of groups, <both> the nilpotent groups, <up> the 
+record with three entries <up>, <down> and <both>. Each of these
+contains a list of groups, <both> the nilpotent groups, <up> the
 remaining groups with a normal Sylow $p$-subgroup and <down> the
 remaining groups with normal Sylow $q$-subgroup.
 
@@ -43,7 +43,7 @@ do this in one go. Thus it is possible to hand a list of primes
 for the input <q>.
 
 \beginexample
-gap> CyclicSplitExtensionMethod( 2,2,7, true );    
+gap> CyclicSplitExtensionMethod( 2,2,7, true );
 rec( up := [  ], 
   down  := [ <pc group of size 28 with 3 generators>, 
              <pc group of size 28 with 3 generators> ], 
@@ -64,7 +64,7 @@ rec( up := [ <pc group of size 12 with 3 generators> ],
 \endexample
 
 Note that the function `CyclicSplitExtensionMethod' requires that
-the groups of order $p^n$ are given within the SmallGroups Library. 
+the groups of order $p^n$ are given within the SmallGroups Library.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{The Underlying Functions}
@@ -87,7 +87,7 @@ entry <down> can be separated by using the following functions.
 The input for these functions is the same as above. The first
 function returns a list of groups with one normal subgroup of order
 $p^n$ and the second a list of groups with one normal subgroup of order
-$q$. 
+$q$.
 
 \beginexample
 gap> G := SmallGroup( 16, 10 );;

@@ -15,13 +15,13 @@ BindGlobal( "QClasses", function( A, q )
     P := NiceObject( A );
 
     # if there is no or only one q-class
-    if not IsInt( Size(P)/q ) then 
-        return []; 
+    if not IsInt( Size(P)/q ) then
+        return [];
     elif not IsInt( Size(P)/(q^2)) then
         S := SylowSubgroup( P, q );
         return [ PreImage( hom, GeneratorsOfGroup(S)[1] ) ];
     fi;
-    
+
     # otherwise compute
     cl := MyRatClassesPElmsReps( P, q );
     cl := List( cl, x -> PreImage(hom, x));
@@ -50,7 +50,7 @@ function( arg )
     C := CyclicGroup( q );
     g := GeneratorsOfGroup( C )[1];
 
-    # get automorphism group 
+    # get automorphism group
     A := AutomorphismGroup( G );
     Info( InfoGrpCon, 3, "    aut group has size ", Size(A) );
 
@@ -115,10 +115,10 @@ end );
 ##
 InstallGlobalFunction( CyclicSplitExtensionsDown,
 function( arg )
-    local G, q, uncoded, res, AutG, C, g, AutC, genC, D, norms, f, N, hom, 
-          F, gensN, gensF, 
+    local G, q, uncoded, res, AutG, C, g, AutC, genC, D, norms, f, N, hom,
+          F, gensN, gensF,
           niceMon, niceAutG, gensAutG, gensNiceAutG,
-          imgsF, gens, r, genU, U, genF, i, S, ind, aut, imgs, AutF, 
+          imgsF, gens, r, genU, U, genF, i, S, ind, aut, imgs, AutF,
           Sind, reps, E, l;
 
     # catch arguments
@@ -134,7 +134,7 @@ function( arg )
 
     # get q-Sylow subgroup and aut group
     C := CyclicGroup( q );
-    g := GeneratorsOfGroup( C )[1]; 
+    g := GeneratorsOfGroup( C )[1];
     AutC := AutomorphismGroup( C );
     genC := CyclicGenerator( AutC );
 
@@ -158,7 +158,7 @@ function( arg )
 
         hom := NaturalHomomorphismByNormalSubgroupNC(G, N);
         F := Image( hom );
-        genF  := CyclicGenerator( F ); 
+        genF  := CyclicGenerator( F );
         gensN := Pcgs(N);
         gensF := Pcgs(G) mod gensN;
         imgsF := List( gensF, x -> Image( hom, x ) );
@@ -169,8 +169,8 @@ function( arg )
         l := (q-1) / Size(F);
         genU := genC^l;
         U    := SubgroupNC( AutC, [genU] );
-        i    := GroupHomomorphismByImagesNC( F, U, [genF], [genU] ); 
-        
+        i    := GroupHomomorphismByImagesNC( F, U, [genF], [genU] );
+
         # compute cosets
         Info( InfoGrpCon, 4, "      compute stabilizer");
         S := Stabilizer( niceAutG, N, gensNiceAutG, gensAutG, f );
@@ -185,7 +185,7 @@ function( arg )
         AutF := AutomorphismGroup( F );
         Sind := SubgroupNC( AutF, ind );
         reps := List( RightCosets( AutF, Sind ), Representative );
-  
+
         # loop
         Info( InfoGrpCon, 4, "      have ",Length(reps)," reps to process");
         for r in reps do
@@ -195,7 +195,7 @@ function( arg )
             hom := GroupHomomorphismByImagesNC( G, AutC, gens, imgs );
             E := SplitExtension( G, hom, C );
             Add( res, rec( code := CodePcGroup( E ), order := Size(G)*q ) );
-        od;  
+        od;
     od;
     if uncoded then
         return List( res, x -> PcGroupCode( x.code, x.order ) ) ;
@@ -226,7 +226,7 @@ function( arg )
 
     # the trivial case
     D := DirectProduct( G, CyclicGroup(q) );
-    if uncoded then 
+    if uncoded then
         both := [D];
     else
         both := [CodePcGroup( D )];
@@ -245,10 +245,10 @@ function( arg )
     # catch arguments
     p := arg[1];
     n := arg[2];
-    if IsList( arg[3] ) then 
+    if IsList( arg[3] ) then
         l := arg[3];
-    else 
-        l := [arg[3]]; 
+    else
+        l := [arg[3]];
     fi;
     if Length( arg ) = 4 then
         uncoded := arg[4];
@@ -295,4 +295,3 @@ BindGlobal( "NumberChecks", function( p, n, q )
     od;
     return rec( up := u, down := d );
 end );
-

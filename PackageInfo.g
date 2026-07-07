@@ -1,5 +1,5 @@
 #############################################################################
-##  
+##
 ##  PackageInfo.g for the package `GrpConst'                     Bettina Eick
 
 SetPackageInfo( rec(
@@ -71,10 +71,10 @@ ArchiveURL      := Concatenation( ~.SourceRepository.URL,
                                  "/grpconst-", ~.Version ),
 ArchiveFormats := ".tar.gz",
 
-AbstractHTML := 
+AbstractHTML :=
 "The <span class=\"pkgname\">GrpConst</span> package contains methods to construct up to isomorphism the groups of a given order. The FrattiniExtensionMethod constructs all soluble groups of a given order. On request it gives only those that are (or are not) nilpotent or supersolvable or that do (or do not) have normal Sylow subgroups for some given set of primes. The CyclicSplitExtensionMethod constructs all groups having a normal Sylow subgroup for orders of the type p^n *q. The method relies on the availability of a list of all groups of order p^n. The UpwardsExtensions algorithm takes as input a permutation group G and a positive integer s and returns a list of permutation groups, one for each extension of G by a soluble group of order a divisor of s. This method can used to construct the non-solvable groups of a given order by taking the perfect groups of certain orders as input for G. The programs in this package have been used to construct a large part of the Small Groups library.",
 
-               
+
 PackageDoc := rec(
   BookName  := "GrpConst",
   ArchiveURLSubset := ["doc", "htm"],
@@ -96,7 +96,7 @@ Dependencies := rec(
 
 AvailabilityTest := ReturnTrue,
 TestFile := "tst/testall.g",
-Keywords := ["constructing groups of small order", 
+Keywords := ["constructing groups of small order",
              "Frattini extension method",
              "Cyclic split extension method",
              "Upwards extension method"]

@@ -9,7 +9,7 @@
 #F  AddRandomTestInfosFEM( Finfo )
 ##
 ##  To the record Finfo, containing the frattinifree group Finfo.F, a number
-##  of fields are added which are used to run the random isomorphism test 
+##  of fields are added which are used to run the random isomorphism test
 ##  of groups with the frattini-factor Finfo.F
 ##
 InstallGlobalFunction( AddRandomTestInfosFEM, function( arg )
@@ -150,7 +150,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
     local i, j, k, l, gi, ek, n, p,
           size, grps, spcgs, lgws, g, fams,
           elms, t, ord, orb, orbs, orbss, tnorbss, norbss, fsize, exts,
-          pos, poses, genpos, typ, typs, ttyps, inds, 
+          pos, poses, genpos, typ, typs, ttyps, inds,
           gensys, typscache, ngensets, misses, stmp,
           rem, mhits, hasAutos, disting, found, r, gens, code, perm, ident;
 
@@ -229,7 +229,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
                     # fuse into the same conjugacy class of g/phi(g)
                     typ := ttyps[ 1+Int((Position(elms, orb[1])-1)/fsize) ];
                     p := Position( typs, typ );
-                    if p = fail then 
+                    if p = fail then
                         Add( typs, typ );
                         Add( tnorbss, ShallowCopy( orb ) );
                     else
@@ -261,7 +261,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
 
     # find a selection from the priorisation which will produce generating
     # sets for all groups
-    genpos := Concatenation( List( [ 1 .. Length( Finfo.geninds ) ], 
+    genpos := Concatenation( List( [ 1 .. Length( Finfo.geninds ) ],
                                 x -> x + 0 * [ 1 .. Finfo.geninds[ x ] ] ) );
     poses := Cartesian( List( genpos, x -> [ 1..Length(gensys[1][x]) ] ) );
     inds  := List( poses, x -> Product( [ 1 .. Finfo.lmin ],
@@ -288,7 +288,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
         until j > 12 or gi = n;
     until j < 0 or i = Length( poses );
 
-    if j < 0 then 
+    if j < 0 then
         # remove all generators which are not from the chosen strategy
         gensys := List( gensys, x -> List( [ 1 .. Finfo.lmin ],
                                        y -> x[ genpos[ y ] ][ pos[ y ] ] ) );
@@ -329,13 +329,13 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
               ek := Length( r[ j ].codes );
               if ek > 0 then
                 k := 0;
-                repeat 
+                repeat
                   k := k + 1;
                   found := r[ j ].codes[ k ].code = code.code;
                 until found or k = ek;
               fi;
             fi;
-          until found or j = n; 
+          until found or j = n;
           if found then
             if i = j then
               r[ i ].hits := r[ i ].hits + 1;
@@ -343,7 +343,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
               if not IsBound( r[i].codes[k].gens ) then
                 r[i].codes[k].gens := gens;
               elif hasAutos then
-                perm := PermGensGensFEM( fams[ i ], spcgs[ i ], gens, 
+                perm := PermGensGensFEM( fams[ i ], spcgs[ i ], gens,
                                       r[ i ].codes[ k ].gens );
                 if not perm in r[ i ].autos then
                   r[ i ].autos := Group( Concatenation( [ perm ],
@@ -386,7 +386,7 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
             fi;
             ident := true;
             for j in [ 1 .. n ] do
-              if ident and i <> j and IsBound( r[ j ] ) and 
+              if ident and i <> j and IsBound( r[ j ] ) and
                  LcmInt( r[ i ].autsize, r[ j ].autsize ) *
                        ( Length( r[ i ].codes ) + Length( r[ j ].codes ) )
                    + misses[ i ] <= ngensets then
@@ -411,12 +411,12 @@ InstallGlobalFunction( RandomIsomorphismTestFEM, function( list, Finfo )
 
     if rem > 1 then
         Info( InfoRandIso, 1, " ", rem,
-              " candidates not separated by RandomIsomorphismTestFEM"); 
+              " candidates not separated by RandomIsomorphismTestFEM");
     fi;
 
-    return rec( 
+    return rec(
        rem := list{ Filtered( [ 1 .. n ], x-> IsBound( r[ x ] ) ) },
-       unique := list{ disting } ); 
+       unique := list{ disting } );
 end);
 
 #############################################################################
@@ -433,24 +433,24 @@ InstallGlobalFunction( ReducedByIsomorphismsFEM, function( list, Finfo )
    fi;
    if Length( list ) = 1 then
       list[1].isUnique := true;
-      return list; 
+      return list;
    fi;
 
    Info( InfoRandIso, 2, "  reduce ", Length(list), " groups " );
 
    # split up in sublist
    list := SplitUpSublistsByFpFunc( list );
-   if ForAll( list, IsRecord ) then 
+   if ForAll( list, IsRecord ) then
       return list;
    fi;
 
-   if not IsBound( Finfo.lmin ) then 
+   if not IsBound( Finfo.lmin ) then
        AddRandomTestInfosFEM( Finfo );
    fi;
 
    # loop over all sublists
    i := 1;
-   repeat 
+   repeat
       if IsRecord( list[ i ] ) then
          i := i + 1;
       elif Length( list[ i ] ) = 1 then
@@ -501,7 +501,7 @@ BindGlobal( "ReducedByIsomorphismsFEMAnother", function( list, frec, level )
 
    # loop over all sublists
    i := 1;
-   repeat 
+   repeat
       if IsRecord( list[ i ] ) then
          i := i + 1;
       elif Length( list[ i ] ) = 1 then
