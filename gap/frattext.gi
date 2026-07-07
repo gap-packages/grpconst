@@ -36,7 +36,7 @@ end );
 ##
 InstallGlobalFunction( FindUniqueModules, function( list )
     local modus, i, j, dims, cent;
-        
+
     for modus in list do
 
         # find the ones with unique dimension
@@ -51,7 +51,7 @@ InstallGlobalFunction( FindUniqueModules, function( list )
             modus[j].isCentral := false;
         od;
 
-        # find the trivial module 
+        # find the trivial module
         for j in [1..Length(modus)] do
             if ForAll( modus[j].generators, x -> x = x^0 ) then
                 modus[j].unique := true;
@@ -104,7 +104,7 @@ InstallGlobalFunction( FrattiniExtensionsOfCode, function( code, o )
     # check size
     if not Set( FactorsInt( code.order ) ) = Set( FactorsInt( o ) ) or
        not IsInt( o/code.order ) then
-        return []; 
+        return [];
     fi;
 
     # construct irreducible modules for F
@@ -118,7 +118,7 @@ InstallGlobalFunction( FrattiniExtensionsOfCode, function( code, o )
 
     # set up
     grps := [];
-    exts := [code]; 
+    exts := [code];
 
     # start loop
     while Length( exts ) > 0 do
@@ -149,12 +149,12 @@ InstallGlobalFunction( FrattiniExtensionsOfCode, function( code, o )
             count := 1;
             for M in modu do
                 Unbind(M.absolutelyIrreducible);
- 
+
                 # create extensions
                 d := M.dimension;
                 p := Characteristic( M.field );
-                size := Size( H ) * p^d; 
-                Info( InfoGrpCon, 4,"    start module of dimension ", d, 
+                size := Size( H ) * p^d;
+                Info( InfoGrpCon, 4,"    start module of dimension ", d,
                                     " with char ",p );
 
                 # create extensions
@@ -165,7 +165,7 @@ InstallGlobalFunction( FrattiniExtensionsOfCode, function( code, o )
                                 order := size,
                                 isFrattiniFree := false );
                     grp.first := code.first;
-                    grp.socledim := code.socledim; 
+                    grp.socledim := code.socledim;
                     grp.extdim := ShallowCopy( sub[i].extdim );
                     Add( grp.extdim, p^d );
                     Sort( grp.extdim );
@@ -216,7 +216,7 @@ InstallGlobalFunction( FrattiniExtensionsOfGroup, function( F, size )
                  socledim := false,
                  extdim := [],
                  exindent := [],
-                 isUnique := true ); 
+                 isUnique := true );
     return FrattiniExtensionsOfCode( code, size );
 end );
 
@@ -290,12 +290,12 @@ InstallGlobalFunction( FrattiniExtensionMethod, function( arg )
         uncoded := arg[3];
     fi;
 
-    # catch the case of size = 1 
+    # catch the case of size = 1
     if size = 1 then
         if not CheckFlags( prop ) then return []; fi;
-        if IsBound( prop.nonnilpot ) or 
+        if IsBound( prop.nonnilpot ) or
            IsBound( prop.nonsupsol ) or
-           IsBound( prop.nonpnorm ) then 
+           IsBound( prop.nonpnorm ) then
             return [];
         elif not uncoded then
             return [rec( code := 0,

@@ -11,7 +11,7 @@
 InstallGlobalFunction( AllNonSolublePerfectGroups, function( size )
     local n;
     n := NrPerfectGroups(size);
-    if n = 0 or size = 1 then 
+    if n = 0 or size = 1 then
         return [];
     elif IsBool( n ) then
         return n;
@@ -54,7 +54,7 @@ BindGlobal( "ConstructAllNilpotentGroups", function( arg )
             od;
         od;
         size := size * p^n;
-        grps := tmp; 
+        grps := tmp;
     od;
 
     return grps;
@@ -122,7 +122,7 @@ BindGlobal( "ConstructAllNonSolvableGroups", function( size )
     tmp := [];
     for d in DivisorsInt( size ) do
         new := AllNonSolublePerfectGroups( d );
-        if IsBool( new ) then 
+        if IsBool( new ) then
             Print("sorry - perfect groups are not available \n");
             return fail;
         fi;
@@ -131,7 +131,7 @@ BindGlobal( "ConstructAllNonSolvableGroups", function( size )
 
     grps := [];
     for G in tmp do
-        if Size(Centre(G)) = 1 then 
+        if Size(Centre(G)) = 1 then
             new := UpwardsExtensionsNoCentre( G, size/Size(G) );
         else
             new := UpwardsExtensions( G, size / Size(G) );
@@ -148,7 +148,7 @@ end );
 #F ConstructAllGroups( size ) . . . . . .  construct all groups of given size
 ##
 InstallGlobalFunction( ConstructAllGroups, function( size )
-    local pr, grps; 
+    local pr, grps;
 
     # trivial case
     pr := Factors( size );
@@ -162,4 +162,4 @@ InstallGlobalFunction( ConstructAllGroups, function( size )
     # now we got them all
     return grps;
 end );
-  
+

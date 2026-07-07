@@ -44,10 +44,10 @@ InstallGlobalFunction( GModuleByGroup, function( G )
                           DimensionOfMatrixGroup(G),
                           FieldOfMatrixGroup(G) );
 end );
-    
+
 #############################################################################
 ##
-#F Check conjugacy of groups 
+#F Check conjugacy of groups
 ##
 BindGlobal( "AreConjugateGroups", function( M, G, H )
     local nat, g, iso, aut, a, h, C, i, r;
@@ -91,14 +91,14 @@ InstallGlobalFunction( ReduceToClasses, function( M, list )
 
     # the trivial case
     if Length( list ) = 0 or Length( list ) = 1 then return list; fi;
-    if Length( list ) = 2 then 
+    if Length( list ) = 2 then
         if AreConjugateGroups( M, list[1], list[2] ) then
             return [list[1]];
         else
             return list;
         fi;
     fi;
-  
+
     # start to work
     gens := GeneratorsOfGroup( M );
     reps := [];
@@ -125,7 +125,7 @@ end );
 
 #############################################################################
 ##
-#F Let L be a soluble group. Find all irreducible embeddings of L into 
+#F Let L be a soluble group. Find all irreducible embeddings of L into
 ## GL(n,p) up to conjugacy.
 ##
 InstallGlobalFunction( IrreducibleEmbeddings, function( n, p, L )
@@ -133,7 +133,7 @@ InstallGlobalFunction( IrreducibleEmbeddings, function( n, p, L )
 
     # we don't want to see the trivial case here
     if n = 1 then return false; fi;
-    
+
     # first check the arguments and avoid trivial cases
     if Size( PCore( L, p ) ) > 1 then return []; fi;
 
@@ -159,7 +159,7 @@ end );
 
 #############################################################################
 ##
-#F Compute all irreducible soluble subgroups of GL(n,p) of order dividing 
+#F Compute all irreducible soluble subgroups of GL(n,p) of order dividing
 ## size up to conjugacy. Consider a number of different cases.
 ##
 #############################################################################
@@ -181,7 +181,7 @@ InstallGlobalFunction( IrreducibleGroupsByAbelian, function(n, p, size)
     M     := GL(n,p);
     field := GF( p );
     root  := PrimitiveRoot( field );
-    iso   := GroupHomomorphismByImagesNC( P, M, 
+    iso   := GroupHomomorphismByImagesNC( P, M,
                                 GeneratorsOfGroup( P ), [[[root]]] );
 
     # convert
@@ -201,7 +201,7 @@ InstallGlobalFunction( IrreducibleGroupsByCatalogue, function(n,p,size)
     if n = 1 then return false; fi;
 
     # return list from irredsol
-    return AllIrreducibleSolvableMatrixGroups( Degree, [n], Field, [GF(p)], 
+    return AllIrreducibleSolvableMatrixGroups( Degree, [n], Field, [GF(p)],
            Order, DivisorsInt(size) );
 
     # get irreducible groups - old version based on primitive groups
@@ -248,7 +248,7 @@ InstallGlobalFunction( IrreducibleGroupsByEmbeddings, function(n,p,size)
     od;
     return cl;
 end );
-        
+
 #############################################################################
 InstallGlobalFunction( IrreducibleGroups, function( n, p, size )
     if n = 1 then
@@ -258,7 +258,7 @@ InstallGlobalFunction( IrreducibleGroups, function( n, p, size )
         return IrreducibleGroupsByCatalogue(n,p,size);
     elif SmallGroupsAvailable(size) then
         return IrreducibleGroupsByEmbeddings(n,p,size);
-    else 
+    else
         return fail;
     fi;
 end );
@@ -287,4 +287,4 @@ BindGlobal( "TestIrred", function(limit, start)
             fi;
         od;
     od;
-end ); 
+end );

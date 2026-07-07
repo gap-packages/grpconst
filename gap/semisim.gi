@@ -66,8 +66,8 @@ InstallGlobalFunction( EmbeddingIntoGL, function( M, part, list )
         l := Sum(part{[i+1..r]});
         gens := GeneratorsOfGroup( list[i] );
         gens := List( gens, x -> [IdentityMat(e, f), x, IdentityMat(l, f)] );
-        gens := List( gens, x -> BlockDiagonalMat( x, f ) ); 
-        U := Subgroup( M, gens ); 
+        gens := List( gens, x -> BlockDiagonalMat( x, f ) );
+        U := Subgroup( M, gens );
         SetSize( U, Size( list[i] ) );
         Add( new, U );
     od;
@@ -120,10 +120,10 @@ BindGlobal( "MyRatClassesPElmsReps", function(P,p)
 
     # some easy cases
     o := Size(P);
-    if o = 1 or not IsInt(o/p) then 
-        return []; 
-    elif not IsInt(o/p^2) then 
-        return [GeneratorsOfGroup(SylowSubgroup(P,p))[1]]; 
+    if o = 1 or not IsInt(o/p) then
+        return [];
+    elif not IsInt(o/p^2) then
+        return [GeneratorsOfGroup(SylowSubgroup(P,p))[1]];
     fi;
 
     # try Sylow
@@ -169,7 +169,7 @@ BindGlobal( "SemiSimpleGroupsTS", function( n, p, sizes, iso )
     sub := [TrivialSubgroup( P )];
 
     # add coprime subgroups if desired
-    if q <> 1 and q <> p then 
+    if q <> 1 and q <> p then
         new := MyRatClassesPElmsReps( P, q );
         new := List( new, x -> Subgroup( P, [x] ) );
         Append( sub, new );
@@ -208,7 +208,7 @@ BindGlobal( "SemiSimpleGroupsGC", function( n, p, sizes, iso )
 
         # construct candidates first
         cand := Choices( part, irr );
-    
+
         # compute subdirect products within P
         all := [];
         for list in cand do
@@ -220,14 +220,14 @@ BindGlobal( "SemiSimpleGroupsGC", function( n, p, sizes, iso )
         od;
 
         # filter conjugates in P
-        sub := ReduceConjugates( P, all ); 
+        sub := ReduceConjugates( P, all );
 
         # add some information
         for i in [1..Length(sub)] do SetSocleDimensions( sub[i], part ); od;
         Append( subdir, sub );
     od;
-    return subdir; 
-end ); 
+    return subdir;
+end );
 
 #############################################################################
 ##
@@ -264,7 +264,7 @@ BindGlobal( "SemiSimpleGroupsSS", function( n, p, sizes, iso )
     od;
 
     # filter conjugates in P
-    sub := ReduceConjugates( P, all ); 
+    sub := ReduceConjugates( P, all );
 
     # add some information
     for i in [1..Length(sub)] do SetSocleDimensions( sub[i], part ); od;
@@ -275,7 +275,7 @@ end );
 ##
 #F SemiSimpleGroupsCF( n, p, sizes, iso )
 ##
-## Cubefree case: n = 2 and groups have cubefree order not divisible by p 
+## Cubefree case: n = 2 and groups have cubefree order not divisible by p
 ##
 BindGlobal( "SemiSimpleGroupsCF", function( n, p, sizes, iso )
     local irr, i, new, a, b, M, C, D, d, K, k, g, act, sub, nat, dia;
@@ -299,7 +299,7 @@ BindGlobal( "SemiSimpleGroupsCF", function( n, p, sizes, iso )
     od;
 
     # compute reducible groups
-    if ForAll( sizes, x -> Gcd( x, (p-1)^2 ) = 1 ) then 
+    if ForAll( sizes, x -> Gcd( x, (p-1)^2 ) = 1 ) then
         dia := [TrivialSubgroup(Source(iso))];
     else
         a := [[Z(p),0],[0,1]]*One(GF(p));
@@ -333,8 +333,8 @@ BindGlobal( "SemiSimpleGroupsCF", function( n, p, sizes, iso )
         dia[i] := Image( iso, dia[i] );
         SetSocleDimensions( dia[i], [1,1] );
     od;
-    
-    # return 
+
+    # return
     return Concatenation( irr, dia );
 end );
 
@@ -351,8 +351,8 @@ InstallGlobalFunction( SemiSimpleGroups, function( n, p, sizes, flags )
     M := GL(n, p);
 
     # size is a list of possible sizes
-    if IsBool( sizes ) then 
-        sizes := [Size( M )]; 
+    if IsBool( sizes ) then
+        sizes := [Size( M )];
     elif IsInt( sizes ) then
         sizes := [sizes];
     elif IsList( sizes ) then
@@ -361,15 +361,15 @@ InstallGlobalFunction( SemiSimpleGroups, function( n, p, sizes, flags )
         Error("wrong input in SemiSimpleGroups");
     fi;
 
-    # operation isomorphism 
+    # operation isomorphism
     iso := IsomorphismPermGroup( M );
 
     # dispatch
-    if IsBound( flags.cubefree ) and flags.cubefree and n = 2 then 
+    if IsBound( flags.cubefree ) and flags.cubefree and n = 2 then
         grps := SemiSimpleGroupsCF( n, p, sizes, iso );
-    elif IsBound( flags.supersol ) and flags.supersol then 
+    elif IsBound( flags.supersol ) and flags.supersol then
         grps := SemiSimpleGroupsSS( n, p, sizes, iso );
-    elif Length( sizes ) = 1 and Length(Factors(sizes[1])) = 1 then 
+    elif Length( sizes ) = 1 and Length(Factors(sizes[1])) = 1 then
         grps := SemiSimpleGroupsTS( n, p, sizes, iso );
     else
         grps := SemiSimpleGroupsGC( n, p, sizes, iso );
@@ -379,4 +379,3 @@ InstallGlobalFunction( SemiSimpleGroups, function( n, p, sizes, flags )
     for i in [1..Length(grps)] do SetProjections( grps[i], [inv] ); od;
     return grps;
 end );
-    

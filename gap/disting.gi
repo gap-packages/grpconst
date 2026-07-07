@@ -69,7 +69,7 @@ InstallGlobalFunction( DiffCocList, function( coclist, flagwordtest )
    fi;
 
    # find the test best splitting the clusters and call DiffCocList recursive
-   if fpqual[ pos ][ 2 ] > 1 then 
+   if fpqual[ pos ][ 2 ] > 1 then
       for j in [ 1 .. Length( coclist ) ] do
          coclist[ j ] := DiffCoc( coclist[ j ], fpcand[ pos ][ 2 ],
                                   EvalFpCoc( coclist[ j ], fpcand[ pos ] ) );
@@ -97,7 +97,7 @@ InstallGlobalFunction( DiffCocList, function( coclist, flagwordtest )
       i := i + Length( j );
    od;
 
-   # loop over the suggested words 
+   # loop over the suggested words
    # 4: Comm( g1, g2 ) * a ^ 2
    # 5: Comm( g1, g2 ) * a ^ 3
    for word in [ 4 .. 5 ] do
@@ -130,7 +130,7 @@ InstallGlobalFunction( DiffCocList, function( coclist, flagwordtest )
 
                   # note this test
                   qualfp := [ word, i, j, k ];
-                  if qual[ 1 ] = Length( coclist ) then 
+                  if qual[ 1 ] = Length( coclist ) then
                      Info( InfoRandIso, 2, "    DiffCocList split ",
                                  Length( coclist ), " groups in ", qual[ 1 ],
                                  " classes" );
@@ -213,4 +213,3 @@ InstallGlobalFunction( DistinguishGroups, function( list, flagwordtest )
    od;
    return list;
 end);
-

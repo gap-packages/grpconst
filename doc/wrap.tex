@@ -9,25 +9,25 @@
 \index{Construction of All Groups}
 
 The following function can be used to determine up to isomorphism
-all groups of a given order. This method implements a combination 
-of the more specific functions described below. 
+all groups of a given order. This method implements a combination
+of the more specific functions described below.
 
-Note that the chosen combination might not be the best possible for 
-every application. Thus, if this function takes too long to construct 
-the desired groups, then it might still be possible to determine these 
-groups using the functions outlined in the following chapters. Moreover, 
+Note that the chosen combination might not be the best possible for
+every application. Thus, if this function takes too long to construct
+the desired groups, then it might still be possible to determine these
+groups using the functions outlined in the following chapters. Moreover,
 the functions described in the following chapters provide more facilities
-and this might help to determine groups with certain properties more 
+and this might help to determine groups with certain properties more
 efficiently.
 
 \> ConstructAllGroups( <order> ) F
 
 Usually the output of this function is a list of groups. The soluble
-groups in the list are given as pc groups and the others as permutation 
+groups in the list are given as pc groups and the others as permutation
 groups. However, in some cases the output might contain lists of groups
 as well. The groups is such a list could not be proved to be pairwise
 non-isomorphic by the algorithm, although this is likely to be the case,
-see Section "Verifying non-isomorphism" for further details. 
+see Section "Verifying non-isomorphism" for further details.
 
 \beginexample
 gap> ConstructAllGroups( 60 );

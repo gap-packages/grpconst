@@ -8,18 +8,18 @@
 
 \index{The Frattini Extension Method}
 
-This is a method to construct up to isomorphism the soluble groups 
-of a given order. The main function `FrattiniExtensionMethod' to 
-construct groups is described in Section "The Main Frattini Extension 
-Function". 
+This is a method to construct up to isomorphism the soluble groups
+of a given order. The main function `FrattiniExtensionMethod' to
+construct groups is described in Section "The Main Frattini Extension
+Function".
 
 The construction process consists of two parts which can be addressed
 separately. In the first step a list of possible candidates for the
 Frattini factors of the desired groups is determined up to isomorphism.
-See Section "The Construction of Frattini Free Groups" for the 
+See Section "The Construction of Frattini Free Groups" for the
 corresponding functions. In the second step the determined candidates
 are considered one after the other and for each candidate a list of
-extensions is computed. See Section "The Determination of Frattini 
+extensions is computed. See Section "The Determination of Frattini
 Extensions" for the available functions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,43 +33,43 @@ Extensions" for the available functions.
 \> FrattiniExtensionMethod( <order>, <flags>, <uncoded> ) F
 
 First we describe the *input* of the function. The <order> is the
-size of the desired groups. The optional input <uncoded> is a 
-boolean which determines the output format. If it is true, then 
+size of the desired groups. The optional input <uncoded> is a
+boolean which determines the output format. If it is true, then
 pc groups are returned. Otherwise, if it is false or not given,
 then code records describing pc groups are returned (see
 `PcGroupCodeRec').
 
-The optional input <flags> is a record which is used to restrict 
-the construction process to groups with certain properties only. 
+The optional input <flags> is a record which is used to restrict
+the construction process to groups with certain properties only.
 This record consists of any of the following
 entries:
 
 \beginitems
- `nilpotent' & 
+ `nilpotent' &
       must be `true'. Only nilpotent groups are constructed.
 
- `nonnilpot' & 
+ `nonnilpot' &
       must be `true'. Only non-nilpotent groups are constructed.
 
- `supersol' & 
+ `supersol' &
       must be `true'. Only supersoluble groups are constructed.
 
- `nonsupsol' & 
+ `nonsupsol' &
       must be `true'. Only non-supersoluble groups are constructed.
 
- `pnormal' & 
+ `pnormal' &
       must be a list of primes. Only groups with normal Sylow $p$-subgroup
       for all $p$ in the given list are constructed.
 
- `nonpnorm' & 
+ `nonpnorm' &
       must be a list of primes. Only groups without normal Sylow $p$-subgroup
       for all $p$ in the given list are constructed.
 \enditems
 
-If a particular entry is not set, then no restriction on the 
+If a particular entry is not set, then no restriction on the
 groups is assumed. The default is an empty record of flags. Any
 combination of flags is possible. However, not all combinations make
-sense; For example, if `nilpotent' and `nonnilpotent' are both true, 
+sense; For example, if `nilpotent' and `nonnilpotent' are both true,
 then the algorithm will return the empty list. If `nonnilpot' is
 true and `pnormal' is the list $[3]$, then the non-nilpotent groups
 whose Sylow 3-subgroup is normal will be computed.
@@ -78,15 +78,15 @@ The *output* of the function is usually a list of pc groups or code
 records depending on <uncoded>. However, it may happen that the output
 list contains not only pc groups or codes, but also lists of pc groups
 or codes. This means that the groups in such a sublist are probably
-non-isomorphic, but the algorithm did not do a final verification, since 
-this would be time-consuming. If desired, then the user might do 
+non-isomorphic, but the algorithm did not do a final verification, since
+this would be time-consuming. If desired, then the user might do
 a verification using the function `DistinguishGroups' described
 below.
 
 Moreover, it might be worth noting that the groups in such sublists
 of the output list are always reduced by the random isomorphism test
 (see the Section on `Random Isomorphism Testing' in the reference manual).
-Hence the probability that there are still isomorphisms between 
+Hence the probability that there are still isomorphisms between
 groups in this list is less than $2^{-100}$.
 
 \beginexample
@@ -123,28 +123,28 @@ gap> FrattiniExtensionMethod( 8 );
 A finite group is called *Frattini free* if it has a trivial
 Frattini subgroup. As candidates for the Frattini factors of
 the groups of size <order>, we compute Frattini free groups of
-suitable size dividing <order>. 
+suitable size dividing <order>.
 
 \>FrattiniFactorCandidates( <order>, <flags> ) F
 \>FrattiniFactorCandidates( <order>, <flags>, <uncoded> ) F
 
-The input is similar to the input for the function 
-`FrattiniExtensionMethod'. 
+The input is similar to the input for the function
+`FrattiniExtensionMethod'.
 
 The output is a list of candidates for the Frattini factors of the
 desired groups, i.e. the groups of size <order> possibly restricted
 by <flags>. By default the groups are returned as codes which may
-be changed using the boolean <uncoded>. 
+be changed using the boolean <uncoded>.
 
 Note that the computed list is always reduced to isomorphism type
-representatives. Moreover, it might happen that some of the Frattini 
-free groups are not realised as Frattini factors of a group of size 
+representatives. Moreover, it might happen that some of the Frattini
+free groups are not realised as Frattini factors of a group of size
 <order>. However, in practice this is a very rare case.
 
 Furthermore, note that for this part of the Frattini extension method
-the restriction to the positive properties `nilpotent', `supersol' and 
-`pnormal' in the flags record will reduce the amount of computation 
-considerably, while the negative properties do not have such a major 
+the restriction to the positive properties `nilpotent', `supersol' and
+`pnormal' in the flags record will reduce the amount of computation
+considerably, while the negative properties do not have such a major
 influence on the efficiency of this method.
 
 \beginexample
@@ -171,14 +171,14 @@ as a Frattini extension of a Frattini free group.
 \> FrattiniExtensions( <code/group>, <order>, <uncoded> ) F
 
 Here the default input is a Frattini free group described by a code
-and the size <order> of the groups which shall be constructed. 
+and the size <order> of the groups which shall be constructed.
 Alternatively, one can input a Frattini free group as pc group.
 Moreover, it is possible to give a list of codes or pc groups at
-once. The flag <uncoded> changes the output format to pc groups 
+once. The flag <uncoded> changes the output format to pc groups
 instead of codes as above.
 
-The output of this function is similar to the output of the 
-function `FrattiniExtensionMethod'. 
+The output of this function is similar to the output of the
+function `FrattiniExtensionMethod'.
 
 \beginexample
 gap> G := SmallGroup( 24, 12 );
@@ -208,33 +208,33 @@ gap> FrattiniExtensions( cand, 12 );
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Verifying non-isomorphism}
 
-The output of the functions `FrattiniExtensionMethod' or `FrattiniExtensions' 
+The output of the functions `FrattiniExtensionMethod' or `FrattiniExtensions'
 might contain sublists of groups. That means, that the groups contained
 in sublists could not be distinguished up to isomorphism by the Frattini
-extension method. However, the groups have gone through the random 
-isomorphism test and hence it is likely that they are not isomorphic. 
+extension method. However, the groups have gone through the random
+isomorphism test and hence it is likely that they are not isomorphic.
 
 Here we provide a tool that can be used to try to prove that these
 groups are non-isomorphic. This is not done automatically within
 the Frattini extension method, since it might be time consuming
-and many users might not be interested in a complete verification 
+and many users might not be interested in a complete verification
 of non-isomorphism.
 
-To distinguish groups we compute invariants of the given groups. 
+To distinguish groups we compute invariants of the given groups.
 Clearly, if the invariants differ, then we obtain that the corresponding
 groups are not isomorphic. However, the converse is not true and hence
-we might not succeed to distinguish all non-isomorphic groups in a 
+we might not succeed to distinguish all non-isomorphic groups in a
 given list. See \cite{BE99} for a description of the used invariants.
 
 \> DistinguishGroups( <list>, <bool> ) F
 
-The function `DistinguishGroups' takes as input <list> a list as 
-described for the output of `FrattiniExtensions'. It returns a similar 
+The function `DistinguishGroups' takes as input <list> a list as
+described for the output of `FrattiniExtensions'. It returns a similar
 list, where the sublists contained in <list> are split up.
 
-There are two levels to operate the function `DistinguishGroups' which 
-are controlled by the second input parameter <bool> of the function. 
-If <bool> is `false', then only few invariants are computed, if it is 
+There are two levels to operate the function `DistinguishGroups' which
+are controlled by the second input parameter <bool> of the function.
+If <bool> is `false', then only few invariants are computed, if it is
 `true', then we try also the more complicated invariants.
 Clearly, if <bool> is `false', then the result is obtained faster,
 but if <bool> is `true', then we might distinguish more groups.

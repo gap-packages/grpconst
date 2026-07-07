@@ -69,7 +69,7 @@ DeclareGlobalFunction( "CyclicSplitExtensions");
 DeclareGlobalFunction( "CyclicSplitExtensionMethod");
 DeclareGlobalFunction( "CyclicGenerator");
 
-# aus upext.gi 
+# aus upext.gi
 DeclareGlobalFunction( "GroupOfInnerAutomorphismSpecial");
 DeclareGlobalFunction( "CyclicExtensionByTuple");
 DeclareGlobalFunction( "CyclicExtensions");
