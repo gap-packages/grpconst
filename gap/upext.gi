@@ -119,7 +119,7 @@ end );
 ##
 BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
     local cocl, cocr, size, ngens, size_inner, elms, poses, pos, qual, i, j,
-          gens1, gens2, f, tpos, tqual, len_classes;
+          gens1, gens2, f, tpos, tqual, len_classes,free,frowords,fro;
 
     cocl := List( [ G, H ], CocGroup );
     cocr := DiffCocList( cocl, false );
@@ -130,6 +130,9 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
 
     size := Size( G );
     ngens := Length( SmallGeneratingSet( G ) );
+    free:=GeneratorsOfGroup(FreeGroup(ngens));
+    frowords:=MorFroWords(free);
+
     size_inner := size / Size( Center( G ) );
 
     cocl := List( cocl, x -> List( x, Concatenation ) );
@@ -172,6 +175,7 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
                 return fail;
             fi;
         until Size( Group( gens1 ) ) = size;
+        fro:=List(frowords,x->Order(MappedWord(x,free,gens1)));
         repeat
             gens2 := List( cocl[ 2 ], Random );
             f := f + 1;
@@ -180,7 +184,9 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
                       "RandomIsomorphismTestUEM failed to decide" );
                 return fail;
             fi;
-        until Size( Group( gens2 ) ) = size;
+        # check cheap homomorphism property first, before even testing group order
+        until fro=List(frowords,x->Order(MappedWord(x,free,gens2)))
+          and Size( Group( gens2 ) ) = size;
         if GroupHomomorphismByImages( G, H, gens1, gens2 ) <> fail then
             Info( InfoRandIso, 2, "RandomIsomorphismTestUEM ",
                                 "found isomorphism" );
