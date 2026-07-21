@@ -1,5 +1,10 @@
 This file describes changes in the grpconst package.
 
+## 2.6.6 (2026-07-21)
+
+  - Speed up the randomized isomorphism test used by `UpwardsExtensions`
+  - Minor janitorial changes
+
 ## 2.6.5 (2024-01-22)
 
   - Fix `CyclicGenerator` for the trivial group
