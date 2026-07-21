@@ -1,47 +1,26 @@
 #############################################################################
 ##  
-##  PackageInfo.g for the package `GrpConst'                     Bettina Eick
+##  Demo PackageInfo.g for the GitHubPagesForGAP
+##
 
 SetPackageInfo( rec(
 
-PackageName := "GrpConst",
-Subtitle := "Constructing the Groups of a Given Order",
-Version := "2.6.5",
-Date := "22/01/2024", # dd/mm/yyyy format
-License := "GPL-2.0-or-later",
+PackageName := "GitHubPagesForGAP",
+
+Subtitle := "A GitHub Pages generator for GAP packages",
+Version := "0.4",
+Date := "10/04/2025", # dd/mm/yyyy format
+License := "0BSD",
 
 Persons := [
-
- rec(
-      LastName      := "Besche",
-      FirstNames    := "Hans Ulrich",
-      IsAuthor      := true,
-      IsMaintainer  := false,
-      Place         := ""),
-
- rec(
-      LastName      := "Eick",
-      FirstNames    := "Bettina",
-      IsAuthor      := true,
-      IsMaintainer  := true,
-      Email         := "beick@tu-bs.de",
-      WWWHome       := "http://www.iaa.tu-bs.de/beick",
-      PostalAddress := Concatenation(
-               "Institut Analysis und Algebra\n",
-               "TU Braunschweig\n",
-               "Universitätsplatz 2\n",
-               "D-38106 Braunschweig\n",
-               "Germany" ),
-      Place         := "Braunschweig",
-      Institution   := "TU Braunschweig"),
-
   rec(
     LastName      := "Horn",
     FirstNames    := "Max",
-    IsAuthor      := false,
+    IsAuthor      := true,
     IsMaintainer  := true,
     Email         := "mhorn@rptu.de",
     WWWHome       := "https://www.quendi.de/math",
+    GitHubUsername:= "fingolfin",
     PostalAddress := Concatenation(
                        "Fachbereich Mathematik\n",
                        "RPTU Kaiserslautern-Landau\n",
@@ -51,54 +30,73 @@ Persons := [
     Place         := "Kaiserslautern, Germany",
     Institution   := "RPTU Kaiserslautern-Landau"
   ),
+
+  rec(
+    LastName      := "Thor",
+    FirstNames    := "A. U.",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    #Email         := "author@example.com",
+  ),
+
+  rec(
+    LastName      := "Itor",
+    FirstNames    := "Jan",
+    IsAuthor      := false,
+    IsMaintainer  := true,
+    #Email         := "janitor@example.com",
+  ),
 ],
 
-Status := "accepted",
-CommunicatedBy := "Charles Wright (Eugene)",
-AcceptDate := "07/1999",
+Status := "other",
 
-PackageWWWHome  := "https://gap-packages.github.io/grpconst/",
-README_URL      := Concatenation( ~.PackageWWWHome, "README" ),
-PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-SourceRepository := rec(
-    Type := "git",
-    URL := "https://github.com/gap-packages/grpconst",
-),
-IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-ArchiveURL      := Concatenation( ~.SourceRepository.URL,
-                                 "/releases/download/v", ~.Version,
-                                 "/grpconst-", ~.Version ),
-ArchiveFormats := ".tar.gz",
+# The following are not strictly necessary in your own PackageInfo.g
+# (in the sense that update.g only looks at the usual fields
+# like PackageWWWHome, ArchiveURL etc.). But they are convenient
+# if you use exactly the scheme for your package website that we propose.
+GithubUser := "gap-system",
+GithubRepository := ~.PackageName,
+GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
+
+PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
+README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
+PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+# The following assumes you are using the Github releases system. If not, adjust
+# it accordingly.
+ArchiveURL     := Concatenation(~.GithubWWW,
+                    "/releases/download/v", ~.Version, "/",
+                    ~.GithubRepository, "-", ~.Version),
+
+ArchiveFormats := ".tar.gz .tar.bz2",
 
 AbstractHTML := 
-"The <span class=\"pkgname\">GrpConst</span> package contains methods to construct up to isomorphism the groups of a given order. The FrattiniExtensionMethod constructs all soluble groups of a given order. On request it gives only those that are (or are not) nilpotent or supersolvable or that do (or do not) have normal Sylow subgroups for some given set of primes. The CyclicSplitExtensionMethod constructs all groups having a normal Sylow subgroup for orders of the type p^n *q. The method relies on the availability of a list of all groups of order p^n. The UpwardsExtensions algorithm takes as input a permutation group G and a positive integer s and returns a list of permutation groups, one for each extension of G by a soluble group of order a divisor of s. This method can used to construct the non-solvable groups of a given order by taking the perfect groups of certain orders as input for G. The programs in this package have been used to construct a large part of the Small Groups library.",
+  "This is a pseudo package that contains no actual\
+  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
+  GAP packages that allows to quickly setup GitHub Pages.",
 
-               
 PackageDoc := rec(
-  BookName  := "GrpConst",
-  ArchiveURLSubset := ["doc", "htm"],
-  HTMLStart := "htm/chapters.htm",
+  BookName  := "GitHubPagesForGAP",
+  ArchiveURLSubset := ["doc"],
+  HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Constructing the Groups of a Given Order",
-  Autoload  := true),
+  LongTitle := "A GitHub Pages generator for GAP packages",
+),
 
+# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">=4.7",
+  GAP := ">=4.8.1",
   NeededOtherPackages := [
-    ["autpgrp", ">=1.6"],
-    ["irredsol", ">=1.2"],
-    ["smallgrp", ">=1.4"],
+    ["GAPDoc", ">= 1.2"],
+    ["IO", ">= 4.1"],
   ],
-  SuggestedOtherPackages := [],
-  ExternalConditions := [] ),
+  SuggestedOtherPackages := [["orb", ">= 4.2"]],
+  ExternalConditions := []
+),
 
 AvailabilityTest := ReturnTrue,
-TestFile := "tst/testall.g",
-Keywords := ["constructing groups of small order", 
-             "Frattini extension method",
-             "Cyclic split extension method",
-             "Upwards extension method"]
+
+Keywords := ["GitHub Pages", "GAP"]
 
 ));
 
