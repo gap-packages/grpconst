@@ -1,0 +1,94 @@
+<!-- W  upext.tex             GrpConst documentation             Bettina Eick -->
+<Chapter Label="The Upwards Extension Method">
+<Heading>The Upwards Extension Method</Heading>
+<Index>UpwardsExtensions</Index>
+<P/>
+This is a method to construct up to isomorphism the finite groups of
+a given order. For this purpose it will loop over all possible perfect
+groups and construct upwards extensions by soluble groups. This, in turn,
+is done by iterated cyclic extensions.
+<P/>
+Since this method is less efficient than the above two methods, it
+will usually only be used for the determination of non-soluble groups.
+<Section>
+<Heading>The Upwards Extension Method</Heading>
+<ManSection>
+<Func Name="UpwardsExtensions" Arg="G, s"/>
+<Description>
+Let <A>G</A> be a permutation group and <A>s</A> a positive integer.  This function
+returns a list corresponding to <C>DivisorsInt(s)</C>.  Let <M>t</M> be the <M>i</M>-th
+divisor of <A>s</A>. Then the <M>i</M>-th entry in the output is a list of all
+extensions of <A>G</A> by a soluble group of order <M>t</M> up to isomorphism. The
+returned groups are permutation groups again.
+<P/>
+Typically, this function is applied to perfect groups <A>G</A>, which may be
+obtained from the perfect groups catalogue in GAP (see the Section on
+<C>Finite perfect groups</C> in the reference manual).
+<P/>
+The most time-consuming part of the computation in <C>UpwardsExtensions</C>
+is the isomorphism test. The following function does no reduction to
+isomorphism type representatives and hence is much more efficient.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="CyclicExtensions" Arg="G, p"/>
+<Description>
+Here <A>G</A> should be a  permutation group and <A>p</A> a prime. This function
+computes a list of permutation groups containing the upwards extensions
+of <A>G</A> by the cyclic group of order <A>p</A>, but not reduced to isomorphism
+type representatives.
+<P/>
+There is an info class <C>InfoUpExt</C> available with values from 1 to 3.
+<Example><![CDATA[
+gap> G := PerfectGroup( IsPermGroup, 120, 1 );
+A5 2^1
+gap> c := CyclicExtensions( G, 2 );;
+gap> List( c, IdGroup );
+[ [ 240, 94 ], [ 240, 93 ], [ 240, 89 ], [ 240, 90 ] ]
+gap> H := c[1];
+Group([ (3,4,7,5)(6,9,8,10)(11,15,13,16)(12,17,14,18)(19,21,20,22)
+  (23,26,25,24), (3,6,4)(5,7,8)(9,11,12)(10,13,14)(15,18,19)(16,17,20)
+  (21,23,24)(22,25,26), (1,2) ])
+gap> CyclicExtensions( H, 2 );;
+gap> List(last, IdGroup);
+[ [ 480, 960 ], [ 480, 222 ], [ 480, 955 ], [ 480, 222 ], [ 480, 219 ], 
+  [ 480, 950 ], [ 480, 219 ], [ 480, 949 ], [ 480, 957 ], [ 480, 957 ], 
+  [ 480, 953 ], [ 480, 953 ] ]
+]]></Example>
+<Example><![CDATA[
+gap> u := UpwardsExtensions( G, 4 );;
+gap> List( u, Length );
+[ 1, 4, 14 ]
+gap> List( u[3], IdGroup);
+[ [ 480, 960 ], [ 480, 959 ], [ 480, 222 ], [ 480, 219 ], [ 480, 950 ], 
+  [ 480, 949 ], [ 480, 221 ], [ 480, 947 ], [ 480, 948 ], [ 480, 218 ], 
+  [ 480, 955 ], [ 480, 957 ], [ 480, 953 ], [ 480, 946 ] ]
+]]></Example>
+In case that we want to extend a perfect group with trivial
+centre, then there is a better algorithm available. This is
+implemented as well and can be used with the following functions.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="UpwardsExtensionsNoCentre" Arg="G, s"/>
+<Description>
+Let <A>G</A> be a perfect permutation group with trivial centre and <A>s</A>
+a positive integer. This function returns a list of all extensions
+of <A>G</A> by a soluble group of order <M>s</M> up to isomorphism. The returned
+groups are permutation groups again. Note that, in difference to
+<C>UpwardsExtensions</C> this function does not return the extensions by
+groups of order dividing <A>s</A>. Moreover, the implementation of the
+function requires that all soluble groups of order <A>s</A> are available
+as <C>SmallGroups</C>. The implementation then uses the following function
+to determine groups.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="ExtensionsByGroupNoCentre" Arg="G, H"/>
+<Description>
+Let <A>G</A> be a perfect permutation group with trivial centre and <A>H</A> a soluble
+group. This functions returns all extensions of <A>G</A> by <A>H</A> up to isomorphism.
+</Description>
+</ManSection>
+</Section>
+</Chapter>

@@ -1,0 +1,98 @@
+<!-- W  cyclic.tex           GrpConst documentation             Bettina Eick -->
+<Chapter Label="The Cyclic Split Extension Method">
+<Heading>The Cyclic Split Extension Method</Heading>
+<Index>The Cyclic Split Extension Method</Index>
+<P/>
+This is a method to construct up to isomorphism the groups of order
+<M>p^n \cdot q</M> for different primes <M>p</M> and <M>q</M> which have a normal
+Sylow subgroup. We first describe the main function for this method
+and then functions for a slightly more low level access to the
+algorithms.
+<P/>
+Note that all functions described in this chapter rely on an
+efficient method for <C>AutomorphismGroup</C> for <M>p</M>-groups. Such
+a method is provided in the package AutPGrp.
+Thus it is useful to install and load this share package before
+using the functions described in this chapter.
+<Section Label="The Main Function">
+<Heading>The Main Function</Heading>
+<ManSection>
+<Func Name="CyclicSplitExtensionMethod" Arg="p, n, q[, uncoded]"/>
+<Description>
+Clearly, each of the computed groups is a split extension of a group
+of order <M>p^n</M> and the cyclic group of order <M>q</M>. The output is a
+record with three entries <A>up</A>, <A>down</A> and <A>both</A>. Each of these
+contains a list of groups, <A>both</A> the nilpotent groups, <A>up</A> the
+remaining groups with a normal Sylow <M>p</M>-subgroup and <A>down</A> the
+remaining groups with normal Sylow <M>q</M>-subgroup.
+<P/>
+As in Chapter <Ref Chap="The Frattini Extension Method"/> all groups are
+described as codes. Setting <A>uncoded</A> to true, the function
+will return pc groups instead.
+<P/>
+If one wants to construct the groups of order <M>p^n \cdot q</M>
+for fixed <M>p</M> and several primes <M>q</M>, it is more efficient to
+do this in one go. Thus it is possible to hand a list of primes
+for the input <A>q</A>.
+<Example><![CDATA[
+gap> CyclicSplitExtensionMethod( 2,2,7, true );
+rec( 
+  both := [ <pc group of size 28 with 3 generators>, 
+      <pc group of size 28 with 3 generators> ], 
+  down := [ <pc group of size 28 with 3 generators>, 
+      <pc group of size 28 with 3 generators> ], up := [  ] )
+]]></Example>
+<Example><![CDATA[
+gap> CyclicSplitExtensionMethod( 2,2,[3,5], true );
+rec( 
+  both := [ <pc group of size 12 with 3 generators>, 
+      <pc group of size 20 with 3 generators>, 
+      <pc group of size 12 with 3 generators>, 
+      <pc group of size 20 with 3 generators> ], 
+  down := [ <pc group of size 12 with 3 generators>, 
+      <pc group of size 20 with 3 generators>, 
+      <pc group of size 20 with 3 generators>, 
+      <pc group of size 12 with 3 generators>, 
+      <pc group of size 20 with 3 generators> ], 
+  up := [ <pc group of size 12 with 3 generators> ] )
+]]></Example>
+Note that the function <C>CyclicSplitExtensionMethod</C> requires that
+the groups of order <M>p^n</M> are given within the SmallGroups Library.
+</Description>
+</ManSection>
+</Section>
+<Section Label="The Underlying Functions">
+<Heading>The Underlying Functions</Heading>
+It is possible to construct the cyclic extensions of a single group
+of order <M>p^n</M> only. The output is as above.
+<ManSection>
+<Func Name="CyclicSplitExtensions" Arg="G, q[, uncoded]"/>
+<Description>
+Moreover, the computation of the record entry <A>up</A> and the record
+entry <A>down</A> can be separated by using the following functions.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="CyclicSplitExtensionsUp" Arg="G, q[, uncoded]"/>
+<Func Name="CyclicSplitExtensionsDown" Arg="G, q[, uncoded]"/>
+<Description>
+The input for these functions is the same as above. The first
+function returns a list of groups with one normal subgroup of order
+<M>p^n</M> and the second a list of groups with one normal subgroup of order
+<M>q</M>.
+<Example><![CDATA[
+gap> G := SmallGroup( 16, 10 );;
+gap> CyclicSplitExtensionsUp( G, 3, true );
+[ <pc group of size 48 with 5 generators> ]
+]]></Example>
+<Example><![CDATA[
+gap> G := SylowSubgroup( SymmetricGroup(4), 2);
+Group([ (1,2), (3,4), (1,3)(2,4) ])
+gap> CyclicSplitExtensionsDown( G, 3 );
+[ rec( code := 119814529, order := 24 ), 
+  rec( code := 2837724033, order := 24 ) ]
+]]></Example>
+</Description>
+</ManSection>
+</Section>
+</Chapter>

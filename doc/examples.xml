@@ -1,13 +1,8 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%W examples.tex           GrpConst documentation             Bettina Eick
-%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Chapter{Examples with Runtimes}
-
-\index{Examples with Runtimes}
-
+<!-- W examples.tex           GrpConst documentation             Bettina Eick -->
+<Chapter Label="Examples with Runtimes">
+<Heading>Examples with Runtimes</Heading>
+<Index>Examples with Runtimes</Index>
+<P/>
 In this chapter we outline some examples of applications of
 the methods described above. The examples are meant to give
 an idea of the possible applications of the package. Thus we
@@ -15,79 +10,78 @@ included runtimes for all examples, but omitted the output
 in some cases, since it would be too long to be printed.
 The runtimes have been obtained on a 400 Mhz PC running under
 Linux.
-
-\beginexample
+<Log><![CDATA[
 gap> ConstructAllGroups( 60 );; time;
 4080
-\endexample
-
+]]></Log>
 In the following examples we observe that the restriction to
 certain groups is often helpful. Note that nilpotent groups
-can often be obtained as direct product of $p$-groups which,
-in turn, might better be constructed by $p$-group generation
+can often be obtained as direct product of <M>p</M>-groups which,
+in turn, might better be constructed by <M>p</M>-group generation
 methods.
-
-\beginexample
+<Log><![CDATA[
 gap> FrattiniExtensionMethod( 5^3 * 7 * 31, true );;
 gap> time;
 13670
-
+]]></Log>
+<Log><![CDATA[
 gap> flags := rec( nonnilpot := true );;
 gap> FrattiniExtensionMethod( 5^3 * 7 * 31, flags, true );;
 gap> time;
 8400
-
+]]></Log>
+<Log><![CDATA[
 gap> flags := rec( nonsupsol := true );;
 gap> FrattiniExtensionMethod( 5^3 * 7 * 31, flags, true );;
 gap> time;
 3640
-
+]]></Log>
+<Log><![CDATA[
 gap> flags := rec( nonpnorm := [31] );;
 gap> FrattiniExtensionMethod( 5^3 * 7 * 31, flags, true );;
 gap> time;
 1740
-\endexample
-
+]]></Log>
 Next we consider groups of an order whose factorision contains
 a large prime. Note that the Small Groups library contains a
 generic method to construct the groups whose order is the product
-of at most 3 primes. This method is used in `ConstructAllGroups'
+of at most 3 primes. This method is used in <C>ConstructAllGroups</C>
 which is therefore much more efficient in the next example.
-
-\beginexample
+<Log><![CDATA[
 gap> FrattiniExtensionMethod( 10007 * 2, true );
 [ <pc group of size 20014 with 2 generators>, 
   <pc group of size 20014 with 2 generators> ]
 gap> time;
 87950
-
+]]></Log>
+<Log><![CDATA[
 gap> flags := rec( nonnilpot := true );;
 gap> FrattiniExtensionMethod( 10007 * 2, flags, true  );
 [ <pc group of size 20014 with 2 generators> ]
 gap> time;
 48950
-
+]]></Log>
+<Log><![CDATA[
 gap> ConstructAllGroups( 10007 * 2 );
 [ <pc group of size 20014 with 2 generators>, 
   <pc group of size 20014 with 2 generators> ]
 gap> time;
 30
-\endexample
-
+]]></Log>
 Finally we consider an order which factorises in seven primes and
 contains a moderately large prime power. Note that there are 943
-non-nilpotent groups of order $288 = 2^5 \cdot 3^2$ while there
+non-nilpotent groups of order <M>288 = 2^5 \cdot 3^2</M> while there
 are only 90 such groups without normal Sylow subgroup.
-
-\beginexample
+<Log><![CDATA[
 gap> flags := rec( nonnilpot := true );;
 gap> FrattiniExtensionMethod( 2^5 * 3^2, flags, true );;
 gap> time;
 656630
-
+]]></Log>
+<Log><![CDATA[
 gap> flags := rec( nonpnorm := [2,3] );;
 gap> FrattiniExtensionMethod( 2^5 * 3^2, flags, true );;
 gap> time;
 58180
-\endexample
-
+]]></Log>
+</Chapter>
