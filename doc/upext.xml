@@ -33,7 +33,7 @@ isomorphism type representatives and hence is much more efficient.
 <ManSection>
 <Func Name="CyclicExtensions" Arg="G, p"/>
 <Description>
-Here <A>G</A> should be a  permutation group and <A>p</A> a prime. This function
+Here <A>G</A> should be a permutation group and <A>p</A> a prime. This function
 computes a list of permutation groups containing the upwards extensions
 of <A>G</A> by the cyclic group of order <A>p</A>, but not reduced to isomorphism
 type representatives.
@@ -43,26 +43,22 @@ There is an info class <C>InfoUpExt</C> available with values from 1 to 3.
 gap> G := PerfectGroup( IsPermGroup, 120, 1 );
 A5 2^1
 gap> c := CyclicExtensions( G, 2 );;
-gap> List( c, IdGroup );
-[ [ 240, 94 ], [ 240, 93 ], [ 240, 89 ], [ 240, 90 ] ]
-gap> H := c[1];
-Group([ (3,4,7,5)(6,9,8,10)(11,15,13,16)(12,17,14,18)(19,21,20,22)
-  (23,26,25,24), (3,6,4)(5,7,8)(9,11,12)(10,13,14)(15,18,19)(16,17,20)
-  (21,23,24)(22,25,26), (1,2) ])
-gap> CyclicExtensions( H, 2 );;
-gap> List(last, IdGroup);
-[ [ 480, 960 ], [ 480, 222 ], [ 480, 955 ], [ 480, 222 ], [ 480, 219 ], 
-  [ 480, 950 ], [ 480, 219 ], [ 480, 949 ], [ 480, 957 ], [ 480, 957 ], 
-  [ 480, 953 ], [ 480, 953 ] ]
+gap> SortedList( List( c, IdGroup ) );
+[ [ 240, 89 ], [ 240, 90 ], [ 240, 93 ], [ 240, 94 ] ]
+gap> H := First( c, x -> IdGroup( x ) = [ 240, 94 ] );;
+gap> SortedList( List( CyclicExtensions( H, 2 ), IdGroup ) );
+[ [ 480, 219 ], [ 480, 219 ], [ 480, 222 ], [ 480, 222 ], [ 480, 949 ], 
+  [ 480, 950 ], [ 480, 953 ], [ 480, 953 ], [ 480, 955 ], [ 480, 957 ], 
+  [ 480, 957 ], [ 480, 960 ] ]
 ]]></Example>
 <Example><![CDATA[
 gap> u := UpwardsExtensions( G, 4 );;
 gap> List( u, Length );
 [ 1, 4, 14 ]
-gap> List( u[3], IdGroup);
-[ [ 480, 960 ], [ 480, 959 ], [ 480, 222 ], [ 480, 219 ], [ 480, 950 ], 
-  [ 480, 949 ], [ 480, 221 ], [ 480, 947 ], [ 480, 948 ], [ 480, 218 ], 
-  [ 480, 955 ], [ 480, 957 ], [ 480, 953 ], [ 480, 946 ] ]
+gap> SortedList( List( u[3], IdGroup ) );
+[ [ 480, 218 ], [ 480, 219 ], [ 480, 221 ], [ 480, 222 ], [ 480, 946 ], 
+  [ 480, 947 ], [ 480, 948 ], [ 480, 949 ], [ 480, 950 ], [ 480, 953 ], 
+  [ 480, 955 ], [ 480, 957 ], [ 480, 959 ], [ 480, 960 ] ]
 ]]></Example>
 If we want to extend a perfect group with trivial
 centre, then there is a better algorithm available. This is
