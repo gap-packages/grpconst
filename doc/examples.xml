@@ -8,7 +8,7 @@ the methods described above. The examples are meant to give
 an idea of the possible applications of the package. Thus we
 included runtimes for all examples, but omitted the output
 in some cases, since it would be too long to be printed.
-The runtimes have been obtained on a 400 Mhz PC running under
+The runtimes have been obtained on a 400 MHz PC running under
 Linux.
 <Log><![CDATA[
 gap> ConstructAllGroups( 60 );; time;
@@ -42,7 +42,7 @@ gap> FrattiniExtensionMethod( 5^3 * 7 * 31, flags, true );;
 gap> time;
 1740
 ]]></Log>
-Next we consider groups of an order whose factorision contains
+Next we consider groups of an order whose factorisation contains
 a large prime. Note that the Small Groups library contains a
 generic method to construct the groups whose order is the product
 of at most 3 primes. This method is used in <C>ConstructAllGroups</C>
@@ -68,7 +68,7 @@ gap> ConstructAllGroups( 10007 * 2 );
 gap> time;
 30
 ]]></Log>
-Finally we consider an order which factorises in seven primes and
+Finally we consider an order which factorises into seven primes and
 contains a moderately large prime power. Note that there are 943
 non-nilpotent groups of order <M>288 = 2^5 \cdot 3^2</M> while there
 are only 90 such groups without normal Sylow subgroup.

@@ -22,7 +22,7 @@ efficiently.
 Usually the output of this function is a list of groups. The soluble
 groups in the list are given as pc groups and the others as permutation
 groups. However, in some cases the output might contain lists of groups
-as well. The groups is such a list could not be proved to be pairwise
+as well. The groups in such a list could not be proved to be pairwise
 non-isomorphic by the algorithm, although this is likely to be the case,
 see Section <Ref Sect="Verifying non-isomorphism"/> for further details.
 <Example><![CDATA[

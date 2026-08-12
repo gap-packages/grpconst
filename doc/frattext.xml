@@ -50,7 +50,7 @@ entries:
 If a particular entry is not set, then no restriction on the
 groups is assumed. The default is an empty record of flags. Any
 combination of flags is possible. However, not all combinations make
-sense; For example, if <C>nilpotent</C> and <C>nonnilpotent</C> are both true,
+sense; for example, if <C>nilpotent</C> and <C>nonnilpot</C> are both true,
 then the algorithm will return the empty list. If <C>nonnilpot</C> is
 true and <C>pnormal</C> is the list <M>[3]</M>, then the non-nilpotent groups
 whose Sylow 3-subgroup is normal will be computed.
@@ -201,21 +201,21 @@ gap> FrattiniExtensions( cand, 12 );
 <Section Label="Verifying non-isomorphism">
 <Heading>Verifying non-isomorphism</Heading>
 The output of the functions <C>FrattiniExtensionMethod</C> or <C>FrattiniExtensions</C>
-might contain sublists of groups. That means, that the groups contained
+might contain sublists of groups. That means that the groups contained
 in sublists could not be distinguished up to isomorphism by the Frattini
 extension method. However, the groups have gone through the random
 isomorphism test and hence it is likely that they are not isomorphic.
 <P/>
 Here we provide a tool that can be used to try to prove that these
 groups are non-isomorphic. This is not done automatically within
-the Frattini extension method, since it might be time consuming
+the Frattini extension method, since it might be time-consuming
 and many users might not be interested in a complete verification
 of non-isomorphism.
 <P/>
 To distinguish groups we compute invariants of the given groups.
 Clearly, if the invariants differ, then we obtain that the corresponding
 groups are not isomorphic. However, the converse is not true and hence
-we might not succeed to distinguish all non-isomorphic groups in a
+we might not succeed in distinguishing all non-isomorphic groups in a
 given list. See <Cite Key="BE99"/> for a description of the used invariants.
 <ManSection>
 <Func Name="DistinguishGroups" Arg="list, bool"/>
@@ -226,7 +226,7 @@ list, where the sublists contained in <A>list</A> are split up.
 <P/>
 There are two levels to operate the function <C>DistinguishGroups</C> which
 are controlled by the second input parameter <A>bool</A> of the function.
-If <A>bool</A> is <K>false</K>, then only few invariants are computed, if it is
+If <A>bool</A> is <K>false</K>, then only a few invariants are computed, if it is
 <K>true</K>, then we try also the more complicated invariants.
 Clearly, if <A>bool</A> is <K>false</K>, then the result is obtained faster,
 but if <A>bool</A> is <K>true</K>, then we might distinguish more groups.
@@ -234,7 +234,7 @@ but if <A>bool</A> is <K>true</K>, then we might distinguish more groups.
 If <C>DistinguishGroups</C> fails to split up the input list completely,
 then a user might use the general purpose function <C>IsomorphismGroups</C>
 to prove the non-isomorphism between the remaining groups. However,
-this might be a time consuming computation.
+this might be a time-consuming computation.
 </Description>
 </ManSection>
 </Section>

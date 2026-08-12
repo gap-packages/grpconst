@@ -64,7 +64,7 @@ gap> List( u[3], IdGroup);
   [ 480, 949 ], [ 480, 221 ], [ 480, 947 ], [ 480, 948 ], [ 480, 218 ], 
   [ 480, 955 ], [ 480, 957 ], [ 480, 953 ], [ 480, 946 ] ]
 ]]></Example>
-In case that we want to extend a perfect group with trivial
+If we want to extend a perfect group with trivial
 centre, then there is a better algorithm available. This is
 implemented as well and can be used with the following functions.
 </Description>
@@ -75,8 +75,8 @@ implemented as well and can be used with the following functions.
 Let <A>G</A> be a perfect permutation group with trivial centre and <A>s</A>
 a positive integer. This function returns a list of all extensions
 of <A>G</A> by a soluble group of order <M>s</M> up to isomorphism. The returned
-groups are permutation groups again. Note that, in difference to
-<C>UpwardsExtensions</C> this function does not return the extensions by
+groups are permutation groups again. Note that, in contrast to
+<C>UpwardsExtensions</C>, this function does not return the extensions by
 groups of order dividing <A>s</A>. Moreover, the implementation of the
 function requires that all soluble groups of order <A>s</A> are available
 as <C>SmallGroups</C>. The implementation then uses the following function
@@ -87,7 +87,7 @@ to determine groups.
 <Func Name="ExtensionsByGroupNoCentre" Arg="G, H"/>
 <Description>
 Let <A>G</A> be a perfect permutation group with trivial centre and <A>H</A> a soluble
-group. This functions returns all extensions of <A>G</A> by <A>H</A> up to isomorphism.
+group. This function returns all extensions of <A>G</A> by <A>H</A> up to isomorphism.
 </Description>
 </ManSection>
 </Section>

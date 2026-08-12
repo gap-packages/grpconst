@@ -2,7 +2,7 @@
 <Chapter Label="Preface">
 <Heading>Preface</Heading>
 The determination of all groups of a given order up to isomorphism
-is a central problem in finite group theory. It has been initiated
+is a central problem in finite group theory. It was initiated
 in 1854 by A. Cayley who constructed the groups of order 4 and 6.
 <P/>
 A large number of publications followed Cayley's work. For example,
@@ -12,11 +12,11 @@ and Laue added the groups of order 96, see <Cite Key="HS64"/>, <Cite Key="Neu67"
 and <Cite Key="Lau82"/>. These determinations partially relied on the
 help of computers, but a general algorithm to construct groups had
 not been used. The resulting catalogue of groups of order at most
-100 has been available in GAP 3.
+100 was available in GAP 3.
 <P/>
 Then Newman and O'Brien introduced an algorithm to determine
 groups of prime-power order, see <Cite Key="OBr90"/>. An implementation
-of this method is available in the ANUPQ share package of GAP.
+of this method is available in the ANUPQ package of GAP.
 This method has been used to compute the groups of order <M>2^n</M> for
 <M>n \leq 8</M> and the groups of order <M>3^n</M> for <M>n \leq 6</M>, see
 <Cite Key="OBr88"/>, and the resulting groups are available in GAP.
@@ -24,7 +24,7 @@ Moreover, the large number of groups of order <M>2^8</M> shows that
 algorithmic methods are the only sensible way for group determinations
 in this range.
 <P/>
-In this share package we introduce practical methods to determine
+In this package we introduce practical methods to determine
 up to isomorphism all groups of a given order. The algorithms
 are described in <Cite Key="BE99"/>. These methods have been used to
 construct the non-nilpotent groups of order at most 1000, see
@@ -42,8 +42,8 @@ of the algorithm; that is, the more primes are contained in
 the factorisation the more difficult the determination gets.
 <P/>
 As an example, the construction of all non-nilpotent groups of order
-<M>192 = 2^6 \cdot 3</M> takes 17 minutes on an PC 400 Mhz. This is a medium
-sized application of our methods.  However, the construction of the groups
+<M>192 = 2^6 \cdot 3</M> takes 17 minutes on a 400 MHz PC. This is a medium-sized
+application of our methods.  However, the construction of the groups
 of order <M>768 = 2^8 \cdot 3</M> takes already rather long (a few days) and
 can be considered as a limit of our methods. On the other hand, the
 groups of order <M>5425 = 5^2 \cdot 7 \cdot 31</M> can be determined in 5 sec.
@@ -57,11 +57,11 @@ Finally, we mention that the correctness of our algorithms is very
 hard to check for a user; in particular, since there are no other
 algorithms for the same purpose available, it might be difficult to
 verify that our methods compute all desired groups. Thus we note here
-that methods implemented in this share package have been used to compute
+that methods implemented in this package have been used to compute
 large parts of the Small Groups library and this, in turn, has been
 checked by the authors as described in <Cite Key="BE99"/> and <Cite Key="BE1000"/>.
 <P/>
-Comments and suggestions on this share package are very welcome.
+Comments and suggestions on this package are very welcome.
 Please send them to
 <P/>
 beick@tu-bs.de or hubesche@tu-bs.de.
