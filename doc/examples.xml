@@ -16,7 +16,7 @@ gap> ConstructAllGroups( 60 );; time;
 ]]></Log>
 In the following examples we observe that the restriction to
 certain groups is often helpful. Note that nilpotent groups
-can often be obtained as direct product of <M>p</M>-groups which,
+can often be obtained as a direct product of <M>p</M>-groups which,
 in turn, might better be constructed by <M>p</M>-group generation
 methods.
 <Log><![CDATA[

@@ -3,7 +3,7 @@
 <Heading>Preface</Heading>
 The determination of all groups of a given order up to isomorphism
 is a central problem in finite group theory. It was initiated
-in 1854 by A. Cayley who constructed the groups of order 4 and 6.
+in 1854 by A. Cayley, who constructed the groups of order 4 and 6.
 <P/>
 A large number of publications followed Cayley's work. For example,
 Hall and Senior determined the groups of order <M>2^n</M> for <M>n \leq 6</M>,
@@ -29,7 +29,7 @@ up to isomorphism all groups of a given order. The algorithms
 are described in <Cite Key="BE99"/>. These methods have been used to
 construct the non-nilpotent groups of order at most 1000, see
 <Cite Key="BE1000"/>. The resulting catalogue of groups is available within
-the small groups library of GAP 4.
+the Small Groups library of GAP 4.
 <P/>
 Our methods are not limited to groups of order at most 1000
 and thus may be used to determine all or certain groups of

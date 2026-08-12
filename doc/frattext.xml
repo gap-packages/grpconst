@@ -22,8 +22,8 @@ extensions is computed. See Section <Ref Sect="The Determination of Frattini Ext
 <Description>
 First we describe the <E>input</E> of the function. The <A>order</A> is the
 size of the desired groups. The optional input <A>uncoded</A> is a
-boolean which determines the output format. If it is true, then
-pc groups are returned. Otherwise, if it is false or not given,
+boolean which determines the output format. If it is <K>true</K>, then
+pc groups are returned. Otherwise, if it is <K>false</K> or not given,
 then code records describing pc groups are returned (see
 <C>PcGroupCodeRec</C>).
 <P/>
@@ -41,10 +41,10 @@ entries:
 <Mark><C>nonsupsol</C></Mark>
 <Item>must be <K>true</K>. Only non-supersoluble groups are constructed.</Item>
 <Mark><C>pnormal</C></Mark>
-<Item>must be a list of primes. Only groups with normal Sylow <M>p</M>-subgroup
+<Item>must be a list of primes. Only groups with a normal Sylow <M>p</M>-subgroup
       for all <M>p</M> in the given list are constructed.</Item>
 <Mark><C>nonpnorm</C></Mark>
-<Item>must be a list of primes. Only groups without normal Sylow <M>p</M>-subgroup
+<Item>must be a list of primes. Only groups without a normal Sylow <M>p</M>-subgroup
       for all <M>p</M> in the given list are constructed.</Item>
 </List>
 If a particular entry is not set, then no restriction on the
@@ -216,7 +216,7 @@ To distinguish groups we compute invariants of the given groups.
 Clearly, if the invariants differ, then we obtain that the corresponding
 groups are not isomorphic. However, the converse is not true and hence
 we might not succeed in distinguishing all non-isomorphic groups in a
-given list. See <Cite Key="BE99"/> for a description of the used invariants.
+given list. See <Cite Key="BE99"/> for a description of the invariants used.
 <ManSection>
 <Func Name="DistinguishGroups" Arg="list, bool"/>
 <Description>
@@ -226,13 +226,13 @@ list, where the sublists contained in <A>list</A> are split up.
 <P/>
 There are two levels to operate the function <C>DistinguishGroups</C> which
 are controlled by the second input parameter <A>bool</A> of the function.
-If <A>bool</A> is <K>false</K>, then only a few invariants are computed, if it is
-<K>true</K>, then we try also the more complicated invariants.
+If <A>bool</A> is <K>false</K>, then only a few invariants are computed; if it is
+<K>true</K>, then we also try the more complicated invariants.
 Clearly, if <A>bool</A> is <K>false</K>, then the result is obtained faster,
 but if <A>bool</A> is <K>true</K>, then we might distinguish more groups.
 <P/>
 If <C>DistinguishGroups</C> fails to split up the input list completely,
-then a user might use the general purpose function <C>IsomorphismGroups</C>
+then a user might use the general-purpose function <C>IsomorphismGroups</C>
 to prove the non-isomorphism between the remaining groups. However,
 this might be a time-consuming computation.
 </Description>

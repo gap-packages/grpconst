@@ -37,8 +37,8 @@ used to construct non-soluble groups. Note that this method needs
 a list of perfect groups of order dividing the given one.
 (See Chapter <Ref Chap="The Upwards Extension Method"/>.)
 <P/>
-Furthermore, the package contains a wrap up function which combines
-the three methods to a general algorithm to construct the groups of
+Furthermore, the package contains a wrap-up function which combines
+the three methods into a general algorithm to construct the groups of
 a given order. (See Chapter <Ref Chap="Construction of All Groups"/>.) Finally,
 there is an info class <C>InfoGrpCon</C> available for the functions of
 this package with possible levels 1 up to 4.

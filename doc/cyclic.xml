@@ -6,7 +6,7 @@
 This is a method to construct up to isomorphism the groups of order
 <M>p^n \cdot q</M> for different primes <M>p</M> and <M>q</M> which have a normal
 Sylow subgroup. We first describe the main function for this method
-and then functions for a slightly more low level access to the
+and then functions providing slightly lower level access to the
 algorithms.
 <P/>
 Note that all functions described in this chapter rely on an
@@ -24,11 +24,11 @@ of order <M>p^n</M> and the cyclic group of order <M>q</M>. The output is a
 record with three entries <A>up</A>, <A>down</A> and <A>both</A>. Each of these
 contains a list of groups, <A>both</A> the nilpotent groups, <A>up</A> the
 remaining groups with a normal Sylow <M>p</M>-subgroup and <A>down</A> the
-remaining groups with normal Sylow <M>q</M>-subgroup.
+remaining groups with a normal Sylow <M>q</M>-subgroup.
 <P/>
 As in Chapter <Ref Chap="The Frattini Extension Method"/> all groups are
-described as codes. Setting <A>uncoded</A> to true, the function
-will return pc groups instead.
+described as codes. Setting <A>uncoded</A> to <K>true</K> makes the function
+return pc groups instead.
 <P/>
 If one wants to construct the groups of order <M>p^n \cdot q</M>
 for fixed <M>p</M> and several primes <M>q</M>, it is more efficient to
@@ -57,7 +57,7 @@ rec(
   up := [ <pc group of size 12 with 3 generators> ] )
 ]]></Example>
 Note that the function <C>CyclicSplitExtensionMethod</C> requires that
-the groups of order <M>p^n</M> are given within the SmallGroups Library.
+the groups of order <M>p^n</M> are given within the Small Groups library.
 </Description>
 </ManSection>
 </Section>

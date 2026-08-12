@@ -6,7 +6,7 @@ constructing up to isomorphism all groups of a given order.
 
 The FrattiniExtensionMethod constructs all soluble groups of a given order.
 On request it gives only those that are (or are not) nilpotent or
-supersolvable or that do (or do not) have normal Sylow subgroups for
+supersoluble or that do (or do not) have normal Sylow subgroups for
 some given set of primes. The program's output may be expressed in a
 compact coded form, if desired.
 
