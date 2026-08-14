@@ -1,5 +1,10 @@
 This file describes changes in the grpconst package.
 
+## 2.7.0 (2026-08-14)
+
+  - Converted the manual to GAPDoc format
+  - Minor janitorial changes
+
 ## 2.6.6 (2026-07-21)
 
   - Speed up the randomized isomorphism test used by `UpwardsExtensions`
