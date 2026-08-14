@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (GrpConst) - Chapter 1: Preface</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap1"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap1_mj.html">[MathJax on]</a></p>
+<p><a id="X874E1D45845007FE" name="X874E1D45845007FE"></a></p>
+<div class="ChapSects"><a href="chap1.html#X874E1D45845007FE">1 <span class="Heading">Preface</span></a>
+</div>
+
+<h3>1 <span class="Heading">Preface</span></h3>
+
+<p>The determination of all groups of a given order up to isomorphism is a central problem in finite group theory. It was initiated in 1854 by A. Cayley, who constructed the groups of order 4 and 6.</p>
+
+<p>A large number of publications followed Cayley's work. For example, Hall and Senior determined the groups of order <span class="SimpleMath">2^n</span> for <span class="SimpleMath">n ≤ 6</span>, Neubüser listed the groups of order at most 100 except 64 and 96 and Laue added the groups of order 96, see <a href="chapBib.html#biBHS64">[HS64]</a>, <a href="chapBib.html#biBNeu67">[Neu67]</a> and <a href="chapBib.html#biBLau82">[Lau82]</a>. These determinations partially relied on the help of computers, but a general algorithm to construct groups had not been used. The resulting catalogue of groups of order at most 100 was available in GAP 3.</p>
+
+<p>Then Newman and O'Brien introduced an algorithm to determine groups of prime-power order, see <a href="chapBib.html#biBOBr90">[O'B90]</a>. An implementation of this method is available in the ANUPQ package of GAP. This method has been used to compute the groups of order <span class="SimpleMath">2^n</span> for <span class="SimpleMath">n ≤ 8</span> and the groups of order <span class="SimpleMath">3^n</span> for <span class="SimpleMath">n ≤ 6</span>, see <a href="chapBib.html#biBOBr88">[O'B88]</a>, and the resulting groups are available in GAP. Moreover, the large number of groups of order <span class="SimpleMath">2^8</span> shows that algorithmic methods are the only sensible way for group determinations in this range.</p>
+
+<p>In this package we introduce practical methods to determine up to isomorphism all groups of a given order. The algorithms are described in <a href="chapBib.html#biBBE99">[BE99a]</a>. These methods have been used to construct the non-nilpotent groups of order at most 1000, see <a href="chapBib.html#biBBE1000">[BE99b]</a>. The resulting catalogue of groups is available within the Small Groups library of GAP 4.</p>
+
+<p>Our methods are not limited to groups of order at most 1000 and thus may be used to determine all or certain groups of higher order as well. However, it is not easy to say for which orders our methods are still practical and for which not. As a rule of thumb one can say that the number of primes and the size of the prime-powers contained in the factorisation of the given order determine the practicability of the algorithm; that is, the more primes are contained in the factorisation the more difficult the determination gets.</p>
+
+<p>As an example, the construction of all non-nilpotent groups of order <span class="SimpleMath">192 = 2^6 ⋅ 3</span> takes 17 minutes on a 400 MHz PC. This is a medium-sized application of our methods. However, the construction of the groups of order <span class="SimpleMath">768 = 2^8 ⋅ 3</span> takes already rather long (a few days) and can be considered as a limit of our methods. On the other hand, the groups of order <span class="SimpleMath">5425 = 5^2 ⋅ 7 ⋅ 31</span> can be determined in 5 sec. Moreover, if the determination of groups is restricted to groups with certain properties, then this might increase the efficiency of the construction process considerably. We include some example applications of our methods to illustrate this at the end of the manual.</p>
+
+<p>Finally, we mention that the correctness of our algorithms is very hard to check for a user; in particular, since there are no other algorithms for the same purpose available, it might be difficult to verify that our methods compute all desired groups. Thus we note here that methods implemented in this package have been used to compute large parts of the Small Groups library and this, in turn, has been checked by the authors as described in <a href="chapBib.html#biBBE99">[BE99a]</a> and <a href="chapBib.html#biBBE1000">[BE99b]</a>.</p>
+
+<p>Comments and suggestions on this package are very welcome. Please send them to</p>
+
+<p>beick@tu-bs.de or hubesche@tu-bs.de.</p>
+
+<p>Bug reports should also be e-mailed to either of these addresses.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

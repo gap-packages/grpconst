@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (GrpConst) - Chapter 4: The Frattini Extension Method</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap4"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap4.html">[MathJax off]</a></p>
+<p><a id="X7EF86F5681C245A1" name="X7EF86F5681C245A1"></a></p>
+<div class="ChapSects"><a href="chap4_mj.html#X7EF86F5681C245A1">4 <span class="Heading">The Frattini Extension Method</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X819F831585C5B9FF">4.1 <span class="Heading">The Main Frattini Extension Function</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8495DA2A8119260D">4.1-1 FrattiniExtensionMethod</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X78EBE04F7D0B6132">4.2 <span class="Heading">The Construction of Frattini Free Groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X81402BF4856A21A5">4.2-1 FrattiniFactorCandidates</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X86E012277F0AD4C5">4.3 <span class="Heading">The Determination of Frattini Extensions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X81EC4D0582470AE1">4.3-1 FrattiniExtensions</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X8057AF50865EF435">4.4 <span class="Heading">Verifying non-isomorphism</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7D23DFA181E0D55B">4.4-1 DistinguishGroups</a></span>
+</div></div>
+</div>
+
+<h3>4 <span class="Heading">The Frattini Extension Method</span></h3>
+
+<p>This is a method to construct up to isomorphism the soluble groups of a given order. The main function <code class="code">FrattiniExtensionMethod</code> to construct groups is described in Section <a href="chap4_mj.html#X819F831585C5B9FF"><span class="RefLink">4.1</span></a>.</p>
+
+<p>The construction process consists of two parts which can be addressed separately. In the first step a list of possible candidates for the Frattini factors of the desired groups is determined up to isomorphism. See Section <a href="chap4_mj.html#X78EBE04F7D0B6132"><span class="RefLink">4.2</span></a> for the corresponding functions. In the second step the determined candidates are considered one after the other and for each candidate a list of extensions is computed. See Section <a href="chap4_mj.html#X86E012277F0AD4C5"><span class="RefLink">4.3</span></a> for the available functions.</p>
+
+<p><a id="X819F831585C5B9FF" name="X819F831585C5B9FF"></a></p>
+
+<h4>4.1 <span class="Heading">The Main Frattini Extension Function</span></h4>
+
+<p><a id="X8495DA2A8119260D" name="X8495DA2A8119260D"></a></p>
+
+<h5>4.1-1 FrattiniExtensionMethod</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FrattiniExtensionMethod</code>( <var class="Arg">order</var>[, <var class="Arg">flags</var>][, <var class="Arg">uncoded</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>First we describe the <em>input</em> of the function. The <var class="Arg">order</var> is the size of the desired groups. The optional input <var class="Arg">uncoded</var> is a boolean which determines the output format. If it is <code class="keyw">true</code>, then pc groups are returned. Otherwise, if it is <code class="keyw">false</code> or not given, then code records describing pc groups are returned (see <code class="code">PcGroupCodeRec</code>).</p>
+
+<p>The optional input <var class="Arg">flags</var> is a record which is used to restrict the construction process to groups with certain properties only. This record consists of any of the following entries:</p>
+
+
+<dl>
+<dt><strong class="Mark"><code class="code">nilpotent</code></strong></dt>
+<dd><p>must be <code class="keyw">true</code>. Only nilpotent groups are constructed.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">nonnilpot</code></strong></dt>
+<dd><p>must be <code class="keyw">true</code>. Only non-nilpotent groups are constructed.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">supersol</code></strong></dt>
+<dd><p>must be <code class="keyw">true</code>. Only supersoluble groups are constructed.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">nonsupsol</code></strong></dt>
+<dd><p>must be <code class="keyw">true</code>. Only non-supersoluble groups are constructed.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">pnormal</code></strong></dt>
+<dd><p>must be a list of primes. Only groups with a normal Sylow <span class="SimpleMath">\(p\)</span>-subgroup for all <span class="SimpleMath">\(p\)</span> in the given list are constructed.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">nonpnorm</code></strong></dt>
+<dd><p>must be a list of primes. Only groups without a normal Sylow <span class="SimpleMath">\(p\)</span>-subgroup for all <span class="SimpleMath">\(p\)</span> in the given list are constructed.</p>
+
+</dd>
+</dl>
+<p>If a particular entry is not set, then no restriction on the groups is assumed. The default is an empty record of flags. Any combination of flags is possible. However, not all combinations make sense; for example, if <code class="code">nilpotent</code> and <code class="code">nonnilpot</code> are both true, then the algorithm will return the empty list. If <code class="code">nonnilpot</code> is true and <code class="code">pnormal</code> is the list <span class="SimpleMath">\([3]\)</span>, then the non-nilpotent groups whose Sylow 3-subgroup is normal will be computed.</p>
+
+<p>The <em>output</em> of the function is usually a list of pc groups or code records depending on <var class="Arg">uncoded</var>. However, it may happen that the output list contains not only pc groups or codes, but also lists of pc groups or codes. This means that the groups in such a sublist are probably non-isomorphic, but the algorithm did not do a final verification, since this would be time-consuming. If desired, then the user might do a verification using the function <code class="code">DistinguishGroups</code> described below.</p>
+
+<p>Moreover, it might be worth noting that the groups in such sublists of the output list are always reduced by the random isomorphism test (see the Section on <code class="code">Random Isomorphism Testing</code> in the reference manual). Hence the probability that there are still isomorphisms between groups in this list is less than <span class="SimpleMath">\(2^{-100}\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">flags := rec( nonnilpot := true, pnormal := [3] );</span>
+rec( nonnilpot := true, pnormal := [ 3 ] )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">grps := FrattiniExtensionMethod( 24, flags, true );</span>
+[ &lt;pc group of size 24 with 4 generators&gt;, 
+  &lt;pc group of size 24 with 4 generators&gt;, 
+  &lt;pc group of size 24 with 4 generators&gt;, 
+  &lt;pc group of size 24 with 4 generators&gt;, 
+  &lt;pc group of size 24 with 4 generators&gt;, 
+  &lt;pc group of size 24 with 4 generators&gt;, 
+  &lt;pc group of size 24 with 4 generators&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( last, IdGroup );</span>
+[ [ 24, 1 ], [ 24, 5 ], [ 24, 8 ], [ 24, 6 ], [ 24, 7 ], [ 24, 4 ], 
+  [ 24, 14 ] ]
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 8 );</span>
+[ rec( code := 323, extdim := [ 2, 2 ], first := [ 1, 1, 2 ], 
+      isFrattiniFree := false, isUnique := true, order := 8, 
+      socledim := [ 1 ] ), 
+  rec( code := 34, extdim := [ 2 ], first := [ 1, 1, 3 ], 
+      isFrattiniFree := false, isUnique := true, order := 8, 
+      socledim := [ 1, 1 ] ), 
+  rec( code := 36, extdim := [ 2 ], first := [ 1, 1, 3 ], 
+      isFrattiniFree := false, isUnique := true, order := 8, 
+      socledim := [ 1, 1 ] ), 
+  rec( code := 2343, extdim := [ 2 ], first := [ 1, 1, 3 ], 
+      isFrattiniFree := false, isUnique := true, order := 8, 
+      socledim := [ 1, 1 ] ), 
+  rec( code := 0, extdim := [  ], first := [ 1, 1, 4 ], 
+      isFrattiniFree := true, isUnique := true, order := 8, 
+      socledim := [ 1, 1, 1 ] ) ]
+</pre></div>
+
+<p><a id="X78EBE04F7D0B6132" name="X78EBE04F7D0B6132"></a></p>
+
+<h4>4.2 <span class="Heading">The Construction of Frattini Free Groups</span></h4>
+
+<p>A finite group is called <em>Frattini free</em> if it has a trivial Frattini subgroup. As candidates for the Frattini factors of the groups of size <var class="Arg">order</var>, we compute Frattini free groups of suitable size dividing <var class="Arg">order</var>.</p>
+
+<p><a id="X81402BF4856A21A5" name="X81402BF4856A21A5"></a></p>
+
+<h5>4.2-1 FrattiniFactorCandidates</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FrattiniFactorCandidates</code>( <var class="Arg">order</var>, <var class="Arg">flags</var>[, <var class="Arg">uncoded</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>The input is similar to the input for the function <code class="code">FrattiniExtensionMethod</code>.</p>
+
+<p>The output is a list of candidates for the Frattini factors of the desired groups, i.e. the groups of size <var class="Arg">order</var> possibly restricted by <var class="Arg">flags</var>. By default the groups are returned as codes which may be changed using the boolean <var class="Arg">uncoded</var>.</p>
+
+<p>Note that the computed list is always reduced to isomorphism type representatives. Moreover, it might happen that some of the Frattini free groups are not realised as Frattini factors of a group of size <var class="Arg">order</var>. However, in practice this is a very rare case.</p>
+
+<p>Furthermore, note that for this part of the Frattini extension method the restriction to the positive properties <code class="code">nilpotent</code>, <code class="code">supersol</code> and <code class="code">pnormal</code> in the flags record will reduce the amount of computation considerably, while the negative properties do not have such a major influence on the efficiency of this method.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">flags := rec( nonsupsol := true );</span>
+rec( nonsupsol := true )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniFactorCandidates( 24, flags, true );</span>
+[ &lt;pc group of size 24 with 4 generators&gt;, 
+  &lt;pc group of size 12 with 3 generators&gt;, 
+  &lt;pc group of size 24 with 4 generators&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List(last, IdGroup);</span>
+[ [ 24, 12 ], [ 12, 3 ], [ 24, 13 ] ]
+</pre></div>
+
+<p><a id="X86E012277F0AD4C5" name="X86E012277F0AD4C5"></a></p>
+
+<h4>4.3 <span class="Heading">The Determination of Frattini Extensions</span></h4>
+
+<p>A group <span class="SimpleMath">\(H\)</span> is a <em>Frattini extension</em> of a group <span class="SimpleMath">\(G\)</span> if there exists a normal subgroup <span class="SimpleMath">\(N\)</span> of <span class="SimpleMath">\(H\)</span> such that <span class="SimpleMath">\(H/N \cong G\)</span> and <span class="SimpleMath">\(N \leq \phi(H)\)</span> holds. Clearly, each finite group can be obtained as a Frattini extension of a Frattini free group.</p>
+
+<p><a id="X81EC4D0582470AE1" name="X81EC4D0582470AE1"></a></p>
+
+<h5>4.3-1 FrattiniExtensions</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FrattiniExtensions</code>( <var class="Arg">code/group</var>, <var class="Arg">order</var>[, <var class="Arg">uncoded</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Here the default input is a Frattini free group described by a code and the size <var class="Arg">order</var> of the groups which shall be constructed. Alternatively, one can input a Frattini free group as pc group. Moreover, it is possible to give a list of codes or pc groups at once. The flag <var class="Arg">uncoded</var> changes the output format to pc groups instead of codes as above.</p>
+
+<p>The output of this function is similar to the output of the function <code class="code">FrattiniExtensionMethod</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := SmallGroup( 24, 12 );</span>
+&lt;pc group of size 24 with 4 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniSubgroup(G);</span>
+Group([  ])
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensions( G, 48, true );</span>
+[ &lt;pc group of size 48 with 5 generators&gt;, 
+  &lt;pc group of size 48 with 5 generators&gt;, 
+  &lt;pc group of size 48 with 5 generators&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( last, IdGroup);</span>
+[ [ 48, 29 ], [ 48, 30 ], [ 48, 28 ] ]
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cand := FrattiniFactorCandidates( 6, rec() );</span>
+[ rec( code := 25, extdim := [  ], first := [ 1, 2, 3 ], 
+      isFrattiniFree := true, isUnique := true, order := 6, socledim := [ 1 ] 
+     ), 
+  rec( code := 1, extdim := [  ], first := [ 1, 1, 3 ], 
+      isFrattiniFree := true, isUnique := true, order := 6, 
+      socledim := [ 1, 1 ] ) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensions( cand, 12 );</span>
+[ rec( code := 6442, extdim := [ 2 ], first := [ 1, 2, 3 ], 
+      isFrattiniFree := false, isUnique := true, order := 12, 
+      socledim := [ 1 ] ), 
+  rec( code := 266, extdim := [ 2 ], first := [ 1, 1, 3 ], 
+      isFrattiniFree := false, isUnique := true, order := 12, 
+      socledim := [ 1, 1 ] ) ]
+</pre></div>
+
+<p><a id="X8057AF50865EF435" name="X8057AF50865EF435"></a></p>
+
+<h4>4.4 <span class="Heading">Verifying non-isomorphism</span></h4>
+
+<p>The output of the functions <code class="code">FrattiniExtensionMethod</code> or <code class="code">FrattiniExtensions</code> might contain sublists of groups. That means that the groups contained in sublists could not be distinguished up to isomorphism by the Frattini extension method. However, the groups have gone through the random isomorphism test and hence it is likely that they are not isomorphic.</p>
+
+<p>Here we provide a tool that can be used to try to prove that these groups are non-isomorphic. This is not done automatically within the Frattini extension method, since it might be time-consuming and many users might not be interested in a complete verification of non-isomorphism.</p>
+
+<p>To distinguish groups we compute invariants of the given groups. Clearly, if the invariants differ, then we obtain that the corresponding groups are not isomorphic. However, the converse is not true and hence we might not succeed in distinguishing all non-isomorphic groups in a given list. See <a href="chapBib_mj.html#biBBE99">[BE99a]</a> for a description of the invariants used.</p>
+
+<p><a id="X7D23DFA181E0D55B" name="X7D23DFA181E0D55B"></a></p>
+
+<h5>4.4-1 DistinguishGroups</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DistinguishGroups</code>( <var class="Arg">list</var>, <var class="Arg">bool</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>The function <code class="code">DistinguishGroups</code> takes as input <var class="Arg">list</var> a list as described for the output of <code class="code">FrattiniExtensions</code>. It returns a similar list, where the sublists contained in <var class="Arg">list</var> are split up.</p>
+
+<p>There are two levels to operate the function <code class="code">DistinguishGroups</code> which are controlled by the second input parameter <var class="Arg">bool</var> of the function. If <var class="Arg">bool</var> is <code class="keyw">false</code>, then only a few invariants are computed; if it is <code class="keyw">true</code>, then we also try the more complicated invariants. Clearly, if <var class="Arg">bool</var> is <code class="keyw">false</code>, then the result is obtained faster, but if <var class="Arg">bool</var> is <code class="keyw">true</code>, then we might distinguish more groups.</p>
+
+<p>If <code class="code">DistinguishGroups</code> fails to split up the input list completely, then a user might use the general-purpose function <code class="code">IsomorphismGroups</code> to prove the non-isomorphism between the remaining groups. However, this might be a time-consuming computation.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

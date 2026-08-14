@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (GrpConst) - Chapter 3: Construction of All Groups</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap3"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap3_mj.html">[MathJax on]</a></p>
+<p><a id="X81511E0482C662BD" name="X81511E0482C662BD"></a></p>
+<div class="ChapSects"><a href="chap3.html#X81511E0482C662BD">3 <span class="Heading">Construction of All Groups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X81511E0482C662BD">3.1 <span class="Heading">Construction of All Groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X82EECA49835E8569">3.1-1 ConstructAllGroups</a></span>
+</div></div>
+</div>
+
+<h3>3 <span class="Heading">Construction of All Groups</span></h3>
+
+<p>The following function can be used to determine up to isomorphism all groups of a given order. This method implements a combination of the more specific functions described below.</p>
+
+<p>Note that the chosen combination might not be the best possible for every application. Thus, if this function takes too long to construct the desired groups, then it might still be possible to determine these groups using the functions outlined in the following chapters. Moreover, the functions described in the following chapters provide more facilities and this might help to determine groups with certain properties more efficiently.</p>
+
+<p><a id="X81511E0482C662BD" name="X81511E0482C662BD"></a></p>
+
+<h4>3.1 <span class="Heading">Construction of All Groups</span></h4>
+
+<p><a id="X82EECA49835E8569" name="X82EECA49835E8569"></a></p>
+
+<h5>3.1-1 ConstructAllGroups</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ConstructAllGroups</code>( <var class="Arg">order</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Usually the output of this function is a list of groups. The soluble groups in the list are given as pc groups and the others as permutation groups. However, in some cases the output might contain lists of groups as well. The groups in such a list could not be proved to be pairwise non-isomorphic by the algorithm, although this is likely to be the case, see Section <a href="chap4.html#X8057AF50865EF435"><span class="RefLink">4.4</span></a> for further details.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ConstructAllGroups( 60 );</span>
+[ &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, 
+  &lt;pc group of size 60 with 4 generators&gt;, A5 ]
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( last, IdGroup );</span>
+[ [ 60, 4 ], [ 60, 13 ], [ 60, 6 ], [ 60, 2 ], [ 60, 1 ], [ 60, 7 ], 
+  [ 60, 3 ], [ 60, 8 ], [ 60, 9 ], [ 60, 10 ], [ 60, 11 ], [ 60, 12 ], 
+  [ 60, 5 ] ]
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

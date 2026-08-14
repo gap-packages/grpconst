@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (GrpConst) - Chapter 7: Examples with Runtimes</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap7"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap7.html">[MathJax off]</a></p>
+<p><a id="X7A97FB87807A1460" name="X7A97FB87807A1460"></a></p>
+<div class="ChapSects"><a href="chap7_mj.html#X7A97FB87807A1460">7 <span class="Heading">Examples with Runtimes</span></a>
+</div>
+
+<h3>7 <span class="Heading">Examples with Runtimes</span></h3>
+
+<p>In this chapter we outline some examples of applications of the methods described above. The examples are meant to give an idea of the possible applications of the package. Thus we included runtimes for all examples, but omitted the output in some cases, since it would be too long to be printed. The runtimes have been obtained on a 400 MHz PC running under Linux.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ConstructAllGroups( 60 );; time;</span>
+4080
+</pre></div>
+
+<p>In the following examples we observe that the restriction to certain groups is often helpful. Note that nilpotent groups can often be obtained as a direct product of <span class="SimpleMath">\(p\)</span>-groups which, in turn, might better be constructed by <span class="SimpleMath">\(p\)</span>-group generation methods.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 5^3 * 7 * 31, true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+13670
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">flags := rec( nonnilpot := true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 5^3 * 7 * 31, flags, true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+8400
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">flags := rec( nonsupsol := true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 5^3 * 7 * 31, flags, true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+3640
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">flags := rec( nonpnorm := [31] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 5^3 * 7 * 31, flags, true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+1740
+</pre></div>
+
+<p>Next we consider groups of an order whose factorisation contains a large prime. Note that the Small Groups library contains a generic method to construct the groups whose order is the product of at most 3 primes. This method is used in <code class="code">ConstructAllGroups</code> which is therefore much more efficient in the next example.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 10007 * 2, true );</span>
+[ &lt;pc group of size 20014 with 2 generators&gt;, 
+  &lt;pc group of size 20014 with 2 generators&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+87950
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">flags := rec( nonnilpot := true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 10007 * 2, flags, true  );</span>
+[ &lt;pc group of size 20014 with 2 generators&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+48950
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ConstructAllGroups( 10007 * 2 );</span>
+[ &lt;pc group of size 20014 with 2 generators&gt;, 
+  &lt;pc group of size 20014 with 2 generators&gt; ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+30
+</pre></div>
+
+<p>Finally we consider an order which factorises into seven primes and contains a moderately large prime power. Note that there are 943 non-nilpotent groups of order <span class="SimpleMath">\(288 = 2^5 \cdot 3^2\)</span> while there are only 90 such groups without normal Sylow subgroup.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">flags := rec( nonnilpot := true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 2^5 * 3^2, flags, true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+656630
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">flags := rec( nonpnorm := [2,3] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FrattiniExtensionMethod( 2^5 * 3^2, flags, true );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">time;</span>
+58180
+</pre></div>
+
+<p> </p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
