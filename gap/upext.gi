@@ -204,7 +204,7 @@ end );
 #F IsomorphismTest( G, H )
 ##
 BindGlobal( "IsomorphismTest", function( G, H )
-    local homG, homH, dirG, dirH, res, i;
+    local homG, homH, dirG, dirH, resG, resH, res, i;
 
     # the factor
     Info( InfoGrpCon, 4, "    Iso: test isomorphism on groups of size ",Size(G));
@@ -220,7 +220,17 @@ BindGlobal( "IsomorphismTest", function( G, H )
     if Length( dirG ) <> Length( dirH ) then
         return false;
     elif Length( dirG ) = 2 then
-        return true;
+        # G and H are the direct products of their perfect residuums
+        # with the factors compared above, so they agree exactly when
+        # the residuums do. Two perfect groups of one order with
+        # trivial centre -- there are nine of order 10752 -- would
+        # otherwise be declared isomorphic.
+        resG := PerfectResiduum( G );
+        resH := PerfectResiduum( H );
+        if ID_AVAILABLE( Size( resG ) ) <> fail then
+            return IdGroup( resG ) = IdGroup( resH );
+        fi;
+        return IsomorphismGroups( resG, resH ) <> fail;
     fi;
 
     # lets make some random tests
