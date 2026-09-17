@@ -277,7 +277,7 @@ end );
 #F IsomorphismClasses( size, list )
 ##
 BindGlobal( "IsomorphismClasses", function( size, list )
-    local sub, fin, G, f, j, i, g, finger;
+    local sub, fin, G, f, j, i, g, finger, complete;
 
     if Length( list ) <= 1 then return list ; fi;
     Info( InfoGrpCon, 3,"   Iso: test isom on ", Length(list)," groups ");
@@ -285,8 +285,10 @@ BindGlobal( "IsomorphismClasses", function( size, list )
     Assert(0, size = Size( Group( list[1], () ) ));
     if ID_AVAILABLE(size) <> fail then
         finger := IdGroup;
+        complete := true;
     else
         finger := FingerprintFF;
+        complete := false;
     fi;
 
     # first compute fingerprints
@@ -315,12 +317,17 @@ BindGlobal( "IsomorphismClasses", function( size, list )
     Info( InfoGrpCon, 3, "   Iso: split up in sublists of length ",
                         List( sub, Length ) );
 
-    # now reduce
-    for i in [1..Length(sub)] do
-        Info( InfoGrpCon, 3, "   Iso: start sublist ", i ,"/", Length(sub),
-              " of length ", Length(sub[i]) );
-        sub[i] := ReducedList( size, sub[i] );
-    od;
+    # now reduce - unless the fingerprint was IdGroup, which is a complete
+    # invariant, so that each sublist already is one isomorphism class
+    if complete then
+        sub := List( sub, x -> [ x[ 1 ] ] );
+    else
+        for i in [1..Length(sub)] do
+            Info( InfoGrpCon, 3, "   Iso: start sublist ", i ,"/", Length(sub),
+                  " of length ", Length(sub[i]) );
+            sub[i] := ReducedList( size, sub[i] );
+        od;
+    fi;
     sub := Concatenation( sub );
     Info( InfoGrpCon, 3, "   Iso: reduced to ",Length(sub)," groups" );
     return sub;
