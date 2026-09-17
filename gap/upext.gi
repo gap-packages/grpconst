@@ -81,36 +81,28 @@ end );
 ##
 #F DirectSplitting( G, N )
 ##
+## For a normal subgroup N of G, look for a normal complement to N.
+## Returns [G, C] with G the direct product of N and C if there is one,
+## and [G] otherwise.
+##
 BindGlobal( "DirectSplitting", function( G, N )
-   local C, U, cl, norm;
+   local C, U, cl;
 
    C := Centralizer( G, N );
-   U := Intersection( C, N );
+   U := Centre( N );            # = Intersection( C, N ), used as that below
 
    if Size(C)*Size(N)/Size(U) <> Size(G) then
        return [G];
    fi;
    if Size(U) = 1 then return [G, C]; fi;
 
-   if IsSolvableGroup( U ) then
-       cl := ComplementClassesRepresentatives( C, U );
-       cl := Filtered( cl, x -> IsNormal(G,x) );
+   cl := ComplementClassesRepresentatives( C, U );
+   cl := Filtered( cl, x -> IsNormal(G,x) );
 
-       if Length(cl)>0 then
-           return [G, cl[1]];
-       else
-           return [G];
-       fi;
+   if Length(cl)>0 then
+       return [G, cl[1]];
    fi;
-
-   norm := NormalSubgroups( C );
-   norm := Filtered(norm, x -> Size(x) = Size(C)/Size(U) );
-   norm := Filtered(norm, x -> Size(Intersection(U,N)) = 1 );
-   if Length(norm)>0 then
-       return [G, norm[1]];
-   else
-       return [G];
-   fi;
+   return [G];
 end );
 
 #############################################################################
