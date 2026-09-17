@@ -115,11 +115,48 @@ end );
 
 #############################################################################
 ##
+#F FroOrdersMatch( letters, gens, fro ) . . . . . . . . . . . . . . .  local
+##
+##  Orders of the Fro words evaluated at gens, compared with fro, stopping at
+##  the first difference.  MappedWord is not used: it repeats its whole setup
+##  on every call - among other things one Number() scan of the word per
+##  generator - and it is called a few million times per group pair.
+##  <letters> are the words in letter representation, <fro> either a list of
+##  orders to match or fail to just collect them.
+##
+BindGlobal( "FroOrdersMatch", function( letters, gens, fro )
+    local inv, res, one, e, i, k;
+
+    inv := List( gens, Inverse );
+    one := One( gens[ 1 ] );
+    res := [ ];
+    for k in [ 1 .. Length( letters ) ] do
+        e := one;
+        for i in letters[ k ] do
+            if i > 0 then
+                e := e * gens[ i ];
+            else
+                e := e * inv[ -i ];
+            fi;
+        od;
+        e := Order( e );
+        if fro = fail then
+            Add( res, e );
+        elif e <> fro[ k ] then
+            return false;
+        fi;
+    od;
+    if fro = fail then return res; fi;
+    return true;
+end );
+
+#############################################################################
+##
 #F RandomIsomorphismTestUEM( G, H )
 ##
 BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
     local cocl, cocr, size, ngens, size_inner, elms, poses, pos, qual, i, j,
-          gens1, gens2, f, tpos, tqual, len_classes,free,frowords,fro;
+          gens1, gens2, f, tpos, tqual, len_classes, free, letters, fro;
 
     cocl := List( [ G, H ], CocGroup );
     cocr := DiffCocList( cocl, false );
@@ -130,8 +167,8 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
 
     size := Size( G );
     ngens := Length( SmallGeneratingSet( G ) );
-    free:=GeneratorsOfGroup(FreeGroup(ngens));
-    frowords:=MorFroWords(free);
+    free := GeneratorsOfGroup( FreeGroup( ngens ) );
+    letters := List( MorFroWords( free ), LetterRepAssocWord );
 
     size_inner := size / Size( Center( G ) );
 
@@ -145,7 +182,8 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
     qual := size ^ ngens;
     for i in [ 1 .. 1000 ] do
         gens1 := List( [ 1 .. ngens ], x -> Random( AsList( G ) ) );
-        tpos := List( gens1, x -> poses[ Position( elms, x ) ] );
+        # elms was just sorted, so do not scan it linearly
+        tpos := List( gens1, x -> poses[ PositionSorted( elms, x ) ] );
         tqual := Product( len_classes{ tpos } );
         if ( tqual >= size_inner ) and ( tqual < qual ) and
            ( Size( Group( gens1 ) ) = size ) then
@@ -175,7 +213,7 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
                 return fail;
             fi;
         until Size( Group( gens1 ) ) = size;
-        fro:=List(frowords,x->Order(MappedWord(x,free,gens1)));
+        fro := FroOrdersMatch( letters, gens1, fail );
         repeat
             gens2 := List( cocl[ 2 ], Random );
             f := f + 1;
@@ -185,7 +223,7 @@ BindGlobal( "RandomIsomorphismTestUEM", function( G, H )
                 return fail;
             fi;
         # check cheap homomorphism property first, before even testing group order
-        until fro=List(frowords,x->Order(MappedWord(x,free,gens2)))
+        until FroOrdersMatch( letters, gens2, fro )
           and Size( Group( gens2 ) ) = size;
         if GroupHomomorphismByImages( G, H, gens1, gens2 ) <> fail then
             Info( InfoRandIso, 2, "RandomIsomorphismTestUEM ",
