@@ -315,7 +315,7 @@ end );
 #F IsomorphismClasses( size, list )
 ##
 BindGlobal( "IsomorphismClasses", function( size, list )
-    local sub, fin, G, f, j, i, g, finger, complete;
+    local sub, fin, idx, G, f, j, i, g, finger, complete;
 
     if Length( list ) <= 1 then return list ; fi;
     Info( InfoGrpCon, 3,"   Iso: test isom on ", Length(list)," groups ");
@@ -329,9 +329,12 @@ BindGlobal( "IsomorphismClasses", function( size, list )
         complete := false;
     fi;
 
-    # first compute fingerprints
+    # first compute fingerprints; keep them sorted, since a linear scan here
+    # costs O( #groups * #fingerprints ) and a layer can hold tens of
+    # thousands of groups
     sub := [];
     fin := [];
+    idx := [];
     for i in [1..Length(list)] do
         if InfoLevel(InfoGrpCon) >= 3 then
             Print("\r", "#I      computing fingerprint ", i, "/", Length(list), "\c");
@@ -340,12 +343,13 @@ BindGlobal( "IsomorphismClasses", function( size, list )
         G := Group( g, () );
         SetSize( G, size );
         f := finger( G );
-        j := Position( fin, f );
-        if IsBool( j ) then
-            Add( sub, [g] );
-            Add( fin, f );
+        j := PositionSorted( fin, f );
+        if j <= Length( fin ) and fin[ j ] = f then
+            Add( sub[ idx[ j ] ], g );
         else
-            Add( sub[j], g );
+            Add( sub, [g] );
+            Add( fin, f, j );
+            Add( idx, Length( sub ), j );
         fi;
     od;
     if InfoLevel(InfoGrpCon) >= 3 then
