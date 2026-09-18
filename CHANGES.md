@@ -1,5 +1,19 @@
 This file describes changes in the grpconst package.
 
+## Unreleased
+
+  - Skip the pairwise isomorphism tests in `IsomorphismClasses` when the
+    fingerprint was `IdGroup`, which is a complete invariant, so that each
+    block already is one isomorphism class; this speeds up the non-solvable
+    groups of order 1920 by a factor of 44, from 40 minutes to under a minute
+  - Evaluate the words used by the randomized isomorphism test of
+    `UpwardsExtensions` directly instead of through `MappedWord`, and stop at
+    the first word whose order differs
+  - Locate fingerprints by binary search rather than by a linear scan, both in
+    `IsomorphismClasses` and in the Frattini extension method
+  - Speed up the isomorphism reduction of the Frattini extension method by
+    avoiding repeated decoding of the same group
+
 ## 2.7.0 (2026-08-14)
 
   - Converted the manual to GAPDoc format
