@@ -78,4 +78,3 @@ This file describes changes in the grpconst package.
   - Update package metadata and documentation
 
 ## 2.0 (2002-11-19)
-  
